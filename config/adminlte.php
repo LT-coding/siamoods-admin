@@ -196,7 +196,7 @@ return [
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-black navbar-dark navbar-custom py-0',
     'classes_topnav_nav' => 'navbar-expand-lg',
-    'classes_topnav_container' => 'container-fluid',
+    'classes_topnav_container' => 'container-fluid py-1',
 
     /*
     |--------------------------------------------------------------------------
