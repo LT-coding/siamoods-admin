@@ -50,6 +50,8 @@
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
 
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
@@ -73,15 +75,6 @@
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
 
-    <style>
-        img {
-            max-width: 100%;
-        }
-        .default-wrapper {
-            max-width: 1360px;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>

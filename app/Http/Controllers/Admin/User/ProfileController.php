@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('admin.profile.edit')->with('status', 'Updated successfully!');
+        return Redirect::route('admin.profile.edit')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -46,6 +46,6 @@ class ProfileController extends Controller
             'password' => Hash::make($data['new_password']),
         ]);
 
-        return Redirect::route('admin.profile.edit')->with('status', 'Updated successfully!');
+        return Redirect::route('admin.profile.edit')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 }

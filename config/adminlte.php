@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '',
-    'logo_img' => 'images/logo.png',
+    'logo_img' => 'images/siamoods.png',
     'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -194,7 +194,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-black navbar-dark',
+    'classes_topnav' => 'navbar-black navbar-dark navbar-custom py-0',
     'classes_topnav_nav' => 'navbar-expand-lg',
     'classes_topnav_container' => 'container-fluid',
 
@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin/dashboard',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => false,
@@ -303,6 +303,24 @@ return [
             'icon' => 'fas fa-fw fa-home',
         ],
         [
+            'text'    => 'Օգտատերեր',
+            'icon'    => 'fas fa-th fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Ադմինիստրացիա',
+                    'url'  => 'admin/users',
+                ],
+                [
+                    'text' => 'Հաշիվներ',
+                    'url'  => 'admin/accounts',
+                ],
+                [
+                    'text' => 'Բաժանորդագրություն',
+                    'url'  => 'admin/subscribers',
+                ],
+            ],
+        ],
+        [
             'text'    => 'Ապրանքներ',
             'icon'    => 'fas fa-th fa-fw',
             'submenu' => [
@@ -316,24 +334,6 @@ return [
                 ],
                 [
                     'text' => 'Նվեր Քարտ',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        [
-            'text'    => 'Օգտատերեր',
-            'icon'    => 'fas fa-th fa-users',
-            'submenu' => [
-                [
-                    'text' => 'Ադմինիստրացիա',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Հաշիվներ',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Բաժանորդագրություն',
                     'url'  => '#',
                 ],
             ],
