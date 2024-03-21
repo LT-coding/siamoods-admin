@@ -48,7 +48,7 @@ class ProductController extends Controller
 
         $record = $this->saveProduct($data);
 
-        return Redirect::route('admin.products.edit',['product' => $record->id])->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.edit',['product' => $record->id])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -77,7 +77,7 @@ class ProductController extends Controller
 
         $this->saveProduct($data);
 
-        return Redirect::route('admin.products.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

@@ -77,7 +77,7 @@ class ContentController extends Controller
             'meta_description' => $data['meta_description']
         ]);
 
-        return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');
+        return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
 
     }
 
@@ -124,7 +124,7 @@ class ContentController extends Controller
             'meta_description' => $data['meta_description']
         ]);
 
-        return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');
+        return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

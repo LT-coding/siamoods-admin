@@ -67,7 +67,7 @@ class AdditionController extends Controller
         $this->saveTemplate($type,$style,$data);
         $this->saveArts($type,$style,$request);
 
-        return Redirect::route('admin.additions.index', ['style' => $style])->with('status', 'Saved successfully');
+        return Redirect::route('admin.additions.index', ['style' => $style])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -98,7 +98,7 @@ class AdditionController extends Controller
         $this->saveTemplate($record,$style,$data);
         $this->saveArts($record,$style,$request);
 
-        return Redirect::route('admin.additions.index', ['style' => $style])->with('status', 'Saved successfully');
+        return Redirect::route('admin.additions.index', ['style' => $style])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

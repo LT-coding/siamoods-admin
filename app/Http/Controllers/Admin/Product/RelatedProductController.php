@@ -51,7 +51,7 @@ class RelatedProductController extends Controller
             'additional_price' => $data['additional_price'] ?? 0,
         ]);
 
-        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -84,7 +84,7 @@ class RelatedProductController extends Controller
             'additional_price' => $data['additional_price'] ?? 0,
         ]);
 
-        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

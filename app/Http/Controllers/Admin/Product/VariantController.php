@@ -56,7 +56,7 @@ class VariantController extends Controller
         $this->saveImages($record,$request);
         $this->saveOptions($record,$request);
 
-        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -87,7 +87,7 @@ class VariantController extends Controller
         $this->saveImages($record,$request);
         $this->saveOptions($record,$data);
 
-        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Saved successfully');
+        return Redirect::route('admin.products.edit',['product' => $product])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

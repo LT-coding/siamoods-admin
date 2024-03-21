@@ -75,7 +75,7 @@ class CategoryController extends Controller
 
         $this->saveRushServices($record,$data);
 
-        return Redirect::route('admin.categories.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.categories.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -126,7 +126,7 @@ class CategoryController extends Controller
 
         $this->saveRushServices($record,$data);
 
-        return Redirect::route('admin.categories.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.categories.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

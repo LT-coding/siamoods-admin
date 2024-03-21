@@ -52,7 +52,7 @@ class UserController extends Controller
         $data['password'] = $request->password;
         Mail::to($record)->send(new GreetingEmail($record, $request->password));
 
-        return Redirect::route('admin.users.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.users.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
         $record->update($data);
         $record->assignRole($request->role);
 
-        return Redirect::route('admin.users.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.users.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

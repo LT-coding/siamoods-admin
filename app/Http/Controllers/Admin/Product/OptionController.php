@@ -40,7 +40,7 @@ class OptionController extends Controller
         }
         Option::query()->create($data);
 
-        return Redirect::route('admin.options.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.options.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -67,7 +67,7 @@ class OptionController extends Controller
         }
         $record->update($data);
 
-        return Redirect::route('admin.options.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.options.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

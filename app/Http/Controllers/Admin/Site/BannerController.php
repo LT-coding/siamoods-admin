@@ -50,7 +50,7 @@ class BannerController extends Controller
 
         Banner::query()->create($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -78,7 +78,7 @@ class BannerController extends Controller
 
         $record->update($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

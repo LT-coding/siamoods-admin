@@ -67,7 +67,7 @@ class OrderController extends Controller
             'status' => $orderShipped ? OrderStatuses::shipped->name : $record->status,
         ]);
 
-        return Redirect::route('admin.orders.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.orders.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

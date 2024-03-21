@@ -44,7 +44,7 @@ class SizeController extends Controller
             $this->savePrices($record,$data);
         }
 
-        return Redirect::route('admin.sizes.edit',['variant' => $variant,'size' => $record->id])->with('status', 'Saved successfully');
+        return Redirect::route('admin.sizes.edit',['variant' => $variant,'size' => $record->id])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -76,7 +76,7 @@ class SizeController extends Controller
             $this->savePrices($record,$data);
         }
 
-        return Redirect::route('admin.variants.edit',['product' => $record->variant->product->id,'variant' => $variant])->with('status', 'Saved successfully');
+        return Redirect::route('admin.variants.edit',['product' => $record->variant->product->id,'variant' => $variant])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

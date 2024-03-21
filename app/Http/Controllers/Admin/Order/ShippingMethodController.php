@@ -61,7 +61,7 @@ class ShippingMethodController extends Controller
             $this->savePrices($record,$data);
         }
 
-        return Redirect::route('admin.shipping-methods.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.shipping-methods.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -95,7 +95,7 @@ class ShippingMethodController extends Controller
             $this->savePrices($record,$data);
         }
 
-        return Redirect::route('admin.shipping-methods.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.shipping-methods.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
