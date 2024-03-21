@@ -37,5 +37,5 @@
             </div>
         </div>
     @endif
-    <x-adminlte-button class="btn btn-success btn-flat btn-sm add_field" type="button" theme="primary" icon="fas fa-lg fa-plus" title="Add Image"/>
+    <x-adminlte-button class="btn-sm add_field" type="button" theme="primary" icon="fas fa-lg fa-plus" title="Add Image"/>
 </div>

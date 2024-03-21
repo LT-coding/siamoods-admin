@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <x-adminlte-button class="btn btn-success btn-flat" type="submit" label="Save" theme="success" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             </form>
                         </div>
                         <div class="col-lg-1 d-flex">
-                            <x-adminlte-button class="text-success mx-1 p-0" type="submit" form="{{ $social->id }}_update" theme="" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="text-success mx-1 p-0" type="submit" form="{{ $social->id }}_update" theme="" theme="outline-danger" icon="fas fa-lg fa-save"/>
                             <form action="{{ route('admin.social.destroy', ['id' => $social->id]) }}" method="post" onsubmit="return confirm('Do you really want to remove?');" style="display: inline-flex">
                                 @csrf
                                 @method('DELETE')

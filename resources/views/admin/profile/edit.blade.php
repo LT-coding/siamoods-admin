@@ -19,14 +19,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-7">
-            <div class="card card-primary card-outline">
+            <div class="card card-danger card-outline">
                 <div class="card-body">
                     @include('admin.profile.partials.update-profile-information-form')
                 </div>
             </div>
         </div>
         <div class="col-md-5">
-            <div class="card card-info card-outline">
+            <div class="card card-danger card-outline">
                 <div class="card-body">
                     @include('admin.profile.partials.update-password-form')
                 </div>

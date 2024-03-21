@@ -14,7 +14,7 @@
         <x-adminlte-input name="new_password_confirmation" type="password" label="Գաղտաբառի հաստատում" autocomplete="new-password"/>
 
         <div class="text-right">
-            <x-adminlte-button class="btn btn-success btn-flat" type="submit" label="Պահպանել" theme="success" icon="fas fa-lg fa-save"/>
+            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
         </div>
     </form>
 </section>

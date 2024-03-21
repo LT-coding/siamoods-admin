@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="text-right">
-                                    <x-adminlte-button class="btn btn-success btn-flat ajaxSave" type="button" label="Save" theme="success" icon="fas fa-lg fa-save"/>
+                                    <x-adminlte-button class="btn-sm ajaxSave" type="button" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
                                 </div>
                             </div>
                         </div>

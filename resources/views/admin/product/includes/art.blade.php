@@ -1,5 +1,5 @@
 <div class="group-container">
-    <x-adminlte-button class="btn btn-success btn-flat btn-sm add_field" type="button" theme="primary" icon="fas fa-lg fa-plus" title="Add {{ ucfirst($style) }}"/>
+    <x-adminlte-button class="btn-sm add_field" type="button" theme="primary" icon="fas fa-lg fa-plus" title="Add {{ ucfirst($style) }}"/>
 
     @if($errors->has('images.*'))
         <span class="invalid-feedback d-block" role="alert">
