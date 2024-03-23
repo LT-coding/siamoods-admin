@@ -6,7 +6,7 @@
     <div class="row mb-2">
         <div class="col-sm-6">
             <h1 class="m-0">Ադմինիստրացիա
-                <a href="{{ route('admin.users.create') }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել"><i class="fa fa-lg fa-fw fa-plus"></i>Ավելացնել</a></h1>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

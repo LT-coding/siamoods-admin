@@ -60,7 +60,7 @@
     @if($record)
         <div class="card card-success card-outline">
             <div class="card-body">
-                <h5>Variant Sizes <a href="{{ route('admin.sizes.create',['variant'=>$record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել"><i class="fa fa-lg fa-fw fa-plus"></i></a></h5>
+                <h5>Variant Sizes <a href="{{ route('admin.sizes.create',['variant'=>$record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h5>
                 @include('admin.product.includes.sizes',['sizes' => $record->sizes ?? null])
             </div>
         </div>
