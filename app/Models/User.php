@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\RoleType;
+use App\Enums\Status;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -56,7 +57,7 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->first_name . ' ' . $this->last_name
+            get: fn () => $this->name . ' ' . $this->lastname
         );
     }
 
@@ -68,7 +69,7 @@ class User extends Authenticatable
     protected function displayName(): Attribute
     {
         return Attribute::make(
-            get: fn () => (!$this->first_name && !$this->last_name) ? $this->email : $this->first_name . ' ' . $this->last_name
+            get: fn () => (!$this->name && !$this->lastname) ? $this->email : $this->name . ' ' . $this->lastname
         );
     }
 
@@ -80,7 +81,20 @@ class User extends Authenticatable
     protected function roleName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->getRoleNames()[0]
+            get: fn () => RoleType::getConstants()[$this->getRoleNames()[0]]
+        );
+    }
+
+    /**
+     * User status.
+     *
+     * @return Attribute
+     */
+    protected function statusText(): Attribute
+    {
+        $class = $this->status == 0 ? 'text-danger' : 'text-success';
+        return Attribute::make(
+            get: fn () => "<span class='".$class."'>" . Status::statusNames()[$this->status]->value . "</span>"
         );
     }
 
@@ -92,49 +106,13 @@ class User extends Authenticatable
     protected function registered(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('m/d/Y')
-        );
-    }
-
-    /**
-     * Check if this user is Super Admin.
-     *
-     * @return Attribute
-     */
-    protected function isSuperAdmin(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->hasRole(RoleType::super_admin->value)
-        );
-    }
-
-    /**
-     * Check if this user is Admin.
-     *
-     * @return Attribute
-     */
-    protected function isAdmin(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->hasRole(RoleType::admin->value)
-        );
-    }
-
-    /**
-     * Check if this user is Account.
-     *
-     * @return Attribute
-     */
-    protected function isAccount(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->hasRole(RoleType::account->value)
+            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y')
         );
     }
 
     public function scopeAccounts(Builder $query): void
     {
-        $query->role(RoleType::account->value);
+        $query->role(RoleType::account->name);
     }
 
     public function scopeAdmins(Builder $query): void

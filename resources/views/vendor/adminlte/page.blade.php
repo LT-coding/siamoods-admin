@@ -43,6 +43,11 @@
             @include('adminlte::partials.sidebar.right-sidebar')
         @endif
 
+        <form action="#" method="post" class="form-remove d-none" onsubmit="return confirm('Համոզվա՞ծ եք, որ ցանկանում եք հեռացնել');">
+            @csrf
+            @method('DELETE')
+        </form>
+
     </div>
 @stop
 

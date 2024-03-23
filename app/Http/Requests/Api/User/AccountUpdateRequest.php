@@ -18,8 +18,8 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['nullable', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'max:255'],
             'old_password' => ['required_with:new_password', 'string', 'max:255', new OldPasswordCheck($this->user()->password)],

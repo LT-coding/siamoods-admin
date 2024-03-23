@@ -74,9 +74,11 @@ class UserController extends Controller
         $record = User::query()->admins()->findOrFail($id);
 
         $data = $request->validated();
+
         $data['password'] = $request->password ? Hash::make($request->password) : $record->password;
 
         $record->update($data);
+        $record->removeRole($record->getRoleNames()[0]);
         $record->assignRole($request->role);
 
         return Redirect::route('admin.users.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');

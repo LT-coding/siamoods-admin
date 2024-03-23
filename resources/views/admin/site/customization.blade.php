@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item active">{{ __('Site Customization') }}</li>
             </ol>
         </div>
@@ -17,7 +17,7 @@
 @stop
 
 @section('content')
-    <div class="card card-primary card-outline card-outline-tabs">
+    <div class="card card-danger card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                 <li class="nav-item">

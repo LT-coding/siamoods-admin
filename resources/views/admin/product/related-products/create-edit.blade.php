@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.products.edit', ['product' => $product]) }}">{{ $productItem->title }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update Related Product') : __('Create Related Product') }}</li>
@@ -22,7 +22,7 @@
     <form action="{{ $record ? route('admin.related-products.update',['product' => $product, 'related_product' => $record->id]) : route('admin.related-products.store',['product' => $product]) }}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-7">
-                <div class="card card-primary card-outline">
+                <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

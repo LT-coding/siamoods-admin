@@ -1,11 +1,11 @@
 {{-- Table --}}
 
-<div class="table-responsive">
+<div class="table-responsive dataTable-admin">
 
 <table id="{{ $id }}" style="width:100%" {{ $attributes->merge(['class' => $makeTableClass()]) }}>
 
     {{-- Table head --}}
-    <thead @isset($headTheme) class="thead-{{ $headTheme }}" @endisset>
+    <thead class="thead-admin">
         <tr>
             @foreach($heads as $th)
                 <th @isset($th['classes']) class="{{ $th['classes'] }}" @endisset

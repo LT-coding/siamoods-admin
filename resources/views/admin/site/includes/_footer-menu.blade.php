@@ -1,5 +1,5 @@
 @php $statuses = \App\Enums\StatusTypes::statusList() @endphp
-<h4>Footer Menus <a href="#add_menu" class="btn btn-primary btn-sm" title="Add" data-toggle="collapse" data-target="#add_menu"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
+<h4>Footer Menus <a href="#add_menu" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել" data-toggle="collapse" data-target="#add_menu"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
 <div class="row mt-3">
     <div class="col-md-6{{ count($footerMenus) == 0 ? ' d-none' : '' }}">
         @foreach($footerMenus as $menu)
@@ -11,8 +11,8 @@
                         <h3 class="card-title mb-0">{{ $menu->menu_title }}</h3>
                         <span class="float-right">
                             {!! \App\Enums\StatusTypes::statusText($menu->status) !!}
-                            <button type="button" class="btn btn-tool text-olive ml-4 mx-1 p-0" title="Edit" data-card-widget="collapse"><i class="fa fa-lg fa-fw fa-pen"></i></button>
-                            <button type="button" class="btn btn-tool text-danger btn-remove p-0" title="Delete" data-action="{{ route('admin.footer-menu.destroy',['id'=>$menu->id]) }}"><i class="fa fa-lg fa-fw fa-trash"></i></button>
+                            <button type="button" class="btn btn-tool text-olive ml-4 mx-1 p-0" title="Խմբագրել" data-card-widget="collapse"><i class="fa fa-lg fa-fw fa-pen"></i></button>
+                            <button type="button" class="btn btn-tool text-danger btn-remove p-0" title="Հեռացնել" data-action="{{ route('admin.footer-menu.destroy',['id'=>$menu->id]) }}"><i class="fa fa-lg fa-fw fa-trash"></i></button>
                         </span>
                     </div>
                     <div class="card-body" style="{{ $errors->has($menu->id.'_menu_title') ? 'display: block;' : 'display: none;' }}">
@@ -51,7 +51,7 @@
                             </div>
                         @endfor
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                             </div>
                         @endfor
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

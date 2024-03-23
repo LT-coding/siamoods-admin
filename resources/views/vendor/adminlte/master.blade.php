@@ -107,6 +107,9 @@
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 
+    <script src="{{ asset('libs/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
+
 </body>
 
 </html>

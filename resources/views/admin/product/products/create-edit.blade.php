@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update Product') : __('Create Product') }}</li>
             </ol>
@@ -22,7 +22,7 @@
     <form action="{{ $record ? route('admin.products.update',['product'=>$record->id]) : route('admin.products.store') }}" method="post">
         <div class="row">
             <div class="col-md-8">
-                <div class="card card-primary card-outline">
+                <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)
@@ -83,7 +83,7 @@
                         <x-adminlte-input name="meta_keywords" label="Meta Keywords" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="{{ __('Meta Description') }}">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                 @if($record)
                     <div class="card card-success card-outline">
                         <div class="card-body">
-                            <h5>Related Products <a href="{{ route('admin.related-products.create', ['product' => $record->id]) }}" class="btn btn-primary btn-sm" title="Add"><i class="fa fa-lg fa-fw fa-plus"></i></a></h5>
+                            <h5>Related Products <a href="{{ route('admin.related-products.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել"><i class="fa fa-lg fa-fw fa-plus"></i></a></h5>
                             @include('admin.product.includes.related-products',['relatedProducts' => $record->relatedProducts ?? null])
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                 @if($record)
                     <div class="card card-success card-outline">
                         <div class="card-body">
-                            <h5>Product Variants <a href="{{ route('admin.variants.create', ['product' => $record->id]) }}" class="btn btn-primary btn-sm" title="Add"><i class="fa fa-lg fa-fw fa-plus"></i></a></h5>
+                            <h5>Product Variants <a href="{{ route('admin.variants.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել"><i class="fa fa-lg fa-fw fa-plus"></i></a></h5>
                             @include('admin.product.includes.variants',['variants' => $record->variants ?? null])
                         </div>
                     </div>

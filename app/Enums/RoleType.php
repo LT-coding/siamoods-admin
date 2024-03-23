@@ -80,8 +80,8 @@ enum RoleType: string
     public static function adminRolesList(bool $as_string = false): array|string
     {
         $result= [
-            self::admin->value => self::admin->value,
-            self::editor->value => self::editor->value
+            self::admin->name => self::admin->value,
+            self::editor->name => self::editor->value
         ];
 
         return $as_string ? implode('|', $result) : $result;

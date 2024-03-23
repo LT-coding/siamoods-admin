@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item active">{{ __('Orders') }}</li>
             </ol>
         </div>
@@ -26,7 +26,7 @@
                 'Order Date',
                 'Tracking time',
                 'Status',
-                ['label' => 'Actions', 'no-export' => true, 'width' => 8],
+                ['label' => '', 'no-export' => true, 'width' => 8],
             ];
 
             $config = [
@@ -37,7 +37,7 @@
 
             foreach ($records as $record) {
                 $row = [$record->id];
-                $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$record->id]).'" class="text-olive mx-1" title="Edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+                $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$record->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
                 $row = [$record->code,$record->user?$record->user->display_name:'Guest',
                         $record->payment_method,$record->currency.\App\Models\Product::formatPrice($record->total),
                         Carbon\Carbon::parse($record->paid_at)->format('d F, Y h:i'),

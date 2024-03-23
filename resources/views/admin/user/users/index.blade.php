@@ -1,16 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', __('Users') )
+@section('title', 'Ադմինիստրացիա' )
 
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ __('Users') }} <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm" title="Add"><i class="fa fa-lg fa-fw fa-plus"></i></a></h1>
+            <h1 class="m-0">Ադմինիստրացիա
+                <a href="{{ route('admin.users.create') }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել"><i class="fa fa-lg fa-fw fa-plus"></i>Ավելացնել</a></h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('Users') }}</li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+                <li class="breadcrumb-item active">Ադմինիստրացիա</li>
             </ol>
         </div>
     </div>
@@ -19,13 +20,15 @@
 @section('content')
     @php
         $heads = [
-            'ID',
-            'Full Name',
-            ['label' => 'Phone', 'width' => 20],
-            ['label' => 'Email', 'width' => 35],
-            ['label' => 'Role', 'width' => 15],
-            ['label' => 'Actions', 'no-export' => true, 'width' => 8],
+            '#',
+            'Անուն',
+            ['label' => 'Էլ․ հասցե', 'width' => 35],
+            ['label' => 'Դեր', 'width' => 15],
+            ['label' => 'Կարգավիճակ', 'width' => 15],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
+
+        $headTheme = "test";
 
         $config = [
             'data' => [],
@@ -34,9 +37,10 @@
         ];
 
         foreach ($records as $item) {
-            $btnDetails = '<a href="'.route('admin.users.edit',['user'=>$item->id]).'" class="text-olive mx-1" title="Edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $btnDelete = '<a href="#" data-action="'.route('admin.users.destroy',['user'=>$item->id]).'" class="text-danger btn-remove" title="Delete"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->full_name, $item->phone_number, $item->email, $item->role_name, $btnDetails.$btnDelete];
+            $email = '<a href="mailto:"'.$item->email.'>'.$item->email.'</a>';
+            $btnDetails = '<a href="'.route('admin.users.edit',['user'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = '<a href="#" data-action="'.route('admin.users.destroy',['user'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = [$item->id, $item->full_name, $email, $item->role_name, $item->status_text, $btnDetails.$btnDelete];
             $config['data'] [] = $row;
         }
     @endphp

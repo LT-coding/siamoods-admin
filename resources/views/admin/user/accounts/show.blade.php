@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.accounts.index') }}">{{ __('Accounts') }}</a></li>
                 <li class="breadcrumb-item active">{{ __('Account') }}</li>
             </ol>
@@ -18,7 +18,7 @@
 @stop
 
 @section('content')
-    <div class="card card-primary card-outline card-outline-tabs">
+    <div class="card card-danger card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                 <li class="nav-item">
@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-bold">Phone Number</td>
-                                    <td>{{ $record->phone_number }}</td>
+                                    <td>{{ $record->phone }}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold">Email</td>
@@ -71,7 +71,7 @@
                                     <dt class="col-sm-4">Full name</dt>
                                     <dd class="col-sm-8">{{ $address->full_name }}</dd>
                                     <dt class="col-sm-4">Phone Number</dt>
-                                    <dd class="col-sm-8">{{ $address->phone_number }}</dd>
+                                    <dd class="col-sm-8">{{ $address->phone }}</dd>
                                     <dt class="col-sm-4">Address line 1</dt>
                                     <dd class="col-sm-8">{{ $address->address_line_1 }}</dd>
                                     <dt class="col-sm-4">Address line 2</dt>

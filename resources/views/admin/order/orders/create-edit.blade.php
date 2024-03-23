@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">{{ __('Orders') }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update Order') : __('Create Order') }}</li>
             </ol>
@@ -24,7 +24,7 @@
                 <div class="card card-body card-outline p-2">
                     <h4>Personal Information</h4>
                     <p class="text-bold">{{ $personal['name'] . ' ' . $personal['lastname'] . ' (' . $personal['email'] . ')' }}</p>
-                    <p>{{ $personal['phone_number'] }}</p>
+                    <p>{{ $personal['phone'] }}</p>
                     <p>{{ isset($personal['date_of_birth']) ? Carbon\Carbon::parse($personal['date_of_birth'])->format('d F, Y') : '' }}</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         <dt class="col-sm-4">Full name</dt>
                         <dd class="col-sm-8">{{ $first . ' ' . $last }}</dd>
                         <dt class="col-sm-4">Phone Number</dt>
-                        <dd class="col-sm-8">{{ $shipping['phone_number'] ?? $personal['phone_number'] }}</dd>
+                        <dd class="col-sm-8">{{ $shipping['phone'] ?? $personal['phone'] }}</dd>
                         <dt class="col-sm-4">Address line 1</dt>
                         <dd class="col-sm-8">{{ $shipping['address_line_1'] }}</dd>
                         <dt class="col-sm-4">Address line 2</dt>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

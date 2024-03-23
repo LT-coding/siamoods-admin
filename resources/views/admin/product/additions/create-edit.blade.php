@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.additions.index', ['style' => $style]) }}">{{ $styleText }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update ') . ucfirst($style) : __('Create ') . ucfirst($style) }}</li>
             </ol>
@@ -20,7 +20,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <div class="card card-primary card-outline">
+            <div class="card card-danger card-outline">
                 <div class="card-body">
                     <form action="{{ $record ? route('admin.additions.update', ['style' => $style, 'addition'=>$record->id]) : route('admin.additions.store', ['style' => $style]) }}"
                           method="post" enctype="multipart/form-data"
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="text-right">
-                                    <x-adminlte-button class="btn-sm ajaxSave" type="button" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                                    <x-adminlte-button class="btn-sm ajaxSave" type="button" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                                 </div>
                             </div>
                         </div>

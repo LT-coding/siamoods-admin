@@ -1,8 +1,28 @@
 body {
     font-size: 0.9rem;
+    color: #1b233a;
 }
 img {
     max-width: 100%;
+}
+a, .page-link {
+    color: #183766;
+}
+.page-item.active .page-link,
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #183766;
+    border-color: #183766;
+}
+.content, .form-control {
+    font-size: 0.85rem;
+}
+.content-header {
+    padding: 15px 0.5rem 0;
+}
+.form-group sup {
+    font-size: 0.35rem;
+    position: relative;
+    top: -7px;
 }
 .alert-success {
     color: #155724;
@@ -22,7 +42,13 @@ img {
     font-size: 0.9rem;
 }
 .content-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+}
+.thead-admin {
+    background: #00000030;
+}
+.dataTable-admin .table td, .dataTable-admin .table th {
+    padding: 0.5rem 0.75rem;
 }
 
 @media (min-width: 1200px) {

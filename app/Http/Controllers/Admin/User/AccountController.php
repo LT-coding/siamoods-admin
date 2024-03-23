@@ -17,13 +17,7 @@ class AccountController extends Controller
      */
     public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $accounts = User::accounts();
-
-        if ($request->new) {
-            $accounts->whereDate('created_at', Carbon::now());
-        }
-
-        $records = $accounts->get();
+        $records = User::accounts()->orderBy('created_at','desc')->get();
 
         return view('admin.user.accounts.index', compact('records'));
     }

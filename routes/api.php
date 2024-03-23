@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::group([], function () {
-    foreach (File::files(__DIR__ . '/api') as $file) {
-        require $file;
-    }
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+//
+//Route::group([], function () {
+//    foreach (File::files(__DIR__ . '/api') as $file) {
+//        require $file;
+//    }
+//});

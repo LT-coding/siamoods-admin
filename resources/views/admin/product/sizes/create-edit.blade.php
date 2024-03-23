@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
                 <li class="breadcrumb-item"><a
                         href="{{ route('admin.products.edit', ['product' => $product->id]) }}">{{ $product->title }}</a>
@@ -31,7 +31,7 @@
     >
         <div class="row">
             <div class="col-md-8">
-                <div class="card card-primary card-outline">
+                <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)
@@ -50,7 +50,7 @@
                         <hr>
                         @include('admin.includes.prices')
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm ajaxSave" type="button" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm ajaxSave" type="button" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

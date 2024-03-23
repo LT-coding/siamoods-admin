@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 Route::resource('options', OptionController::class)->except([
     'show'
 ]);
-Route::resource('{style}/additions', AdditionController::class)->except([
-    'show'
-]);
 Route::resource('categories', CategoryController::class)->except([
     'show'
 ]);

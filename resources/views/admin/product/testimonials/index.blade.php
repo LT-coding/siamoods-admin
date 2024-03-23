@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item active">{{ __('Testimonials') }}</li>
             </ol>
         </div>
@@ -19,12 +19,12 @@
 @section('content')
     @php
         $heads = [
-            'ID',
+            '#',
             'Name',
             'Comment',
             ['label' => 'Rate', 'width' => 5],
             ['label' => 'Product', 'width' => 40],
-            ['label' => 'Actions', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [

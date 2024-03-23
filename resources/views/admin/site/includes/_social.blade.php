@@ -1,4 +1,4 @@
-<h4>Social Links <a href="#add_social" class="btn btn-primary btn-sm" title="Add" data-toggle="collapse" data-target="#add_social"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
+<h4>Social Links <a href="#add_social" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել" data-toggle="collapse" data-target="#add_social"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
 <div class="row mt-3">
     <div class="col-md-12">
         <div id="add_social" class="collapse">
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

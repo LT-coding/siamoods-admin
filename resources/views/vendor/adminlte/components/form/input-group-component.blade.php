@@ -6,6 +6,7 @@
     @isset($label)
         <label for="{{ $id }}" @isset($labelClass) class="{{ $labelClass }}" @endisset>
             {{ $label }}
+            @if($attributes->get('data-required') != null) <sup class="fas fa-asterisk text-danger"></sup> @endif
         </label>
     @endisset
 

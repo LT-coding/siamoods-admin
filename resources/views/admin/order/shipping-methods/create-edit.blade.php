@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.shipping-methods.index') }}">{{ __('Shipping Methods') }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update Shipping Method') : __('Create Shipping Method') }}</li>
             </ol>
@@ -21,7 +21,7 @@
     <form action="{{ $record ? route('admin.shipping-methods.update',['shipping_method' => $record->id]) : route('admin.shipping-methods.store') }}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-7">
-                <div class="card card-primary card-outline">
+                <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)
@@ -41,7 +41,7 @@
                         </div>
                         @include('admin.includes.prices')
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item active">{{ __('States') }}</li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
                 'Abbr',
                 'Country',
                 ['label' => 'Tax (%)', 'width' => 20],
-                ['label' => 'Actions', 'no-export' => true, 'width' => 8],
+                ['label' => '', 'no-export' => true, 'width' => 8],
             ];
 
             $config = [

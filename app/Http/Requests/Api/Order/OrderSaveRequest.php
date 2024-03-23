@@ -19,8 +19,8 @@ class OrderSaveRequest extends FormRequest
             'address_id' => ['nullable'],
             'email' => ['nullable'],
             'personal' => ['nullable'],
-            'personal.first_name' => [Rule::requiredIf(fn () => !$this->address_id)],
-            'personal.last_name' => [Rule::requiredIf(fn () => !$this->address_id)],
+            'personal.name' => [Rule::requiredIf(fn () => !$this->address_id)],
+            'personal.lastname' => [Rule::requiredIf(fn () => !$this->address_id)],
             'personal.phone_number' => [Rule::requiredIf(fn () => !$this->address_id)],
             'personal.email' => [Rule::requiredIf(fn () => !$this->address_id)],
             'shipping' => ['nullable'],
@@ -35,8 +35,8 @@ class OrderSaveRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'personal.first_name.required' => 'The first name field is required',
-            'personal.last_name.required' => 'The last name field is required',
+            'personal.name.required' => 'The first name field is required',
+            'personal.lastname.required' => 'The last name field is required',
             'personal.phone_number.required' => 'The phone number field is required',
             'personal.email.required' => 'The email field is required',
             'shipping.address_line_1' => 'The address line 1 field is required',

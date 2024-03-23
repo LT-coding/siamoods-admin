@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.contents.index', ['type' => $type]) }}">{{ $typeText }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update') : __('Create') }}</li>
             </ol>
@@ -22,7 +22,7 @@
     <form action="{{ $record ? route('admin.contents.update',['type' => $type, 'content'=>$record->id]) : route('admin.contents.store', ['type' => $type]) }}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-8">
-                <div class="card card-primary card-outline">
+                <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)
@@ -64,7 +64,7 @@
                         <x-adminlte-input name="meta_keywords" label="Meta Keywords" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="{{ __('Meta Description') }}">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
                         <div class="text-right">
-                            <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>

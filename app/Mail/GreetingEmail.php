@@ -31,7 +31,7 @@ class GreetingEmail extends Mailable
     public function build(): static
     {
         return $this->markdown('emails.users.greeting')
-            ->subject('Welcome to ' . config('app.name') . ' - Action Required')
+            ->subject('Բարի գալուստ ' . config('app.name'))
             ->with([
                 'name' => $this->user->display_name,
                 'email' => $this->user->email,

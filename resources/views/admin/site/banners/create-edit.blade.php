@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">{{ __('Dashboard') }}</a></li>
+                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.banners.index') }}">{{ __('Banners') }}</a></li>
                 <li class="breadcrumb-item active">{{ $record ? __('Update Banner') : __('Create Banner') }}</li>
             </ol>
@@ -21,7 +21,7 @@
     @php $statuses = \App\Enums\StatusTypes::statusList(); $types = \App\Enums\BannerTypes::typeList() @endphp
     <div class="row">
         <div class="col-md-10">
-            <div class="card card-primary card-outline">
+            <div class="card card-danger card-outline">
                 <div class="card-body">
                     <form action="{{ $record ? route('admin.banners.update',['banner'=>$record->id]) : route('admin.banners.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <x-adminlte-button class="btn-sm" type="submit" label="Save" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                                <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                             </div>
                         </div>
                     </form>
