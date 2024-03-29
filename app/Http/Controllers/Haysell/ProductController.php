@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Haysell;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Haysell\HaySellRequest;
 use App\Services\Haysell\ProductService;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,7 @@ class ProductController extends Controller
     {
         $jsonData = $request->json()->all();
 
+        Log::info('haysell-data:',$jsonData);
         //       variation
         if (array_key_exists('variation_headers', $jsonData)) {
             $this->service->createVariationTypes($jsonData['variation_headers']);
