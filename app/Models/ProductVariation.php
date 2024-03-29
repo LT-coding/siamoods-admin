@@ -11,15 +11,7 @@ class ProductVariation extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'variation_id',
-        'variation_haysell_id',
-        'product_id',
-        'haysell_id',
-        'balance',
-        'image',
-        'status'
-    ];
+    protected $guarded = [];
 
     public function variation(): BelongsTo
     {

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class PowerLabel extends Model
 {
     use HasFactory;
-    protected $fillable=[
-      'name','type','status','description','media','position'
-    ];
+
+    protected $guarded = [];
 }

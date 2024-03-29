@@ -16,7 +16,7 @@ class Content extends Model
 {
     use HasFactory, ImageLinkTrait;
 
-    protected $guarded = ['icon'];
+    protected $guarded = [];
 
     public function scopePage(Builder $query): void
     {

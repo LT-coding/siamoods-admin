@@ -9,13 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ShippingType extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'name',
-        'cash',
-        'description',
-        'status',
-        'image'
-    ];
+
+    protected $guarded = [];
 
     public function areas(): HasMany
     {

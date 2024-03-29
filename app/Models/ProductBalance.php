@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductBalance extends Model
 {
     use HasFactory;
-    protected $fillable=['product_id','haysell_id','balance'];
+
+    protected $guarded = [];
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'haysell_id');
     }
 }

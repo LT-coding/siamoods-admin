@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProductPowerLabel extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'product_id',
-        'label_id'
-    ];
+
+    protected $guarded = [];
 }

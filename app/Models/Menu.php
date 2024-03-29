@@ -18,7 +18,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['parent_id', 'type', 'name_hy', 'url', 'position', 'status'];
+    protected $guarded = [];
 
     public function scopeHeaderMenu(Builder $query): void
     {

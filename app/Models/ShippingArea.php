@@ -10,16 +10,10 @@ class ShippingArea extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'shipping_type_id',
-        'area',
-        'time'
-    ];
-
+    protected $guarded = [];
 
     public function rates(): HasMany
     {
         return $this->hasMany(ShippingRate::class,'shipping_area_id','id');
     }
-
 }

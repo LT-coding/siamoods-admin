@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\MetaTypes;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,35 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Product extends Model
 {
-    const TABLE_NAME = 'products';
-
-    protected $table = self::TABLE_NAME;
-
     use HasFactory;
-    protected $fillable=[
-        'articul',
-        'item_name',
-        'item_type',
-        'type',
-        'sort',
-        'provider',
-        'unique_id',
-        'balance_control',
-        'additional',
-        'discount_end_date',
-        'discount',
-        'discount_type',
-        'description',
-        'item_type_num',
-        'haysell_id',
-        'liked',
-        'delete',
-    ];
 
-    public function content(): Attribute
-    {
-        return Attribute::make(get: fn($value) => $this->productDetails()->where('detail_id','89')->first()?->value);
-    }
+    protected $guarded = [];
 
     public function balance(): HasOne
     {
@@ -57,10 +32,6 @@ class Product extends Model
     {
         return $this->hasOne(ProductGift::class,'product_id','id');
     }
-//    public function categories(): HasMany
-//    {
-//        return $this->hasMany(ProductCategory::class,'product_id','id');
-//    }
 
     public function categories(): BelongsToMany
     {
@@ -97,19 +68,14 @@ class Product extends Model
         return $this->hasMany(ProductVariation::class, 'product_id', 'id');
     }
 
-    public function meta(): HasOne
+    public function metas(): HasOne
     {
-        return $this->hasOne(ProductMeta::class,'product_id','id');
+        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::product->name);
     }
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class,'order_products','order_id','product_id');
-    }
-
-    public function recommendations(): HasMany
-    {
-        return $this->hasMany(Product::class,'product_id','id');
+        return $this->belongsToMany(Order::class,'order_products','order_id','haysell_id');
     }
 
     public function productDetails(): HasMany
@@ -117,31 +83,24 @@ class Product extends Model
         return $this->hasMany(ProductDetail::class,'product_id','id');
     }
 
-    public function getGeneralImageAttribute(){
-        return $this->images->where('is_general',1)->first();
-    }
-//    public function getTypeAttribute()
-//    {
-//        return $this->with(['payment'])->first()->payment->name;
-//    }
-
-    public function getSlugAttribute() {
-//        return $this->meta?->seo ?? $this->item_name;
-//        $detail = $this->productDetails()->where('detail_id',118)->first();
-        return $this->meta?->url;
-    }
-
-    public function getTitleAttribute(): string
+    public function content(): Attribute
     {
-        return __('Օնլայն խանութ') . ' :: '. 'Ականջօղեր' .' :: ' . $this->item_name;
+        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','89')->first()?->value);
     }
 
-    public function getComputedDiscountAttribute(): string
+    public function generalImage(): Attribute
     {
-        if ($this->discount_left) {
-            return $this->discount;
-        }
-        return false;
+        return Attribute::make(get: fn() => $this->images()->where('is_general',1)->first());
+    }
+
+    public function slug(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->meta?->url);
+    }
+
+    public function computedDiscount(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->discount_left ? $this->discount : false);
     }
 
     public function getDiscountLeftAttribute(): string

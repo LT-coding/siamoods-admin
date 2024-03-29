@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'haysell' => [
+        'url' => env('HAYSELL_URL'),
+        'token' => env('HAYSELL_TOKEN'),
+        'profile' => env('HAYSELL_PROFILE_ID'),
+    ],
+
 ];

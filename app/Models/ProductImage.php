@@ -3,24 +3,14 @@
 namespace App\Models;
 
 use App\Services\Tools\MediaService;
+use App\Traits\ImageLinkTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
-    use HasFactory;
-    protected $fillable=[
-        'haysell_id',
-        'product_id',
-        'image',
-        'image_path',
-        'is_general'
-    ];
+    use HasFactory, ImageLinkTrait;
 
-    public function image(): Attribute
-    {
-        $webp = (new MediaService())->getWebp($this->image_path);
-        return Attribute::make(get: fn($value) => $this->image_path && $webp ? $webp : $value);
-    }
+    protected $guarded = [];
 }

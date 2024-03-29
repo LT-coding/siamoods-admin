@@ -13,15 +13,5 @@ class Promotion extends Model
     const FREE_DELIVERY = 0;
     const PRICE_REDUCTION = 2;
 
-    protected $fillable=[
-                'name',
-                'promo_code',
-                'description',
-                'period',
-                'from',
-                'to',
-                'type',
-                'value',
-                'status'
-    ];
+    protected $guarded = [];
 }

@@ -12,7 +12,7 @@ class Banner extends Model
 {
     use HasFactory, ImageLinkTrait;
 
-    protected $guarded = ['icon'];
+    protected $guarded = [];
 
     public function scopeActive(Builder $query): void
     {

@@ -11,15 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Review extends Model
 {
     use HasFactory;
-    protected $fillable=[
-            'product_id',
-            'haysell_id',
-            'name',
-            'review',
-            'rating',
-            'ip',
-            'status'
-    ];
+
+    protected $guarded = [];
 
     public function product(): BelongsTo
     {

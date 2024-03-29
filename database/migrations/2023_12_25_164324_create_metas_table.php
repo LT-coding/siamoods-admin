@@ -19,8 +19,9 @@ return new class extends Migration
             $table->integer('model_id')->nullable();
             $table->enum('page',[StaticPages::getKeys()])->nullable();
             $table->string('meta_title')->nullable();
-            $table->text('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->text('meta_desc')->nullable();
+            $table->string('meta_key')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

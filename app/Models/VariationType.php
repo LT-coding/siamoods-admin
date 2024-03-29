@@ -10,10 +10,7 @@ class VariationType extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'id',
-        'title'
-    ];
+    protected $guarded = [];
 
     public function variations(): HasMany
     {

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\MetaTypes;
+use App\Traits\ImageLinkTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,28 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Category extends Model
 {
+    use HasFactory, ImageLinkTrait;
 
-    const TABLE_NAME = 'categories';
-
-    protected $table = self::TABLE_NAME;
-    use HasFactory;
-    protected $fillable=[
-        "id",
-        "general_category_id",
-        "parent_id",
-        "level",
-        "name",
-        "short_url",
-        "image",
-        "logo",
-        "extra_categories",
-        "recomended",
-        "sort",
-        "status",
-        "is_top",
-        "additional",
-        "delete",
-    ];
+    protected $guarded = [];
 
     public function products(): BelongsToMany
     {
@@ -44,8 +27,8 @@ class Category extends Model
         return $this->hasMany(__CLASS__, 'parent_id', 'id');
     }
 
-    public function meta(): HasOne
+    public function metas(): HasOne
     {
-        return $this->hasOne(CategoryMeta::class,'category_id','id');
+        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::category->name);
     }
 }

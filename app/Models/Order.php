@@ -12,10 +12,6 @@ class Order extends Model
 {
     use HasFactory;
 
-    const TABLE_NAME = 'orders';
-
-    protected $table = self::TABLE_NAME;
-
     const TYPE_PRODUCT = 1;
     const TYPE_CARD = 2;
 
@@ -27,30 +23,25 @@ class Order extends Model
     const NOT_COMPLETED = 5;
 
     const STATUS_MENU = [
-        'Գրանցված'=>'1',
-        'Պատրաստ է առաքման'=>'2',
-        'Առաքված/Կատարված'=>'3',
-        'Չեղարկված'=>'4',
-        'Չհաջողված'=>'5',
+        'Գրանցված' => '1',
+        'Պատրաստ է առաքման' => '2',
+        'Առաքված/Կատարված' => '3',
+        'Չեղարկված' => '4',
+        'Չհաջողված' => '5',
     ];
 
     const STATUS_SHOW = [
-        1=>'Գրանցված',
-        2=>'Պատրաստ է առաքման',
-        3=>'Առաքված/Կատարված',
-        4=>'Չեղարկված',
-        5=>'Չհաջողված',
+        1 => 'Գրանցված',
+        2 => 'Պատրաստ է առաքման',
+        3 => 'Առաքված/Կատարված',
+        4 => 'Չեղարկված',
+        5 => 'Չհաջողված',
     ];
 
     const NOT_APPROVED = 0; //չհաստատված
     const APPROVED = 1; //հաստատված
 
     protected $guarded = [];
-
-    public static function nextSubmittedId()
-    {
-        return self::query()->first() ? self::query()->max('submitted_id') + 1 : 1;
-    }
 
     public function orderProducts(): HasMany
     {

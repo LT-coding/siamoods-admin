@@ -29,26 +29,25 @@ class Notification extends Model
     const NEW_ORDER = 18;//Waiting list when product is existed
 
     const TYPES = [
-        self::ORDER_CREATE=>'Պատվերի գրանցում/հաստատում',
-        self::READY_FOR_DELIVERY=>'Պատրաստ է առաքման',
-        self::DELIVERED=>'Պատվերն առաքված է',
-        self::RATE=>'Գնահատել',
-        self::CANCELED=>'Չեղարկված պատվեր',
-        self::NOT_COMPLETED_ORDER=>'Չհաջողված պատվեր',
-        self::ACCOUNT_VERIFY=>'Էլ փոստի հաստատում',
-        self::REGISTER=>'Գրանցման ավարտ',
-        self::PASSWORD_RESET=>'Գաղտնաբառի վերականգնում',
-        self::WAITING_ORDER_2=>'Լքված քարտ 2',
-        self::WAITING_ORDER_7=>'Լքված քարտ 7',
-        self::WAITING_LIST_REGISTER=>'Waiting list register',
-        self::WAITING_LIST_EXISTED=>'Waiting list when product exists',
-        self::CUSTOM=>'Custom',
-        self::GIFT=>'GIFT',
-        self::LOW_INVENTORY=>'LOW_INVENTORY',
-        self::RATE_NOTIFICATION=>'RATE_NOTIFICATION',
-        self::NEW_ORDER=>'NEW_ORDER',
+        self::ORDER_CREATE => 'Պատվերի գրանցում/հաստատում',
+        self::READY_FOR_DELIVERY => 'Պատրաստ է առաքման',
+        self::DELIVERED => 'Պատվերն առաքված է',
+        self::RATE => 'Գնահատել',
+        self::CANCELED => 'Չեղարկված պատվեր',
+        self::NOT_COMPLETED_ORDER => 'Չհաջողված պատվեր',
+        self::ACCOUNT_VERIFY => 'Էլ փոստի հաստատում',
+        self::REGISTER => 'Գրանցման ավարտ',
+        self::PASSWORD_RESET => 'Գաղտնաբառի վերականգնում',
+        self::WAITING_ORDER_2 => 'Լքված քարտ 2',
+        self::WAITING_ORDER_7 => 'Լքված քարտ 7',
+        self::WAITING_LIST_REGISTER => 'Waiting list register',
+        self::WAITING_LIST_EXISTED => 'Waiting list when product exists',
+        self::CUSTOM => 'Custom',
+        self::GIFT => 'GIFT',
+        self::LOW_INVENTORY => 'LOW_INVENTORY',
+        self::RATE_NOTIFICATION => 'RATE_NOTIFICATION',
+        self::NEW_ORDER => 'NEW_ORDER',
     ];
 
     protected $guarded = [];
-
 }

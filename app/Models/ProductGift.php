@@ -10,10 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class ProductGift extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'product_id',
-        'gift_product_id'
-    ];
+
+    protected $guarded = [];
 
     public function product(): BelongsTo
     {

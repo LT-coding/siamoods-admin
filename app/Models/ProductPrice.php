@@ -10,15 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class ProductPrice extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'product_id',
-        'haysell_id',
-        'type',
-        'price'
-    ];
+
+    protected $guarded = [];
 
     public function products(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->belongsTo(Product::class, 'haysell_id', 'id');
     }
 }

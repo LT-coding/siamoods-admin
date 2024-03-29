@@ -9,10 +9,5 @@ class Detail extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'id',
-        'name',
-        'type',
-        'order',
-    ];
+    protected $guarded = [];
 }

@@ -9,16 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class GeneralCategory extends Model
 {
     use HasFactory;
-    protected $table='general_cats';
-    protected $fillable=[
-        'id',
-        'title',
-        'show_in_item',
-        'show_in_web',
-        'is_main',
-        'is_price'
-    ];
 
+    protected $table='general_cats';
+
+    protected $guarded = [];
 
     public function categories(): HasMany
     {

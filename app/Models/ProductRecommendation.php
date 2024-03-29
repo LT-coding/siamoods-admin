@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProductRecommendation extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'product_id',
-        'haysell_id',
-        'recomendation_id'
-    ];
+
+    protected $guarded = [];
 }

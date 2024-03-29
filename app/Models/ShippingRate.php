@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ShippingRate extends Model
 {
     use HasFactory;
-    protected $fillable=[
-      'shipping_area_id',
-      'product_cost',
-      'rate'
-    ];
+
+    protected $guarded = [];
 }

@@ -9,27 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AccountAddress extends Model
 {
-
-    const TABLE_NAME = 'account_addresses';
-
-    protected $table = self::TABLE_NAME;
-
     use HasFactory;
 
-    protected $fillable=[
-        'user_id',
-        'type',
-        'name',
-        'lastname',
-        'address_1',
-        'address_2',
-        'country',
-        'city',
-        'state',
-        'zip',
-        'phone',
-        'same_for_payment'
-    ];
+    protected $guarded = [];
 
     public function user(): BelongsTo
     {
