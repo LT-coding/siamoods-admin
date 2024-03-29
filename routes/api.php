@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Api\PaymentController;
+//use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Haysell\CategoryController;
 use App\Http\Controllers\Haysell\DetailController;
 use App\Http\Controllers\Haysell\GeneralCategoryController;
