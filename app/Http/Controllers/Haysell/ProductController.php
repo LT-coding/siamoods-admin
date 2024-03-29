@@ -21,7 +21,6 @@ class ProductController extends Controller
     {
         $jsonData = $request->json()->all();
 
-        Log::info('haysell-data:',$jsonData);
         //       variation
         if (array_key_exists('variation_headers', $jsonData)) {
             $this->service->createVariationTypes($jsonData['variation_headers']);
