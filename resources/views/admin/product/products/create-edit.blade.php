@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ $record ? __('Update Product') .  ' | ' . $record->title : __('Create Product') }}</h1>
+            <h1 class="mb-2">{{ $record ? __('Update Product') .  ' | ' . $record->title : __('Create Product') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-body">
                         <div class="text-right">
                             <x-adminlte-input-switch name="show_in_hot_sales" label="{{ __('Show in Hot Sales') }}" :checked="old('show_in_hot_sales') ?? $record && $record->show_in_hot_sales == 1"/>
@@ -94,7 +94,7 @@
                 @if($record)
                     <div class="card card-success card-outline">
                         <div class="card-body">
-                            <h5>Related Products <a href="{{ route('admin.related-products.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h5>
+                            <h5>Related Products <a href="{{ route('admin.related-products.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h5>
                             @include('admin.product.includes.related-products',['relatedProducts' => $record->relatedProducts ?? null])
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                 @if($record)
                     <div class="card card-success card-outline">
                         <div class="card-body">
-                            <h5>Product Variants <a href="{{ route('admin.variants.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h5>
+                            <h5>Product Variants <a href="{{ route('admin.variants.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h5>
                             @include('admin.product.includes.variants',['variants' => $record->variants ?? null])
                         </div>
                     </div>

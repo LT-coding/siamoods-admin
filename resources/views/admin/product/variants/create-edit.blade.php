@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ $record ? __('Update Variant') . ' | ' . $record->title : __('Create Variant for ') . $productItem->title }}</h1>
+            <h1 class="mb-2">{{ $record ? __('Update Variant') . ' | ' . $record->title : __('Create Variant for ') . $productItem->title }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-body">
                         @include('admin.product.includes.variant-images')
                         <div class="text-right">
@@ -60,7 +60,7 @@
     @if($record)
         <div class="card card-success card-outline">
             <div class="card-body">
-                <h5>Variant Sizes <a href="{{ route('admin.sizes.create',['variant'=>$record->id]) }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h5>
+                <h5>Variant Sizes <a href="{{ route('admin.sizes.create',['variant'=>$record->id]) }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h5>
                 @include('admin.product.includes.sizes',['sizes' => $record->sizes ?? null])
             </div>
         </div>

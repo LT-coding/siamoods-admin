@@ -3,18 +3,12 @@
 @section('title', $record ? __('Update ') . ucfirst($type) : __('Create ') . ucfirst($type))
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0">{{ $record ? __('Update ') . ucfirst($type) : __('Create ') . ucfirst($type) }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.contents.index', ['type' => $type]) }}">{{ $typeText }}</a></li>
-                <li class="breadcrumb-item active">{{ $record ? __('Update') : __('Create') }}</li>
-            </ol>
-        </div>
-    </div>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.contents.index', ['type' => $type]) }}">{{ $typeText }}</a></li>
+        <li class="breadcrumb-item active">{{ $record ? __('Update') : __('Create') }}</li>
+    </ol>
+    <h1 class="mb-2">{{ $record ? __('Update ') . ucfirst($type) : __('Create ') . ucfirst($type) }}</h1>
 @stop
 
 @section('content')
@@ -58,7 +52,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-body">
                         <x-adminlte-input name="meta_title" label="Meta Title" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
                         <x-adminlte-input name="meta_keywords" label="Meta Keywords" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>

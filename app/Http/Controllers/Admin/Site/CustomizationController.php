@@ -3,158 +3,87 @@
 namespace App\Http\Controllers\Admin\Site;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use App\Models\FooterMenu;
-use App\Models\FooterMenuItem;
-use App\Models\Social;
-use App\Services\MediaService;
+use App\Http\Requests\Admin\Site\CustomizationRequest;
+use App\Models\Customization;
+use App\Models\SocialMedia;
+use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 
 class CustomizationController extends Controller
 {
-    private MediaService $imageService;
-
-    public function __construct(MediaService $imageService)
-    {
-        $this->imageService = $imageService;
-    }
-
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $socials = Social::query()->get();
-        $footerMenus = FooterMenu::query()->orderBy('order')->get();
-
-        return view('admin.site.customization', compact('footerMenus','socials'));
+        $socials = SocialMedia::query()->get();
+        return view('admin.site.customization.index', compact(['socials']));
     }
 
-    /**
-     * create the new footer menu resource.
-     */
-    public function storeFooterMenu(Request $request): RedirectResponse
+    public function socials(String $i): array
     {
-        $request->validate([
-            'menu_title' => ['required', 'string', 'max:255']
-        ]);
+        $social = null;
+        return ['view' => view('admin.site.customization.social', compact(['social','i']))->render()];
+    }
 
-        $menu = FooterMenu::query()->create([
-            'menu_title' => $request->menu_title,
-            'order' => $request->order,
-            'status' => $request->status
-        ]);
+    public function update(CustomizationRequest $request){
+        $data=$request->validated();
 
-        for ($j=0; $j<5; $j++) {
-            if ($request->item_text[$j]) {
-                FooterMenuItem::query()->create([
-                    'footer_menu_id' => $menu->id,
-                    'item_text' => $request->item_text[$j],
-                    'item_link' => $request->item_link[$j],
-                    'order' => $request->item_order[$j] ?? 0,
-                ]);
+        if(array_key_exists('socials',$data['1'])){
+            $socials=$data['1']['socials'];
+            $this->updateSocials($socials);
+        }
+        unset($data['1']['socials']);
+        $this->updateRecords($data);
+
+        return redirect()->route('admin.customization.index');
+    }
+
+    private function updateSocials($socials){
+        foreach ($socials as $social)
+        {
+            if(array_key_exists('image',$social)){
+                if(!is_null($social['image'])){
+                    $uploader = (new MediaService)->apply($social['image'], "customization");
+                    $social['image'] = asset($uploader->path());
+                    SocialMedia::updateOrCreate([
+                        'url'=>$social['url']
+                    ],$social);
+                }
             }
         }
-
-        return Redirect::route('admin.customization.index')->with('status', 'Saved successfully!');
     }
 
-    /**
-     * create the new footer menu resource.
-     */
-    public function updateFooterMenu(Request $request): RedirectResponse
+    private function updateRecords($data): void
     {
-        $request->validate([
-            $request->id . '_menu_title' => ['required', 'string', 'max:255']
-        ]);
-
-        $title = $request->id . '_menu_title';
-        $order = $request->id . '_order';
-        $status = $request->id . '_status';
-        $itemText = $request->id . '_item_text';
-        $itemLink = $request->id . '_item_link';
-        $itemOrder = $request->id . '_item_order';
-
-        $menu = FooterMenu::query()->find($request->id);
-
-        $menu->update([
-            'menu_title' => $request->$title,
-            'order' => $request->$order,
-            'status' => $request->$status
-        ]);
-
-        $menu->items()->delete();
-
-        for ($j=0; $j<5; $j++) {
-            if ($request->$itemText[$j]) {
-                FooterMenuItem::query()->create([
-                    'footer_menu_id' => $menu->id,
-                    'item_text' => $request->$itemText[$j],
-                    'item_link' => $request->$itemLink[$j],
-                    'order' => $request->$itemOrder[$j] ?? 0,
-                ]);
+        foreach ($data as $key=>$items){
+            $record['position']=$key;
+            foreach ($items as $p=>$item){
+                $record['type']=$p;
+                foreach ($item as $n=>$elem){
+                    $record['name']=$n;
+                    if(!is_null($elem)){
+                        if(is_string($elem)){
+                            $record['value']=$elem;
+                        }else{
+                            $uploader = (new MediaService)->apply($elem, "customization");
+                            $record['value'] = asset($uploader->path());
+                        }
+                        Customization::updateOrCreate([
+                            'position'=>$record['position'],
+                            'type'=>$record['type'],
+                            'name'=>$record['name']
+                        ],$record);
+                    }else{
+                        $record['value']=null;
+                        Customization::updateOrCreate([
+                            'position'=>$record['position'],
+                            'type'=>$record['type'],
+                            'name'=>$record['name']
+                        ],$record);
+                    }
+                }
             }
         }
-
-        return Redirect::route('admin.customization.index')->with('status', 'Saved successfully!');
-    }
-
-    public function contactInfo(Request $request): RedirectResponse
-    {
-        foreach ($request->type as $k => $type) {
-            Contact::query()->updateOrCreate([
-                'type' => $request->type[$k]
-            ],[
-                'text' => $request->text[$k]
-            ]);
-        }
-
-        return Redirect::route('admin.customization.index')->with('status', 'Saved successfully!')->withFragment('#contact');
-    }
-
-    public function socialLinks(Request $request): RedirectResponse
-    {
-        $title = $request->id ? $request->id . '_title' : 'title';
-        $icon = $request->id ? $request->id . '_icon' : 'icon';
-        $link = $request->id ? $request->id . '_link' : 'link';
-
-        $request->validate([
-            $title => ['required'],
-            $icon => [Rule::requiredIf(fn () => !$request->id)],
-            $link => ['required']
-        ]);
-
-        $imagePath = $request->$icon
-            ? $this->imageService->dispatch($request->$icon)->upload('socials')->getUrl()
-            : ($request->id && Social::query()->find($request->id) ? Social::query()->find($request->id)->icon : null);
-
-        Social::query()->updateOrCreate([
-            'id' => $request->id
-        ],[
-            'title' => $request->$title,
-            'icon' => $imagePath,
-            'link' => $request->$link
-        ]);
-
-        return Redirect::route('admin.customization.index')->with('status', 'Saved successfully!')->withFragment('#social');
-    }
-
-    public function destroySocial(string $id): RedirectResponse
-    {
-        $social = Social::query()->findOrFail($id);
-        $social->delete();
-
-        return Redirect::route('admin.customization.index')->with('status', 'Removed successfully!')->withFragment('#social');
-    }
-
-    public function destroyFooterMenu(string $id): RedirectResponse
-    {
-        $menu = FooterMenu::query()->findOrFail($id);
-        $menu->delete();
-
-        return Redirect::route('admin.customization.index')->with('status', 'Removed successfully!');
     }
 }

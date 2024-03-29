@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ __('Shipping Methods') }} <a href="{{ route('admin.shipping-methods.create') }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h1>
+            <h1 class="mb-2">{{ __('Shipping Methods') }} <a href="{{ route('admin.shipping-methods.create') }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

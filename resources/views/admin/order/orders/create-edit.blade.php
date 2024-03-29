@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ $record ? __('Update Order') . ' | ' . $record->code : __('Create Order') }}</h1>
+            <h1 class="mb-2">{{ $record ? __('Update Order') . ' | ' . $record->code : __('Create Order') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-body">
                         @csrf
                         @if($record)

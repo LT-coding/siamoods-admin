@@ -336,6 +336,10 @@ return [
                     'text' => 'Նվեր Քարտ',
                     'url'  => '#',
                 ],
+                [
+                    'text' => 'Գնահատականներ և կարծիքներ',
+                    'url'  => '#',
+                ],
             ],
         ],
         [
@@ -358,11 +362,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Բաններ',
-                    'url'  => '#',
+                    'url'  => 'admin/banners',
                 ],
                 [
                     'text' => 'Պիտակներ',
-                    'url'  => '#',
+                    'url'  => 'admin/labels',
                 ],
                 [
                     'text' => 'Պրոմոկոդեր',
@@ -370,7 +374,11 @@ return [
                 ],
                 [
                     'text' => 'Ծանուցումներ',
-                    'url'  => '#',
+                    'url'  => 'admin/notifications',
+                ],
+                [
+                    'text' => 'SEO',
+                    'url'  => 'admin/seo',
                 ],
             ],
         ],
@@ -380,23 +388,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Բլոգ',
-                    'url'  => '#',
+                    'url'  => '/admin/blog/contents',
                 ],
                 [
                     'text' => 'Էջեր',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Գնահատականներ և կարծիքներ',
-                    'url'  => '#',
+                    'url'  => '/admin/page/contents',
                 ],
                 [
                     'text' => 'Կարգավորումներ',
-                    'url'  => '#',
+                    'url'  => 'admin/customization',
                 ],
                 [
                     'text' => 'Մենյուներ',
-                    'url'  => '#',
+                    'url'  => 'admin/menus',
                 ],
             ],
         ],

@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">{{ $record ? __('Update ') . ucfirst($style) : __('Create ') . ucfirst($style) }}</h1>
+            <h1 class="mb-2">{{ $record ? __('Update ') . ucfirst($style) : __('Create ') . ucfirst($style) }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

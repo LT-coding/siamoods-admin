@@ -1,12 +1,12 @@
 @php $statuses = \App\Enums\StatusTypes::statusList() @endphp
-<h4>Footer Menus <a href="#add_menu" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել" data-toggle="collapse" data-target="#add_menu"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
+<h4>Footer Menus <a href="#add_menu" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել" data-toggle="collapse" data-target="#add_menu"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
 <div class="row mt-3">
     <div class="col-md-6{{ count($footerMenus) == 0 ? ' d-none' : '' }}">
         @foreach($footerMenus as $menu)
             <form method="post" action="{{ route('admin.footer-menu.update') }}">
                 @csrf
                 <input name="id" value="{{ $menu->id }}" type="hidden"/>
-                <div class="card card-olive card-outline{{ $errors->has($menu->id.'_menu_title') ? '' : ' collapsed-card' }}">
+                <div class="card card-secondary card-outline{{ $errors->has($menu->id.'_menu_title') ? '' : ' collapsed-card' }}">
                     <div class="card-header">
                         <h3 class="card-title mb-0">{{ $menu->menu_title }}</h3>
                         <span class="float-right">
@@ -62,7 +62,7 @@
         <div id="add_menu" class="collapse">
             <form method="post" action="{{ route('admin.footer-menu.store') }}">
                 @csrf
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-header">
                         <h5>Add new menu</h5>
                         <hr>

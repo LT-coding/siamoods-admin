@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Site;
+namespace App\Http\Controllers\Admin\Marketing;
 
 use App\Enums\MetaTypes;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class SeoController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admin.site.seo');
+        return view('admin.marketing.seo.index');
     }
 
     /**

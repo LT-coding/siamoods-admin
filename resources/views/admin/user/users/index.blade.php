@@ -3,18 +3,11 @@
 @section('title', 'Ադմինիստրացիա' )
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="m-0">Ադմինիստրացիա
-                <a href="{{ route('admin.users.create') }}" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել">Ավելացնել</a></h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item active">Ադմինիստրացիա</li>
-            </ol>
-        </div>
-    </div>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item active">Ադմինիստրացիա</li>
+    </ol>
+    <h1 class="mb-2">Ադմինիստրացիա <a href="{{ route('admin.users.create') }}" class="btn btn-outline-danger btn-sm ml-3 float-sm-right" title="Ավելացնել">Ավելացնել</a></h1>
 @stop
 
 @section('content')

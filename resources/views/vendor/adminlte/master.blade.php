@@ -110,6 +110,7 @@
     <script src="{{ asset('libs/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 
+    @include('admin.includes.tiny_editor')
 </body>
 
 </html>

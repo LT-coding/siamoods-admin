@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\ShippingMethodRequest;
 use App\Models\ShippingMethod;
-use App\Services\MediaService;
+use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ShippingMethodController extends Controller

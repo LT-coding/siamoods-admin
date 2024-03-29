@@ -1,10 +1,10 @@
-<h4>Social Links <a href="#add_social" class="btn btn-outline-danger btn-sm ml-3" title="Ավելացնել" data-toggle="collapse" data-target="#add_social"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
+<h4>Social Links <a href="#add_social" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել" data-toggle="collapse" data-target="#add_social"><i class="fa fa-lg fa-fw fa-plus"></i></a></h4>
 <div class="row mt-3">
     <div class="col-md-12">
         <div id="add_social" class="collapse">
             <form method="post" action="{{ route('admin.social.store') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="card card-olive card-outline">
+                <div class="card card-secondary card-outline">
                     <div class="card-body">
                         <h5>Add social link</h5>
                         <hr>
@@ -27,7 +27,7 @@
             </form>
         </div>
         @foreach($socials as $social)
-            <div class="card card-olive card-outline">
+            <div class="card card-secondary card-outline">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-11">

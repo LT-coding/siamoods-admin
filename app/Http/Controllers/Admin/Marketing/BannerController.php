@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Site;
+namespace App\Http\Controllers\Admin\Marketing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Site\BannerRequest;
 use App\Models\Banner;
-use App\Services\MediaService;
+use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -28,14 +28,14 @@ class BannerController extends Controller
     {
         $records = Banner::query()->get();
 
-        return view('admin.site.banners.index', compact('records'));
+        return view('admin.marketing.banners.index', compact('records'));
     }
 
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $record = null;
 
-        return view('admin.site.banners.create-edit', compact('record'));
+        return view('admin.marketing.banners.create-edit', compact('record'));
     }
 
     /**
@@ -50,7 +50,7 @@ class BannerController extends Controller
 
         Banner::query()->create($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
     }
 
     /**
@@ -60,7 +60,7 @@ class BannerController extends Controller
     {
         $record = Banner::query()->findOrFail($id);
 
-        return view('admin.site.banners.create-edit', compact('record'));
+        return view('admin.marketing.banners.create-edit', compact('record'));
     }
 
     /**
@@ -78,7 +78,7 @@ class BannerController extends Controller
 
         $record->update($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
     }
 
     /**

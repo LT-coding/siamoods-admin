@@ -6,7 +6,7 @@ use App\Enums\MetaTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CategoryRequest;
 use App\Models\Category;
-use App\Services\MediaService;
+use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;

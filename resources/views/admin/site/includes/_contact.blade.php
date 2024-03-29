@@ -3,7 +3,7 @@
     <div class="col-md-6">
         <form method="post" action="{{ route('admin.contact.store') }}">
             @csrf
-            <div class="card card-olive card-outline">
+            <div class="card card-secondary card-outline">
                 <div class="card-body">
                     @foreach(App\Enums\ContactTypes::getKeys() as $i => $item)
                         @php $contact = App\Models\Contact::query()->where('type',$item)->first(); @endphp

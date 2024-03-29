@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\RelatedProductRequest;
 use App\Models\Product;
 use App\Models\RelatedProduct;
-use App\Services\MediaService;
+use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;

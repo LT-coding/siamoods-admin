@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Tools;
 
 use Faker\Provider\Uuid;
 use Illuminate\Http\UploadedFile as UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class MediaService
 {
