@@ -16,7 +16,7 @@ class ProductController extends Controller
         //
     }
 
-    public function getData(HaySellRequest $request): array
+    public function products(HaySellRequest $request): array
     {
         $jsonData = $request->json()->all();
 
