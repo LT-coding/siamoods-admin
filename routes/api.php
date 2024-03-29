@@ -32,10 +32,10 @@ Route::middleware([])->group(function () {
     Route::post('details', [DetailController::class, 'details']);
 });
 
-Route::post('idram/result', [PaymentController::class, 'idram']);
-Route::post('idram/fail', [PaymentController::class, 'idramFail']);
-Route::post('telcell/result', [PaymentController::class, 'telcell']);
-Route::post('card/result', [PaymentController::class, 'card']);
+//Route::post('idram/result', [PaymentController::class, 'idram']);
+//Route::post('idram/fail', [PaymentController::class, 'idramFail']);
+//Route::post('telcell/result', [PaymentController::class, 'telcell']);
+//Route::post('card/result', [PaymentController::class, 'card']);
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
