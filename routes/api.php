@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\DetailController;
-use App\Http\Controllers\Api\GeneralCategoryController;
+
 use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\VariationController;
-use App\Http\Controllers\Api\VariationTypesController;
+use App\Http\Controllers\Haysell\CategoryController;
+use App\Http\Controllers\Haysell\DetailController;
+use App\Http\Controllers\Haysell\GeneralCategoryController;
 use App\Http\Controllers\Haysell\ProductController;
+use App\Http\Controllers\Haysell\VariationController;
+use App\Http\Controllers\Haysell\VariationTypesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
