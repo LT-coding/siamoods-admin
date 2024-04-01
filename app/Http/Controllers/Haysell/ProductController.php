@@ -19,6 +19,7 @@ class ProductController extends Controller
 
     public function products(HaySellRequest $request): array
     {
+        Log::info('okk');
         $jsonData = $request->json()->all();
 
         //       variation
