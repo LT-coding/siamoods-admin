@@ -289,7 +289,7 @@ class ProductService
                 $data['haysell_id'] = $this->record->haysell_id ?? 0;
                 $data['type'] = $key;
                 $data['price'] = $price;
-                ProductPrice::updateOrCreate(['haysell_id' => $data['haysell_id'], 'type' => $data['type']], $data);
+                ProductPrice::query()->updateOrCreate(['haysell_id' => $data['haysell_id'], 'type' => $data['type']], $data);
             }
         }
     }
@@ -330,7 +330,7 @@ class ProductService
         if ($this->gift) {
             $data['haysell_id'] = $this->record->haysell_id;
             $data['gift_product_id'] = $this->gift;
-            ProductGift::updateOrCreate(['haysell_id' => $data['haysell_id']], $data);
+            ProductGift::query()->updateOrCreate(['haysell_id' => $data['haysell_id']], $data);
         }
     }
 
@@ -364,7 +364,7 @@ class ProductService
         }
     }
 
-//    varitaion
+//    variation
     public function createVariationTypes($variation_types): void
     {
         foreach ($variation_types as $variation_type)
