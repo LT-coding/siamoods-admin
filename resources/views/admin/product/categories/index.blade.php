@@ -36,7 +36,7 @@
 
         foreach ($records as $item) {
             $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
-            $btnView = '<a href="'.$item->url.'" class="text-info mx-1" title="View" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
+            $btnView = '<a href="'.$item->url.'" class="text-olivemx-1" title="Դիտել" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
             $btnDetails = '<a href="'.route('admin.categories.edit',['category'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.categories.destroy',['category'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
             $row = [$item->id,$item->title,$item->parent?->title, $img, $item->url,$item->extra_shipping_price,$btnView.$btnDetails.$btnDelete];

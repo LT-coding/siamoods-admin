@@ -35,7 +35,7 @@
 
         foreach ($records as $item) {
             $row = [$item->id];
-            $btnView = '<a href="'.$item->product->url.'" class="text-info mx-1" title="View" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
+            $btnView = '<a href="'.$item->product->url.'" class="text-olivemx-1" title="Դիտել" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
             $row = [$item->id,$item->name,$item->comment,$item->rate,$item->product->title,$btnView];
             $config['data'] [] = $row;
         }
