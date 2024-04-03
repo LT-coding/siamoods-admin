@@ -114,7 +114,7 @@ class User extends Authenticatable
     protected function registered(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y')
+            get: fn () => Carbon::parse($this->created_at)->format('d.m.Y')
         );
     }
 
