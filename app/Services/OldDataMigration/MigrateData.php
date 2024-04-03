@@ -108,7 +108,7 @@ class MigrateData
             $newBlog = Content::query()->create($data);
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::blog->name,
+                'type' => MetaTypes::content->name,
                 'model_id' => $newBlog->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,
@@ -123,7 +123,7 @@ class MigrateData
             $newPage = Content::query()->create($data);
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::page->name,
+                'type' => MetaTypes::content->name,
                 'model_id' => $newPage->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,

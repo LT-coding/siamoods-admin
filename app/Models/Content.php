@@ -33,7 +33,7 @@ class Content extends Model
         $query->where('status', StatusTypes::active->value);
     }
 
-    public function metas(): HasOne
+    public function meta(): HasOne
     {
         return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::content->name);
     }
@@ -48,21 +48,21 @@ class Content extends Model
     protected function metaTitle(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->metas ? $this->metas->meta_title : ''
+            get: fn () => $this->meta ? $this->meta->meta_title : ''
         );
     }
 
     protected function metaDescription(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->metas ? $this->metas->meta_description : ''
+            get: fn () => $this->meta ? $this->meta->meta_desc : ''
         );
     }
 
     protected function metaKeywords(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->metas ? $this->metas->meta_keywords : ''
+            get: fn () => $this->meta ? $this->meta->meta_key : ''
         );
     }
 }
