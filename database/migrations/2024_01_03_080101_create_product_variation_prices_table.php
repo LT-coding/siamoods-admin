@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('product_variation_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductVariation::class,'prod_variation_id')->references('variation_haysell_id')->on('product_variations')->cascadeOnDelete();
+            $table->foreignIdFor(ProductVariation::class,'variation_haysell_id')->references('variation_haysell_id')->on('product_variations')->cascadeOnDelete();
             $table->string('type');
             $table->float('price');
             $table->timestamps();

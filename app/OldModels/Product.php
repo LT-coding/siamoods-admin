@@ -2,7 +2,7 @@
 
 namespace App\OldModels;
 
-use App\Services\MediaService;
+use App\Services\Tools\MediaService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

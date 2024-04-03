@@ -56,6 +56,6 @@ class Order extends Model
 
     public function payment(): HasOne
     {
-        return $this->hasOne(Payments::class,'id','payment_id');
+        return $this->hasOne(Payment::class,'id','payment_id');
     }
 }

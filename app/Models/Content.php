@@ -41,7 +41,7 @@ class Content extends Model
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->type == ContentTypes::page->name ? config('app.frontend_url') .'/'. $this->slug : config('app.frontend_url') .'/'.$this->type.'/'. $this->slug
+            get: fn () => $this->type == ContentTypes::page->name ? config('app.frontend_url') .'/'. $this->meta->url : config('app.frontend_url') .'/'.$this->type.'/'. $this->meta->url
         );
     }
 

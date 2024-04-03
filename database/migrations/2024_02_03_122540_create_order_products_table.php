@@ -16,11 +16,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->nullable();
             $table->foreignIdFor(Product::class,'haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
-            $table->unsignedBigInteger('variation_id')->nullable();
+            $table->unsignedBigInteger('variation_haysell_id')->nullable();
             $table->integer('quantity')->default(1);
-            $table->integer('total')->default(0);
+            $table->integer('price')->default(0);
             $table->integer('sale')->default(0);
-            $table->integer('discount_total')->nullable();
+            $table->integer('discount_price')->nullable();
             $table->integer('gift')->default(0);
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
             $table->timestamps();

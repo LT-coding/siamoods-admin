@@ -15,7 +15,23 @@ class Category extends Model
 {
     use HasFactory, ImageLinkTrait;
 
-    protected $guarded = [];
+    protected $fillable=[
+        "id",
+        "general_category_id",
+        "parent_id",
+        "level",
+        "name",
+        "short_url",
+        "image",
+        "logo",
+        "extra_categories",
+        "recommended",
+        "sort",
+        "status",
+        "is_top",
+        "additional",
+        "delete",
+    ];
 
     public function products(): BelongsToMany
     {
@@ -24,7 +40,7 @@ class Category extends Model
 
     public function childCategories(): HasMany
     {
-        return $this->hasMany(__CLASS__, 'parent_id', 'id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     public function metas(): HasOne

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Product::class,'haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
-            $table->text('haysell_image');
+            $table->text('haysell_image')->nullable();
             $table->text('image');
             $table->boolean('is_general')->default(0);
             $table->timestamps();

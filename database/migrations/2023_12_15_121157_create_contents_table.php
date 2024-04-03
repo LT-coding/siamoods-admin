@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ContentTypes::getKeys())->default(ContentTypes::page->name);
             $table->string('title');
-            $table->string('slug');
             $table->text('image')->nullable();
             $table->longText('description');
             $table->boolean('status')->default(StatusTypes::active->value);
+            $table->timestamp('from')->nullable();
+            $table->timestamp('to')->nullable();
             $table->timestamps();
         });
     }

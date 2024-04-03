@@ -20,6 +20,6 @@ class ProductVariation extends Model
 
     public function prices(): HasMany
     {
-        return $this->hasMany(ProductVariationPrice::class, 'prod_variation_id', 'id');
+        return $this->hasMany(ProductVariationPrice::class, 'variation_haysell_id', 'variation_haysell_id');
     }
 }

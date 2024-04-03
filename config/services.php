@@ -33,6 +33,7 @@ return [
 
     'haysell' => [
         'url' => env('HAYSELL_URL'),
+        'actions_url' => env('HAYSELL_ACTIONS_URL'),
         'token' => env('HAYSELL_TOKEN'),
         'profile' => env('HAYSELL_PROFILE_ID'),
     ],
