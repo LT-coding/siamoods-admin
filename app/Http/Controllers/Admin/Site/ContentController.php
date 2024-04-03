@@ -64,7 +64,6 @@ class ContentController extends Controller
         $record = Content::query()->create([
             'type' => $type,
             'title' => $data['title'],
-            'slug' => $data['slug'],
             'image' => $data['image'],
             'description' => $data['description'],
             'status' => $data['status']
@@ -73,8 +72,9 @@ class ContentController extends Controller
         $record->metas()->create([
             'type' => MetaTypes::content->name,
             'meta_title' => $data['meta_title'],
-            'meta_keywords' => $data['meta_keywords'],
-            'meta_description' => $data['meta_description']
+            'meta_key' => $data['meta_keywords'],
+            'meta_desc' => $data['meta_description'],
+            'url' => $data['slug']
         ]);
 
         return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');
@@ -112,7 +112,6 @@ class ContentController extends Controller
 
         $record->update([
             'title' => $data['title'],
-            'slug' => $data['slug'],
             'image' => $data['image'],
             'description' => $data['description'],
             'status' => $data['status']
@@ -120,8 +119,9 @@ class ContentController extends Controller
 
         $record->metas()->update([
             'meta_title' => $data['meta_title'],
-            'meta_keywords' => $data['meta_keywords'],
-            'meta_description' => $data['meta_description']
+            'meta_key' => $data['meta_keywords'],
+            'meta_desc' => $data['meta_description'],
+            'url' => $data['slug']
         ]);
 
         return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');
@@ -133,6 +133,7 @@ class ContentController extends Controller
     public function destroy(string $type, string $id): RedirectResponse
     {
         $record = Content::query()->$type()->findOrFail($id);
+        $record->meta->delete();
         $record->delete();
 
         return back()->with('status', 'Removed successfully');
