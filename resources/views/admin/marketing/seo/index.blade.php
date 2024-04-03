@@ -34,13 +34,13 @@
                             <x-adminlte-input name="page" id="{{ $item }}_page" type="hidden" value="{{ $item }}"/>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <x-adminlte-input name="{{ $item }}_meta_title" label="{{ __('Meta Title') }}" value="{{ old($item .'_meta_title') ?? ($meta ? $meta->meta_title : '') }}"/>
+                                    <x-adminlte-input name="{{ $item }}_meta_title" label="Մետա վերնագիր" value="{{ old($item .'_meta_title') ?? ($meta ? $meta->meta_title : '') }}"/>
                                 </div>
                                 <div class="col-md-6">
-                                    <x-adminlte-input name="{{ $item }}_meta_keywords" label="{{ __('Meta Keywords') }}" value="{{ old($item .'_meta_keywords') ?? ($meta ? $meta->meta_keywords : '') }}"/>
+                                    <x-adminlte-input name="{{ $item }}_meta_keywords" label="Մետա բանալի բառեր" value="{{ old($item .'_meta_keywords') ?? ($meta ? $meta->meta_keywords : '') }}"/>
                                 </div>
                                 <div class="col-md-12">
-                                    <x-adminlte-textarea name="{{ $item }}_meta_description" label="{{ __('Meta Description') }}">{{ old($item .'_meta_description') ?? ($meta ? $meta->meta_description : '') }}</x-adminlte-textarea>
+                                    <x-adminlte-textarea name="{{ $item }}_meta_description" label="Մետա նկարագրություն">{{ old($item .'_meta_description') ?? ($meta ? $meta->meta_description : '') }}</x-adminlte-textarea>
                                 </div>
                             </div>
                             <div class="text-right">

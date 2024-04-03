@@ -65,9 +65,9 @@
             <div class="col-md-4">
                 <div class="card card-secondary card-outline">
                     <div class="card-body">
-                        <x-adminlte-input name="meta_title" label="Meta Title" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
-                        <x-adminlte-input name="meta_keywords" label="Meta Keywords" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
-                        <x-adminlte-textarea name="meta_description" label="{{ __('Meta Description') }}">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
+                        <x-adminlte-input name="meta_title" label="Մետա վերնագիր" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
+                        <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
+                        <x-adminlte-textarea name="meta_description" label="Մետա նկարագրություն">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
                         <div class="text-right">
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>

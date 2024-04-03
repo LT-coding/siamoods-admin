@@ -103,12 +103,12 @@ class MigrateData
         foreach (Blog::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['id','name']);
             $data['title'] = $item->name;
-            $data['image'] = str_replace('https://siamoods.com/','',$item->image);
+            $data['image'] = str_replace('https://siamoods.com','',$item->image);
             $data['type'] = ContentTypes::blog->name;
             $newBlog = Content::query()->create($data);
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::content->name,
+                'type' => MetaTypes::blog->name,
                 'model_id' => $newBlog->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,
@@ -123,7 +123,7 @@ class MigrateData
             $newPage = Content::query()->create($data);
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::content->name,
+                'type' => MetaTypes::page->name,
                 'model_id' => $newPage->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,
@@ -145,7 +145,7 @@ class MigrateData
         }
         foreach (SocialMedia::on('old_db')->get() as $item) {
             $data = $item->toArray();
-            $data['image'] = str_replace('https://siamoods.com/','',$item->image);
+            $data['image'] = str_replace('https://siamoods.com','',$item->image);
             \App\Models\SocialMedia::query()->create($data);
         }
     }
@@ -328,7 +328,7 @@ class MigrateData
         }
         foreach (ShippingType::on('old_db')->get() as $item) {
             $data = $item->toArray();
-            $data['image'] = str_replace('https://siamoods.com/','',$item->image);
+            $data['image'] = str_replace('https://siamoods.com','',$item->image);
             \App\Models\ShippingType::query()->create($data);
         }
         foreach (ShippingArea::on('old_db')->get() as $item) {

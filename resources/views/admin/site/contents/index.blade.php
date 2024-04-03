@@ -13,36 +13,36 @@
 @section('content')
     @php
         $heads = $type == \App\Enums\ContentTypes::page->name ? [
-            ['label' => 'Title', 'width' => 25],
-            ['label' => 'URL', 'width' => 40],
-            ['label' => 'Created At', 'width' => 15],
-            ['label' => 'Status', 'width' => 10],
+            '#',
+            'Վերնագիր',
+            ['label' => 'Կարգավիճակ', 'width' => 10],
+            ['label' => 'Ստեղծման ամսաթիվ', 'width' => 15],
             ['label' => '', 'no-export' => true, 'width' => 8],
         ] : [
-            ['label' => 'Title', 'width' => 25],
-            ['label' => 'Image', 'width' => 10],
-            ['label' => 'URL', 'width' => 40],
-            ['label' => 'Created At', 'width' => 10],
-            ['label' => 'Status', 'width' => 8],
+            '#',
+            'Վերնագիր',
+            ['label' => 'Նկար', 'width' => 10],
+            ['label' => 'Կարգավիճակ', 'width' => 8],
+            ['label' => 'Ստեղծման ամսաթիվ', 'width' => 15],
             ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
             'data' => [],
-            'order' => $type == \App\Enums\ContentTypes::page->name ? [[2, 'desc']] : [[3, 'desc']],
+            'order' => [[0, 'desc']],
             'columns' => $type == \App\Enums\ContentTypes::page->name ? [null, null, null, null, ['orderable' => true]] : [null, null, null, null, null, ['orderable' => true]],
         ];
 
         foreach ($records as $item) {
             $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
             $statusText = \App\Enums\StatusTypes::statusText($item->status);
-            $createdAt = \Carbon\Carbon::parse($item->created_at)->format('m/d/Y H:s');
+            $createdAt = \Carbon\Carbon::parse($item->created_at)->format('m.d.Y');
             $btnView = '<a href="'.$item->url.'" class="text-info mx-1" title="View" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
             $btnDetails = '<a href="'.route('admin.contents.edit',['type' => $type,'content'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.contents.destroy',['type' => $type,'content'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
             $row = $type == \App\Enums\ContentTypes::page->name
-                ? [$item->title, $item->url, $createdAt, $statusText, $btnView.$btnDetails.$btnDelete]
-                : [$item->title, $img, $item->url, $createdAt, $statusText, $btnView.$btnDetails.$btnDelete];
+                ? [$item->id, $item->title, $statusText, $createdAt, $btnView.$btnDetails.$btnDelete]
+                : [$item->id, $item->title, $img, $statusText, $createdAt, $btnView.$btnDetails.$btnDelete];
             $config['data'] [] = $row;
         }
     @endphp

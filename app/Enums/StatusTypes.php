@@ -18,8 +18,8 @@ enum StatusTypes: int
     public static function statusList(): array
     {
         return [
-            self::active->value => "Active",
-            self::inactive->value => "Inactive",
+            self::active->value => "Ակտիվ",
+            self::inactive->value => "Ապաակտիվ",
         ];
     }
 
@@ -29,6 +29,6 @@ enum StatusTypes: int
      */
     public static function statusText(int $s): string
     {
-        return $s == self::inactive->value ? '<span class="text-danger">Inactive</span>' : '<span class="text-success">Active</span>';
+        return $s == self::inactive->value ? '<span class="text-danger">Ապաակտիվ</span>' : '<span class="text-success">Ակտիվ</span>';
     }
 }

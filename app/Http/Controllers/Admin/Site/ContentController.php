@@ -40,8 +40,9 @@ class ContentController extends Controller
     {
         $record = null;
         $typeText = ContentTypes::getConstants()[$type];
+        $typeSingleText = ContentTypes::getText()[$type];
 
-        return view('admin.site.contents.create-edit', compact('type', 'record', 'typeText'));
+        return view('admin.site.contents.create-edit', compact('type', 'record', 'typeText', 'typeSingleText'));
     }
 
     /**
@@ -50,11 +51,6 @@ class ContentController extends Controller
     public function store(ContentRequest $request, string $type): RedirectResponse
     {
         $data = $request->validated();
-
-        $data['slug'] = str_slug($data['title'],'-');
-        if (Content::query()->$type()->where('slug',$data['slug'])->first()) {
-            return back()->withErrors(['slug' => 'The ' . $type . ' with the same URL already exists'])->withInput();
-        }
 
         $imagePath = $request->image
             ? $this->imageService->dispatch($request->image)->upload('content/'.$type)->getUrl()
@@ -69,12 +65,12 @@ class ContentController extends Controller
             'status' => $data['status']
         ]);
 
-        $record->metas()->create([
-            'type' => MetaTypes::content->name,
+        $record->meta()->create([
+            'type' => MetaTypes::getConstants()[$type]->name,
             'meta_title' => $data['meta_title'],
             'meta_key' => $data['meta_keywords'],
             'meta_desc' => $data['meta_description'],
-            'url' => $data['slug']
+            'url' => $data['url']
         ]);
 
         return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');
@@ -88,8 +84,9 @@ class ContentController extends Controller
     {
         $record = Content::query()->$type()->findOrFail($id);
         $typeText = ContentTypes::getConstants()[$type];
+        $typeSingleText = ContentTypes::getText()[$type];
 
-        return view('admin.site.contents.create-edit', compact('type', 'record', 'typeText'));
+        return view('admin.site.contents.create-edit', compact('type', 'record', 'typeText', 'typeSingleText'));
     }
 
     /**
@@ -99,11 +96,6 @@ class ContentController extends Controller
     {
         $data = $request->validated();
         $record = Content::query()->$type()->findOrFail($id);
-
-        $data['slug'] = str_slug($data['title'],'-');
-        if (Content::query()->$type()->where('slug',$data['slug'])->where('id','!=',$id)->first()) {
-            return back()->withInput()->withErrors(['title', 'The ' . $type . ' with the same URL already exists']);
-        }
 
         $imagePath = $request->image
             ? $this->imageService->dispatch($request->image)->upload('content/'.$type)->getUrl()
@@ -117,11 +109,11 @@ class ContentController extends Controller
             'status' => $data['status']
         ]);
 
-        $record->metas()->update([
+        $record->meta()->update([
             'meta_title' => $data['meta_title'],
             'meta_key' => $data['meta_keywords'],
             'meta_desc' => $data['meta_description'],
-            'url' => $data['slug']
+            'url' => $data['url']
         ]);
 
         return Redirect::route('admin.contents.index', ['type' => $type])->with('status', 'Saved successfully');

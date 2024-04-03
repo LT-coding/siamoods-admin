@@ -16,7 +16,7 @@ trait ImageLinkTrait
 
     protected function getImageColumnName(): string
     {
-        $possibleColumnNames = ['icon', 'image'];
+        $possibleColumnNames = ['image'];
 
         foreach ($possibleColumnNames as $columnName) {
             if (!in_array($columnName, $this->guarded)) {

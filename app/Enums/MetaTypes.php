@@ -10,7 +10,8 @@ enum MetaTypes
     use EnumTool;
 
     case static_page;
-    case content;
+    case page;
+    case blog;
     case category;
     case general_cat;
     case product;

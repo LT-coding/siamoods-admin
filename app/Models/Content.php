@@ -35,13 +35,13 @@ class Content extends Model
 
     public function meta(): HasOne
     {
-        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::content->name);
+        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::getConstants()[$this->type]->name);
     }
 
     protected function url(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->type == ContentTypes::page->name ? config('app.frontend_url') .'/'. $this->meta->url : config('app.frontend_url') .'/'.$this->type.'/'. $this->meta->url
+            get: fn () => $this->type == ContentTypes::page->name ? config('app.frontend_url') .'/'. $this->meta_url : config('app.frontend_url') .'/'.$this->type.'/'. $this->meta_url
         );
     }
 
@@ -49,6 +49,13 @@ class Content extends Model
     {
         return Attribute::make(
             get: fn () => $this->meta ? $this->meta->meta_title : ''
+        );
+    }
+
+    protected function metaUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->meta ? $this->meta->url : ''
         );
     }
 
