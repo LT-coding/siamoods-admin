@@ -292,7 +292,7 @@ class MigrateData
             if ($meta) {
                 Meta::query()->create([
                     'type' => MetaTypes::product->name,
-                    'model_id' => $prod->id,
+                    'model_id' => $prod->haysell_id,
                     'meta_title' => $meta->meta_title,
                     'meta_desc' => $meta->meta_desc,
                     'meta_key' => $meta->meta_key,
