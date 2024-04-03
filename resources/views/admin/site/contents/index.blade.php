@@ -17,14 +17,14 @@
             ['label' => 'URL', 'width' => 40],
             ['label' => 'Created At', 'width' => 15],
             ['label' => 'Status', 'width' => 10],
-            ['label' => '', 'no-export' => true, 'width' => 10],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ] : [
             ['label' => 'Title', 'width' => 25],
             ['label' => 'Image', 'width' => 10],
             ['label' => 'URL', 'width' => 40],
-            ['label' => 'Created At', 'width' => 15],
-            ['label' => 'Status', 'width' => 10],
-            ['label' => '', 'no-export' => true, 'width' => 10],
+            ['label' => 'Created At', 'width' => 10],
+            ['label' => 'Status', 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
