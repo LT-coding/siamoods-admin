@@ -13,7 +13,7 @@
 @section('content')
     @php
         $heads = [
-            '#',
+            ['label' => '#', 'width' => 6],
             ['label' => 'Էլ․ հասցե', 'width' => 80],
             ['label' => 'Կարգավիճակ'],
         ];

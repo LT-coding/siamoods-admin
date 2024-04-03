@@ -19,7 +19,7 @@
 @section('content')
     @php
         $heads = [
-            '#',
+            ['label' => '#', 'width' => 6],
             'Title',
             ['label' => 'Show in Filter', 'width' => 20],
             ['label' => '', 'no-export' => true, 'width' => 8],

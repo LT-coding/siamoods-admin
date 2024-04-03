@@ -19,7 +19,7 @@
 @section('content')
     @php
         $heads = [
-            '#',
+            ['label' => '#', 'width' => 6],
             'Name',
             'Comment',
             ['label' => 'Rate', 'width' => 5],

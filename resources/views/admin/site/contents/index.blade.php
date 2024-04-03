@@ -13,13 +13,13 @@
 @section('content')
     @php
         $heads = $type == \App\Enums\ContentTypes::page->name ? [
-            '#',
+            ['label' => '#', 'width' => 6],
             'Վերնագիր',
             ['label' => 'Կարգավիճակ', 'width' => 10],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 15],
             ['label' => '', 'no-export' => true, 'width' => 8],
         ] : [
-            '#',
+            ['label' => '#', 'width' => 6],
             'Վերնագիր',
             ['label' => 'Նկար', 'width' => 10],
             ['label' => 'Կարգավիճակ', 'width' => 8],

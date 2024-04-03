@@ -68,16 +68,36 @@ class MigrateData
     private function migrateUserData(): void
     {
         foreach (User::on('old_db')->get() as $item) {
-            \App\Models\User::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\User::query()->create(array_merge($data, $timestamps));
         }
         foreach (UserPromotion::on('old_db')->get() as $item) {
-            \App\Models\UserPromotion::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\UserPromotion::query()->create(array_merge($data, $timestamps));
         }
         foreach (AccountAddress::on('old_db')->get() as $item) {
-            \App\Models\AccountAddress::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\AccountAddress::query()->create(array_merge($data, $timestamps));
         }
         foreach (Subscriber::on('old_db')->get() as $item) {
-            \App\Models\Subscriber::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Subscriber::query()->create(array_merge($data, $timestamps));
         }
         foreach (DB::connection('old_db')->table('roles')->get() as $item) {
             DB::table('roles')->insert([
@@ -98,14 +118,23 @@ class MigrateData
     private function migrateSiteData(): void
     {
         foreach (Banner::on('old_db')->get() as $item) {
-            \App\Models\Banner::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Banner::query()->create(array_merge($data, $timestamps));
         }
         foreach (Blog::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['id','name']);
             $data['title'] = $item->name;
             $data['image'] = str_replace('https://siamoods.com','',$item->image);
             $data['type'] = ContentTypes::blog->name;
-            $newBlog = Content::query()->create($data);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            $newBlog = Content::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             Meta::query()->create([
                 'type' => MetaTypes::blog->name,
@@ -120,7 +149,11 @@ class MigrateData
             $data = array_except($item->toArray(),['id','name','parent_page','position']);
             $data['title'] = $item->name;
             $data['type'] = ContentTypes::page->name;
-            $newPage = Content::query()->create($data);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            $newPage = Content::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             Meta::query()->create([
                 'type' => MetaTypes::page->name,
@@ -132,33 +165,66 @@ class MigrateData
             ]);
         }
         foreach (Customization::on('old_db')->get() as $item) {
-            \App\Models\Customization::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Customization::query()->create(array_merge($data, $timestamps));
         }
         foreach (Menu::on('old_db')->get() as $item) {
-            \App\Models\Menu::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Menu::query()->create(array_merge($data, $timestamps));
         }
         foreach (Notification::on('old_db')->get() as $item) {
-            \App\Models\Notification::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Notification::query()->create(array_merge($data, $timestamps));
         }
         foreach (Promotion::on('old_db')->get() as $item) {
-            \App\Models\Promotion::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Promotion::query()->create(array_merge($data, $timestamps));
         }
         foreach (SocialMedia::on('old_db')->get() as $item) {
             $data = $item->toArray();
             $data['image'] = str_replace('https://siamoods.com','',$item->image);
-            \App\Models\SocialMedia::query()->create($data);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\SocialMedia::query()->create(array_merge($data, $timestamps));
         }
     }
 
     private function migrateCategoryData(): void
     {
         foreach (GeneralCategory::on('old_db')->get() as $item) {
-            \App\Models\GeneralCategory::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\GeneralCategory::query()->create(array_merge($data, $timestamps));
         }
         foreach (Category::on('old_db')->get() as $item) {
             $data = $item->toArray();
             $data['recommended'] = $item->recomended;
-            $cat = \App\Models\Category::query()->create($data);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            $cat = \App\Models\Category::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             if ($meta) {
                 Meta::query()->create([
@@ -172,26 +238,56 @@ class MigrateData
             }
         }
         foreach (Detail::on('old_db')->get() as $item) {
-            \App\Models\Detail::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Detail::query()->create(array_merge($data, $timestamps));
         }
     }
 
     private function migrateProductData(): void
     {
         foreach (GiftCard::on('old_db')->get() as $item) {
-            \App\Models\GiftCard::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\GiftCard::query()->create(array_merge($data, $timestamps));
         }
         foreach (VariationType::on('old_db')->get() as $item) {
-            \App\Models\VariationType::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\VariationType::query()->create(array_merge($data, $timestamps));
         }
         foreach (Variation::on('old_db')->get() as $item) {
-            \App\Models\Variation::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\Variation::query()->create(array_merge($data, $timestamps));
         }
         foreach (PowerLabel::on('old_db')->get() as $item) {
-            \App\Models\PowerLabel::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\PowerLabel::query()->create(array_merge($data, $timestamps));
         }
         foreach (Product::on('old_db')->get() as $item) {
-            $prod = \App\Models\Product::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            $prod = \App\Models\Product::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             if ($meta) {
                 Meta::query()->create([
@@ -208,32 +304,48 @@ class MigrateData
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductBalance::query()->create($data);
+                \App\Models\ProductBalance::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductCategory::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductCategory::query()->create($data);
+                \App\Models\ProductCategory::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductDetail::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductDetail::query()->create($data);
+                \App\Models\ProductDetail::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductGift::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductGift::query()->create($data);
+                \App\Models\ProductGift::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductImage::on('old_db')->get() as $item) {
@@ -242,24 +354,36 @@ class MigrateData
             $data['image'] = $item->image_path;
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductImage::query()->create($data);
+                \App\Models\ProductImage::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductPowerLabel::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductPowerLabel::query()->create($data);
+                \App\Models\ProductPowerLabel::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductPrice::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductPrice::query()->create($data);
+                \App\Models\ProductPrice::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductRecomendation::on('old_db')->get() as $item) {
@@ -268,55 +392,83 @@ class MigrateData
 
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                ProductRecommendation::query()->create($data);
+                ProductRecommendation::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (RecentlyViewed::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\RecentlyViewed::query()->create($data);
+                \App\Models\RecentlyViewed::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (Review::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\Review::query()->create($data);
+                \App\Models\Review::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (WaitingList::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\WaitingList::query()->create($data);
+                \App\Models\WaitingList::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (WishingList::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\WishingList::query()->create($data);
+                \App\Models\WishingList::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductVariation::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\ProductVariation::query()->create($data);
+                \App\Models\ProductVariation::query()->create(array_merge($data, $timestamps));
             }
         }
         foreach (ProductVariationPrice::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id','prod_variation_id']);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if ($variation = ProductVariation::query()->find($item->prod_variation_id)) {
                 $data['variation_haysell_id'] = $variation->variation_haysell_id;
-                \App\Models\ProductVariationPrice::query()->create($data);
+                \App\Models\ProductVariationPrice::query()->create(array_merge($data, $timestamps));
             }
         }
     }
@@ -324,22 +476,45 @@ class MigrateData
     private function migrateOrderData(): void
     {
         foreach (Payments::on('old_db')->get() as $item) {
-            Payment::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            Payment::query()->create(array_merge($data, $timestamps));
         }
         foreach (ShippingType::on('old_db')->get() as $item) {
             $data = $item->toArray();
             $data['image'] = str_replace('https://siamoods.com','',$item->image);
-            \App\Models\ShippingType::query()->create($data);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\ShippingType::query()->create(array_merge($data, $timestamps));
         }
         foreach (ShippingArea::on('old_db')->get() as $item) {
-            \App\Models\ShippingArea::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\ShippingArea::query()->create(array_merge($data, $timestamps));
         }
         foreach (ShippingRate::on('old_db')->get() as $item) {
-            \App\Models\ShippingRate::query()->create($item->toArray());
+            $data = $item->toArray();
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+            \App\Models\ShippingRate::query()->create(array_merge($data, $timestamps));
         }
         foreach (Order::on('old_db')->where('status','<>',Order::UNDEFINED)->get() as $item) {
             $data = array_except($item->toArray(),['shipping_total','submitted_id','submitted_at']);
             $haysellData = $this->getHaysellOrder($item->id);
+            $timestamps = [
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
             if ($haysellData['status'] == "success") {
                 $orderInfo = $haysellData['order']['order_info'];
                 $orderItems = $haysellData['order']['order_items'];
@@ -348,7 +523,7 @@ class MigrateData
                 $data['total'] = $orderInfo['total'] ?? $item->total ?? 0;
                 $data['paid'] = reset($orderInfo['payment']) ?? $item->paid ?? 0;
                 $data['id'] = $item->id;
-                $order = \App\Models\Order::query()->create($data);
+                $order = \App\Models\Order::query()->create(array_merge($data, $timestamps));
                 $total = $data['paid'] > 20000 ? 0 : $data['delivery_price'];
                 foreach ($orderItems as $key => $orderItem) {
                     $product = Product::on('old_db')->where('haysell_id',$key)->first();
@@ -359,7 +534,7 @@ class MigrateData
                         $itemData['haysell_id'] = $product ? $key : $productVariant->haysell_id;
                         $itemData['variation_haysell_id'] = $productVariant ? $key : null;
                         $itemData['discount_price'] = $orderItem['price']*(1-$orderItem['sale']/100);
-                        \App\Models\OrderProduct::query()->create($itemData);
+                        \App\Models\OrderProduct::query()->create(array_merge($itemData, $timestamps));
                         $total += $itemData['discount_price'];
                     }
                 }

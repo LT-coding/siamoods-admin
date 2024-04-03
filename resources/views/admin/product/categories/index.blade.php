@@ -19,7 +19,7 @@
 @section('content')
     @php
         $heads = [
-            '#',
+            ['label' => '#', 'width' => 6],
             'Title',
             'Parent Category',
             ['label' => 'Image', 'width' => 15],
