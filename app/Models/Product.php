@@ -20,17 +20,17 @@ class Product extends Model
 
     public function balance(): HasOne
     {
-        return $this->hasOne(ProductBalance::class,'product_id','id');
+        return $this->hasOne(ProductBalance::class,'haysell_id','haysell_id');
     }
 
     public function labels(): HasOneThrough
     {
-        return $this->hasOneThrough(PowerLabel::class,ProductPowerLabel::class,'product_id','id');
+        return $this->hasOneThrough(PowerLabel::class,ProductPowerLabel::class,'haysell_id','haysell_id');
     }
 
     public function gift(): HasOne
     {
-        return $this->hasOne(ProductGift::class,'product_id','id');
+        return $this->hasOne(ProductGift::class,'haysell_id','haysell_id');
     }
 
     public function categories(): BelongsToMany
@@ -45,32 +45,32 @@ class Product extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(ProductImage::class,'product_id','id');
+        return $this->hasMany(ProductImage::class,'haysell_id','haysell_id');
     }
 
     public function prices(): HasMany
     {
-        return $this->hasMany(ProductPrice::class, 'product_id', 'id');
+        return $this->hasMany(ProductPrice::class, 'haysell_id','haysell_id');
     }
 
     public function price():HasOne
     {
-        return $this->hasOne(ProductPrice::class, 'product_id', 'id')->where('type','static');
+        return $this->hasOne(ProductPrice::class, 'haysell_id','haysell_id')->where('type','static');
     }
 
     public function cats():HasMany
     {
-        return $this->hasMany(ProductCategory::class, 'product_id', 'id')->where('type','basic');
+        return $this->hasMany(ProductCategory::class, 'haysell_id','haysell_id')->where('type','basic');
     }
 
     public function variations(): HasMany
     {
-        return $this->hasMany(ProductVariation::class, 'product_id', 'id');
+        return $this->hasMany(ProductVariation::class, 'haysell_id','haysell_id');
     }
 
-    public function metas(): HasOne
+    public function meta(): HasOne
     {
-        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::product->name);
+        return $this->hasOne(Meta::class, 'model_id', 'haysell_id')->where('type', MetaTypes::product->name);
     }
 
     public function orders(): BelongsToMany
@@ -80,7 +80,7 @@ class Product extends Model
 
     public function productDetails(): HasMany
     {
-        return $this->hasMany(ProductDetail::class,'product_id','id');
+        return $this->hasMany(ProductDetail::class,'haysell_id','haysell_id');
     }
 
     public function content(): Attribute
