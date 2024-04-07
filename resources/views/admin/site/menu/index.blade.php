@@ -30,7 +30,7 @@
                         <input name="page" class="page" type="hidden" value="0"/>
                         <div class="col-md-9">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h2>Header Menu</h2>
+                                <h4>Header Menu</h4>
                                 <div class="text-right">
                                     <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                                 </div>
@@ -79,7 +79,7 @@
                         <input name="page" class="page" type="hidden" value="1"/>
                         <div class="col-md-9">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h2>Footer Menu</h2>
+                                <h4>Footer Menu</h4>
                                 <div class="text-right">
                                     <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                                 </div>

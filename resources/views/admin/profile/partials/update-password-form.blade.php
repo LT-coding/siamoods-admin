@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 mb-2">Փոխել գաղտնաբառը</h2>
+        <h4 class="text-lg font-medium text-gray-900 mb-2">Փոխել գաղտնաբառը</h4>
     </header>
 
     <form method="post" action="{{ route('admin.password.update') }}">

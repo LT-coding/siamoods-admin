@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 mt-2">Խմբագրել տվյալները</h2>
+        <h4 class="text-lg font-medium text-gray-900 mt-2">Խմբագրել տվյալները</h4>
     </header>
 
     <form method="post" action="{{ route('admin.profile.update') }}">
