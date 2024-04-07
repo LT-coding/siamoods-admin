@@ -51,7 +51,7 @@ ul {
     background: #dee2e650;
 }
 .table .thead-admin th {
-    border-top: 2px solid #dc3545;
+    border-top: 3px solid #dc3545;
     border-bottom: 0;
 }
 .dataTable-admin .table td, .dataTable-admin .table th {
