@@ -22,13 +22,4 @@ enum StatusTypes: int
             self::inactive->value => "Ապաակտիվ",
         ];
     }
-
-    /**
-     * @param int $s
-     * @return string
-     */
-    public static function statusText(int $s): string
-    {
-        return $s == self::inactive->value ? '<span class="text-danger">Ապաակտիվ</span>' : '<span class="text-success">Ակտիվ</span>';
-    }
 }

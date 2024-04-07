@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-md-3">
                                 <x-adminlte-select name="status" label="Կարգավիճակ" data-required="true">
-                                    <x-adminlte-options :options="\App\Enums\Status::statusNames()" :selected="old('status') ? [old('status')] : ($record ? [$record->status] : [])"/>
+                                    <x-adminlte-options :options="\App\Enums\StatusTypes::statusList()" :selected="old('status') ? [old('status')] : ($record ? [$record->status] : [])"/>
                                 </x-adminlte-select>
                             </div>
                         </div>

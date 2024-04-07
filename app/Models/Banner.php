@@ -4,18 +4,13 @@ namespace App\Models;
 
 use App\Enums\StatusTypes;
 use App\Traits\ImageLinkTrait;
-use Illuminate\Database\Eloquent\Builder;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
-    use HasFactory, ImageLinkTrait;
+    use HasFactory, ImageLinkTrait, StatusTrait;
 
     protected $guarded = [];
-
-    public function scopeActive(Builder $query): void
-    {
-        $query->where('status', StatusTypes::active->value);
-    }
 }

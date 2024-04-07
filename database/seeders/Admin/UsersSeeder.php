@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Admin;
 
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,27 +20,27 @@ class UsersSeeder extends Seeder
             'email' => 'info@lt-coding.com',
             'password' => Hash::make('w2009_!indoWs'),
             'status' => 1
-        ])->assignRole(RoleType::developer->name);
+        ])->assignRole(RoleTypes::developer->name);
 
         User::factory()->create([
             'name' => 'HaySell',
             'email' => 'haysell@siamoods.com',
             'password' => Hash::make('x8U5q5PhJ3gu'),
             'status' => 1
-        ])->assignRole(RoleType::haySell->name);
+        ])->assignRole(RoleTypes::haySell->name);
 
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@siamoods.com',
             'password' => Hash::make('password'),
             'status' => 1
-        ])->assignRole(RoleType::admin->name);
+        ])->assignRole(RoleTypes::admin->name);
 
         User::factory()->create([
             'name' => 'Editor',
             'email' => 'editor@siamoods.com',
             'password' => Hash::make('password'),
             'status' => 0
-        ])->assignRole(RoleType::editor->name);
+        ])->assignRole(RoleTypes::editor->name);
     }
 }

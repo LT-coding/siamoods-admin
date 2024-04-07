@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CustomizationPosition;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,18 +17,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
-    use HasFactory;
+    use HasFactory, StatusTrait;
 
     protected $guarded = [];
 
     public function scopeHeaderMenu(Builder $query): void
     {
         $query->where(['type'=>CustomizationPosition::header->name,'parent_id'=>null])->with('children')->orderBy('position');
-    }
-
-    public function scopeActive(Builder $query): void
-    {
-        $query->where('status',1);
     }
 
     public function scopeFooterMenu(Builder $query): void

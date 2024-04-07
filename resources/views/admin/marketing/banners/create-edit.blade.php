@@ -1,26 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', $record ? __('Update Banner') : __('Create Banner'))
+@section('title', $record ? 'Խմբագրել' : 'Ավելացնել նոր բաններ')
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="mb-2">{{ $record ? __('Update Banner') : __('Create Banner') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.banners.index') }}">{{ __('Banners') }}</a></li>
-                <li class="breadcrumb-item active">{{ $record ? __('Update Banner') : __('Create Banner') }}</li>
-            </ol>
-        </div>
-    </div>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.banners.index') }}">Բաններ</a></li>
+        <li class="breadcrumb-item active">{{ $record ? 'Խմբագրել' : 'Ավելացնել նոր բաններ' }}</li>
+    </ol>
+    <h1 class="mb-2">{{ $record ? 'Խմբագրել' : 'Ավելացնել նոր բաններ' }}</h1>
 @stop
 
 @section('content')
-    @php $statuses = \App\Enums\StatusTypes::statusList(); $types = \App\Enums\BannerTypes::typeList() @endphp
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="card card-danger card-outline">
                 <div class="card-body">
                     <form action="{{ $record ? route('admin.banners.update',['banner'=>$record->id]) : route('admin.banners.store') }}" method="post" enctype="multipart/form-data">
@@ -30,58 +23,33 @@
                             <input name="id" type="hidden" value="{{ $record->id }}"/>
                             <img src="{{ $record->image_link }}" alt="image" style="max-height:150px;max-width: 100%;">
                         @endif
-                        <div class="fields-group">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <x-adminlte-select name="type" label="Select Banner Location" id="banner_location">
-                                        <x-adminlte-options :options="$types" :selected="old('type') ?? ($record ? [$record->type] : [])"/>
-                                    </x-adminlte-select>
-                                </div>
-                                <div class="col-md-3">
-                                    <x-adminlte-input name="image" label="{{ __('Banner Image') }}" type="file"/>
-                                </div>
-                                <div class="col-md-5">
-                                    <x-adminlte-input name="title" label="Title" value="{{ old('title') ?? ($record ? $record->title : '') }}"/>
-                                </div>
-                                <div class="col-md-2">
-                                    <x-adminlte-select name="status" label="Status">
-                                        <x-adminlte-options :options="$statuses" :selected="old('status') ?? ($record ? [$record->status] : [])"/>
-                                    </x-adminlte-select>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <x-adminlte-input name="name" label="Անուն" value="{{ old('name') ?? ($record ? $record->name : '') }}" data-required="true"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <x-adminlte-input name="subtitle" label="Subtitle" value="{{ old('subtitle') ?? ($record ? $record->subtitle : '') }}"/>
-                                </div>
-                                <div class="col-md-6 show-header{{old('type') && old('type')=='home' ? ' d-none' : ''}}">
-                                    <x-adminlte-input name="offer_text" label="Offer Text" value="{{ old('offer_text') ?? ($record ? $record->offer_text : '') }}"/>
-                                </div>
+                            <div class="col-md-4">
+                                <x-adminlte-select name="type" label="Տեսակ" data-required="true">
+                                    <x-adminlte-options :options="$types" :selected="old('type') ?? ($record ? [$record->type] : [])"/>
+                                </x-adminlte-select>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <x-adminlte-input name="main_button_text" label="Main Button Text" value="{{ old('main_button_text') ?? ($record ? $record->main_button_text : '') }}"/>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <x-adminlte-input name="main_button_url" label="Main Button URL" value="{{ old('main_button_url') ?? ($record ? $record->main_button_url : '') }}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 show-header{{old('type') && old('type')=='home' ? ' d-none' : ''}}">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <x-adminlte-input name="secondary_button_text" label="Secondary Button Text" value="{{ old('secondary_button_text') ?? ($record ? $record->secondary_button_text : '') }}"/>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <x-adminlte-input name="secondary_button_url" label="Secondary Button URL" value="{{ old('secondary_button_url') ?? ($record ? $record->secondary_button_url : '') }}"/>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
                             </div>
-                            <div class="text-right">
-                                <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
+                            <div class="col-md-3">
+                                <x-adminlte-select name="status" label="Կարգավիճակ">
+                                    <x-adminlte-options :options="$statuses" :selected="old('status') ?? ($record ? [$record->status] : [])"/>
+                                </x-adminlte-select>
                             </div>
+                            <div class="col-md-6">
+                                <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->url : '') }}"/>
+                            </div>
+                        </div>
+                        <x-adminlte-input-switch name="new_tab" label="Բացել նոր էջում" :checked="old('new_tab') ?? $record && $record->new_tab == 1"/>
+
+                        <div class="text-right">
+                            <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </form>
                 </div>

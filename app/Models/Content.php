@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Enums\ContentTypes;
 use App\Enums\MetaTypes;
-use App\Enums\StatusTypes;
 use App\Traits\ImageLinkTrait;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Content extends Model
 {
-    use HasFactory, ImageLinkTrait;
+    use HasFactory, ImageLinkTrait, StatusTrait;
 
     protected $guarded = [];
 
@@ -26,11 +26,6 @@ class Content extends Model
     public function scopeBlog(Builder $query): void
     {
         $query->where('type', ContentTypes::blog->name);
-    }
-
-    public function scopeActive(Builder $query): void
-    {
-        $query->where('status', StatusTypes::active->value);
     }
 
     public function meta(): HasOne

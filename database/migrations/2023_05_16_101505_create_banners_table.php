@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('type');
-            $table->longText('media')->nullable();
+            $table->longText('image')->nullable();
             $table->string('url')->nullable();
             $table->integer('status');
             $table->boolean('new_tab')->default(0);

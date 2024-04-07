@@ -5,7 +5,7 @@ namespace App\Enums;
 /**
  *
  */
-enum RoleType: string
+enum RoleTypes: string
 {
     use EnumTool;
 

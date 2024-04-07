@@ -3,8 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\RoleType;
-use App\Enums\Status;
+use App\Enums\RoleTypes;
+use App\Traits\StatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, StatusTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -91,20 +91,7 @@ class User extends Authenticatable
     protected function roleName(): Attribute
     {
         return Attribute::make(
-            get: fn () => RoleType::getConstants()[$this->getRoleNames()[0]]
-        );
-    }
-
-    /**
-     * User status.
-     *
-     * @return Attribute
-     */
-    protected function statusText(): Attribute
-    {
-        $class = $this->status == 0 ? 'text-danger' : 'text-success';
-        return Attribute::make(
-            get: fn () => "<span class='".$class."'>" . Status::statusNames()[$this->status]->value . "</span>"
+            get: fn () => RoleTypes::getConstants()[$this->getRoleNames()[0]]
         );
     }
 
@@ -122,11 +109,11 @@ class User extends Authenticatable
 
     public function scopeAccounts(Builder $query): void
     {
-        $query->role(RoleType::account->name);
+        $query->role(RoleTypes::account->name);
     }
 
     public function scopeAdmins(Builder $query): void
     {
-        $query->role(RoleType::adminRoles());
+        $query->role(RoleTypes::adminRoles());
     }
 }

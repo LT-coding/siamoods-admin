@@ -3,17 +3,11 @@
 @section('title', 'Պրոֆիլ')
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="mb-2">Պրոֆիլ</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item active">Պրոֆիլ</li>
-            </ol>
-        </div>
-    </div>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item active">Պրոֆիլ</li>
+    </ol>
+    <h1 class="mb-2">Պրոֆիլ</h1>
 @stop
 
 @section('content')

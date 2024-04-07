@@ -118,7 +118,8 @@ class MigrateData
     private function migrateSiteData(): void
     {
         foreach (Banner::on('old_db')->get() as $item) {
-            $data = $item->toArray();
+            $data = array_except($item->toArray(),['media']);
+            $data['image'] = $item->media;
             $timestamps = [
                 'created_at' => $item->created_at,
                 'updated_at' => $item->updated_at,

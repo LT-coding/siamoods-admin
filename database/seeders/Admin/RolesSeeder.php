@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Admin;
 
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -15,11 +15,11 @@ class RolesSeeder extends Seeder
     public function run(): void
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        Role::create(['name' => RoleType::developer->name]);
-        Role::create(['name' => RoleType::admin->name]);
-        Role::create(['name' => RoleType::account->name]);
-        Role::create(['name' => RoleType::editor->name]);
-        Role::create(['name' => RoleType::haySell->name]);
+        Role::create(['name' => RoleTypes::developer->name]);
+        Role::create(['name' => RoleTypes::admin->name]);
+        Role::create(['name' => RoleTypes::account->name]);
+        Role::create(['name' => RoleTypes::editor->name]);
+        Role::create(['name' => RoleTypes::haySell->name]);
 
     }
 }

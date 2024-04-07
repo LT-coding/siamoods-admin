@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Marketing;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class BannerRequest extends FormRequest
 {
@@ -24,12 +25,12 @@ class BannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['required'],
-            'type'=>['required'],
-            'media'=>['required'],
-            'url'=>['nullable','url'],
-            'new_tab'=>['nullable'],
-            'status'=>['required'],
+            'name' => ['required'],
+            'type' => ['required'],
+            'image' => [Rule::requiredIf(fn () => !$this->id)],
+            'url' => ['nullable','url'],
+            'new_tab' => ['nullable'],
+            'status' => ['required'],
         ];
     }
 }

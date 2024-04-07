@@ -28,7 +28,7 @@
             $statusSelect = '<select name="status" class="form-control status-change" data-id="'.$item->id.'">';
             foreach ($statuses as $key => $value) {
                 $selected = $key == $item->status ? 'selected' : '';
-                $statusSelect .= '<option value="'.$key.'" '.$selected.'>'.$value->value.'</option>';
+                $statusSelect .= '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
             }
             $statusSelect .= '</select>';
 

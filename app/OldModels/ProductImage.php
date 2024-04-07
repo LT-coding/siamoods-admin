@@ -2,7 +2,7 @@
 
 namespace App\OldModels;
 
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use App\Services\Tools\MediaService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

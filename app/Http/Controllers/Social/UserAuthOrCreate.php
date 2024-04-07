@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Social;
 
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +25,7 @@ trait UserAuthOrCreate
             ]
         );
         $user->markEmailAsVerified();
-        $user->assignRole(RoleType::account->name);
+        $user->assignRole(RoleTypes::account->name);
 
         event(new Registered($user));
 

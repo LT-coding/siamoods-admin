@@ -3,7 +3,7 @@
 namespace App\Services\Haysell;
 
 use App\Enums\MetaTypes;
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use App\Models\Category;
 use App\Models\Detail;
 use App\Models\GeneralCategory;
@@ -475,7 +475,7 @@ class ProductService
                     $data['discount'] = (int)$matches[1];
                 }
 
-                User::query()->updateOrCreate(['email'=>$data['email']],$data)->assignRole(RoleType::account->name);
+                User::query()->updateOrCreate(['email'=>$data['email']],$data)->assignRole(RoleTypes::account->name);
             }
         }
     }

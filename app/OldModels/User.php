@@ -3,7 +3,7 @@
 namespace App\OldModels;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -62,12 +62,12 @@ class User extends Authenticatable
 
     public function isAdmin(): Attribute
     {
-        return Attribute::make(get: fn($value) => $this->hasRole(RoleType::only(['admin','developer','editor'])));
+        return Attribute::make(get: fn($value) => $this->hasRole(RoleTypes::only(['admin','developer','editor'])));
     }
 
     public function isAccount(): Attribute
     {
-        return Attribute::make(get: fn($value) => $this->hasRole(RoleType::only(['account'])));
+        return Attribute::make(get: fn($value) => $this->hasRole(RoleTypes::only(['account'])));
     }
 
     public function fullName(): Attribute

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Enums\RoleType;
+use App\Enums\RoleTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserRequest;
 use App\Mail\GreetingEmail;
@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $roles = RoleType::adminRolesList();
+        $roles = RoleTypes::adminRolesList();
         $record = null;
 
         return view('admin.user.users.create-edit', compact('record', 'roles'));
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $roles = RoleType::adminRolesList();
+        $roles = RoleTypes::adminRolesList();
         $record = User::query()->admins()->findOrFail($id);
 
         return view('admin.user.users.create-edit', compact('record', 'roles'));

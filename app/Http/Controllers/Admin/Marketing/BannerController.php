@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Marketing;
 
+use App\Enums\BannerTypes;
+use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\BannerRequest;
 use App\Models\Banner;
@@ -34,8 +36,10 @@ class BannerController extends Controller
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $record = null;
+        $statuses = StatusTypes::statusList();
+        $types = BannerTypes::typeList();
 
-        return view('admin.marketing.banners.create-edit', compact('record'));
+        return view('admin.marketing.banners.create-edit', compact('record', 'statuses', 'types'));
     }
 
     /**
@@ -59,8 +63,10 @@ class BannerController extends Controller
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $record = Banner::query()->findOrFail($id);
+        $statuses = StatusTypes::statusList();
+        $types = BannerTypes::typeList();
 
-        return view('admin.marketing.banners.create-edit', compact('record'));
+        return view('admin.marketing.banners.create-edit', compact('record', 'statuses', 'types'));
     }
 
     /**

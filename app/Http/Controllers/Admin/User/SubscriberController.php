@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Enums\Status;
+use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
 use App\Models\User;
@@ -31,7 +31,7 @@ class SubscriberController extends Controller
         }
 
         $records = $subscribers->get();
-        $statuses = Status::statusNames();
+        $statuses = StatusTypes::statusList();
 
         return view('admin.user.subscribers.index', compact('records','statuses'));
     }

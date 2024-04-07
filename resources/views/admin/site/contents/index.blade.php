@@ -35,14 +35,13 @@
 
         foreach ($records as $item) {
             $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
-            $statusText = \App\Enums\StatusTypes::statusText($item->status);
             $createdAt = \Carbon\Carbon::parse($item->created_at)->format('m.d.Y');
             $btnView = '<a href="'.$item->url.'" class="text-olivemx-1" title="Դիտել" target="_blank"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
             $btnDetails = '<a href="'.route('admin.contents.edit',['type' => $type,'content'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.contents.destroy',['type' => $type,'content'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
             $row = $type == \App\Enums\ContentTypes::page->name
-                ? [$item->id, $item->title, $statusText, $createdAt, $btnView.$btnDetails.$btnDelete]
-                : [$item->id, $item->title, $img, $statusText, $createdAt, $btnView.$btnDetails.$btnDelete];
+                ? [$item->id, $item->title, $item->status_text, $createdAt, $btnView.$btnDetails.$btnDelete]
+                : [$item->id, $item->title, $img, $item->status_text, $createdAt, $btnView.$btnDetails.$btnDelete];
             $config['data'] [] = $row;
         }
     @endphp
