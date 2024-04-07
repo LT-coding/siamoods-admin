@@ -38,7 +38,7 @@
                                 <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
                             </div>
                             <div class="col-md-3">
-                                <x-adminlte-select name="status" label="Կարգավիճակ">
+                                <x-adminlte-select name="status" label="Կարգավիճակ" data-required="true">
                                     <x-adminlte-options :options="$statuses" :selected="old('status') ?? ($record ? [$record->status] : [])"/>
                                 </x-adminlte-select>
                             </div>
