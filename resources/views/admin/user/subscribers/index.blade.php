@@ -21,7 +21,7 @@
         $config = [
             'data' => [],
             'order' => [[0, 'desc']],
-            'columns' => [null, null, ['orderable' => false]],
+            'columns' => [null, null, ['orderable' => true]],
         ];
 
         foreach ($records as $item) {
