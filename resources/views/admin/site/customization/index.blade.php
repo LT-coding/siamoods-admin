@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 mt-4">
-                                <h4>Սոցիալական ցանցեր <i class="ml-2 fa-solid fa-square-plus add-social" data-url="{{route('admin.customization.socials','')}}"></i></h4>
+                                <h5>Սոցիալական ցանցեր <i class="ml-2 fa-solid fa-square-plus add-social" data-url="{{route('admin.customization.socials','')}}"></i></h5>
                                 <div class="col-md-9 offset-md-3">
                                     <div class="socials">
                                         @if($socials)

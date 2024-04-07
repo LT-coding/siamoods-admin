@@ -26,9 +26,9 @@
                 @foreach(App\Enums\StaticPages::getKeys() as $i => $item)
                     @php $meta = App\Models\Meta::query()->where('page',$item)->first(); @endphp
                     <div class="tab-pane fade{{ $i == 0 ? ' active show' : '' }}" id="tab-{{$item}}" role="tabpanel">
-                        <h4>
+                        <h5>
                             {{ App\Enums\StaticPages::getConstants()[$item] }} էջի SEO
-                        </h4>
+                        </h5>
                         <form method="post" action="{{ route('admin.seo.store') }}">
                             @csrf
                             <x-adminlte-input name="page" id="{{ $item }}_page" type="hidden" value="{{ $item }}"/>

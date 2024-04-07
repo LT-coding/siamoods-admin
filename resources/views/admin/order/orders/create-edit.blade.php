@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="card card-body card-outline p-2">
-                    <h4>Personal Information</h4>
+                    <h5>Personal Information</h5>
                     <p class="text-bold">{{ $personal['name'] . ' ' . $personal['lastname'] . ' (' . $personal['email'] . ')' }}</p>
                     <p>{{ $personal['phone'] }}</p>
                     <p>{{ isset($personal['date_of_birth']) ? Carbon\Carbon::parse($personal['date_of_birth'])->format('d F, Y') : '' }}</p>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-sm-7">
                 <div class="card card-body card-outline p-2">
-                    <h4>Shipping Information</h4>
+                    <h5>Shipping Information</h5>
                     @php $first = $shipping['name'] ?? $personal['name']; $last = $shipping['lastname'] ?? $personal['lastname']; @endphp
                     <dl class="row mb-0">
                         <dt class="col-sm-4">Full name</dt>
@@ -62,7 +62,7 @@
                                 <div class="card card-body card-outline p-2">
                                     <p class="text-bold">{{ Carbon\Carbon::parse($record->paid_at)->format('d F, Y h:i') }}</p>
                                     <p class="text-bold">Order Status <span class="text-lg d-inline-block ml-3">{{ \App\Enums\OrderStatuses::getConstants()[$record->status] }}</span></p>
-                                    <h4>Payment Information</h4>
+                                    <h5>Payment Information</h5>
                                     <dl class="row mb-0">
                                         <dt class="col-sm-4">Payment Method</dt>
                                         <dd class="col-sm-8">{{ $record->payment_method }}</dd>

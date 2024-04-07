@@ -55,7 +55,7 @@
                 @if($record->images()->count() > 0)
                     <div class="card card-info card-outline">
                         <div class="card-body">
-                            <h4>{{ $styleText }}</h4>
+                            <h5>{{ $styleText }}</h5>
                             <div class="row">
                                 @foreach($record->images()->get() as $image)
                                     <div class="col-md-3">
