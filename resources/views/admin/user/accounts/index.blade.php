@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Հաշիվներ' )
+@section('title', 'Հաշիվներ')
 
 @section('content_header')
     <ol class="breadcrumb mb-3">

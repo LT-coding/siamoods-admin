@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', __('State Taxes') )
+@section('title', __('State Taxes'))
 
 @section('content_header')
     <div class="row mb-2">

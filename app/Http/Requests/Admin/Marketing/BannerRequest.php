@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Site;
+namespace App\Http\Requests\Admin\Marketing;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PageRequest extends FormRequest
+class BannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,18 +19,17 @@ class PageRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             'name'=>['required'],
-            'description'=>['required'],
-            'parent_page'=>['nullable'],
-            'position'=>['required'],
-            'status'=>['nullable'],
-            'meta.url'=>['required'],
-            'meta'=>[]
+            'type'=>['required'],
+            'media'=>['required'],
+            'url'=>['nullable','url'],
+            'new_tab'=>['nullable'],
+            'status'=>['required'],
         ];
     }
 }

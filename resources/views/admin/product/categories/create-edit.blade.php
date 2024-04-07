@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', $record ? __('Update Category') . ' | ' . $record->title : __('Create Category') )
+@section('title', $record ? __('Update Category') . ' | ' . $record->title : __('Create Category'))
 
 @section('content_header')
     <div class="row mb-2">

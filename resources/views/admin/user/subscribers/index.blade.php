@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Բաժանորդագրություն' )
+@section('title', 'Բաժանորդագրություն')
 
 @section('content_header')
     <ol class="breadcrumb mb-3">

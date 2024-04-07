@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', __('Testimonials') )
+@section('title', __('Testimonials'))
 
 @section('content_header')
     <div class="row mb-2">

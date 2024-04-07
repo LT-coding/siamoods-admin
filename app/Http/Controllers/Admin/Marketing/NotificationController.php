@@ -2,36 +2,58 @@
 
 namespace App\Http\Controllers\Admin\Marketing;
 
+use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Site\NotificationRequest;
-use App\Mail\SendCustomMail;
+use App\Http\Requests\Admin\Marketing\NotificationRequest;
 use App\Models\Notification;
 use App\Models\Subscriber;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class NotificationController extends Controller
 {
-    public function index(){
-        $notifications = Notification::all();
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $records = Notification::query()->get();
         $types = Notification::TYPES;
-        return view('admin.marketing.notification.index',compact(['notifications','types']));
+
+        return view('admin.marketing.notifications.index', compact('records', 'types'));
     }
 
-    public function edit($id){
-        $notification = Notification::query()->find($id);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $record = Notification::query()->findOrFail($id);
         $types = Notification::TYPES;
-        return view('admin.marketing.notification.edit',compact(['notification','types']));
+
+        return view('admin.marketing.notifications.create-edit', compact('record', 'types'));
     }
 
-    public function update(NotificationRequest $notificationRequest,$id){
-        $notification = Notification::query()->find($id);
-        $notification->update($notificationRequest->validated());
-        if($notificationRequest->send){
-            $subscribers = Subscriber::query()->where('status',Subscriber::ACTIVE)->get();
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(NotificationRequest $request, string $id): RedirectResponse
+    {
+        $data = $request->validated();
+        $record = Notification::query()->findOrFail($id);
+        $record->update(array_except($data,['send']));
+
+        if($request->send){
+            $subscribers = Subscriber::query()->where('status',StatusTypes::active)->get();
             foreach ($subscribers as $sub){
                 Mail::to($sub->email)->send(new SendCustomMail());
             }
         }
-        return redirect()->route('admin.notifications.index');
+
+        return Redirect::route('admin.notifications.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', $record ? 'Խմբագրել օգտատիրոջ տվյալները' : 'Ավելացնել նոր օգտատեր' )
+@section('title', $record ? 'Խմբագրել օգտատիրոջ տվյալները' : 'Ավելացնել նոր օգտատեր')
 
 @section('content_header')
     <ol class="breadcrumb mb-3">

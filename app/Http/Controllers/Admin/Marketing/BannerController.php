@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Marketing;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Site\BannerRequest;
+use App\Http\Requests\Admin\Marketing\BannerRequest;
 use App\Models\Banner;
 use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
@@ -50,7 +50,7 @@ class BannerController extends Controller
 
         Banner::query()->create($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**
@@ -78,7 +78,7 @@ class BannerController extends Controller
 
         $record->update($data);
 
-        return Redirect::route('admin.banners.index')->with('status', 'Saved successfully');
+        return Redirect::route('admin.banners.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
 
     /**

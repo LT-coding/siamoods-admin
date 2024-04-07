@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', $typeText )
+@section('title', $typeText)
 
 @section('content_header')
     <ol class="breadcrumb mb-3">

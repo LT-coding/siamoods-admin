@@ -9,7 +9,7 @@ Route::resource('banners', BannerController::class)->except([
     'show'
 ]);
 Route::resource('notifications', NotificationController::class)->except([
-    'create', 'show', 'delete'
+    'create', 'store', 'show', 'delete'
 ]);
 
 Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
