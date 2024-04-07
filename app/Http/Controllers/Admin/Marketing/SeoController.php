@@ -36,10 +36,10 @@ class SeoController extends Controller
             'page' => $request->page,
         ],[
             'meta_title' => $request->$title,
-            'meta_keywords' => $request->$keywords,
-            'meta_description' => $request->$description
+            'meta_key' => $request->$keywords,
+            'meta_desc' => $request->$description
         ]);
 
-        return Redirect::route('admin.seo.index')->with('status', 'Saved successfully!')->withFragment('#tab-'.$request->page);
+        return Redirect::route('admin.seo.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են')->withFragment('#tab-'.$request->page);
     }
 }

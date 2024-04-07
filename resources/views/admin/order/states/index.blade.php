@@ -29,7 +29,7 @@
             $config = [
                 'data' => [],
                 'order' => [[2, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => true]],
+                'columns' => [null, null, null, null, ['orderable' => false]],
             ];
 
             foreach ($records as $record) {

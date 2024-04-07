@@ -30,7 +30,7 @@
         $config = [
             'data' => [],
             'order' => [[0, 'desc']],
-            'columns' => $type == \App\Enums\ContentTypes::page->name ? [null, null, null, null, ['orderable' => true]] : [null, null, null, null, null, ['orderable' => true]],
+            'columns' => $type == \App\Enums\ContentTypes::page->name ? [null, null, null, null, ['orderable' => false]] : [null, null, null, null, null, ['orderable' => false]],
         ];
 
         foreach ($records as $item) {

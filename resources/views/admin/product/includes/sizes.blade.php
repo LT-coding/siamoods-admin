@@ -12,7 +12,7 @@
             $config = [
                 'data' => [],
                 'order' => [[0, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => true]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
             ];
 
             foreach ($sizes as $size) {

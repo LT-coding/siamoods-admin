@@ -10,7 +10,7 @@
             $config = [
                 'data' => [],
                 'order' => [[0, 'asc']],
-                'columns' => [null, null, null, ['orderable' => true]],
+                'columns' => [null, null, null, ['orderable' => false]],
             ];
 
             foreach ($relatedProducts as $product) {

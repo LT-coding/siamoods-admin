@@ -8,6 +8,9 @@ img {
 a, .page-link {
     color: #183766;
 }
+ul {
+    list-style: none;
+}
 .page-item.active .page-link,
 .dropdown-item.active, .dropdown-item:active {
     background-color: #183766;
@@ -45,12 +48,18 @@ a, .page-link {
     font-size: 1.3rem;
 }
 .thead-admin {
-    background: #00000030;
+    background: #dee2e650;
+}
+.table .thead-admin th {
+    border-top: 2px solid #dc3545;
+    border-bottom: 0;
 }
 .dataTable-admin .table td, .dataTable-admin .table th {
     padding: 0.5rem 0.75rem;
 }
-
+.categories-list .form-group {
+    margin-bottom: 0;
+}
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1366px;

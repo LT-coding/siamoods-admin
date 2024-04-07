@@ -13,7 +13,7 @@
 @section('content')
     <div class="card card-danger card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
-            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+            <ul class="nav nav-tabs" id="tab" role="tablist">
                 @foreach(App\Enums\StaticPages::getKeys() as $i => $item)
                     <li class="nav-item">
                         <a class="nav-link{{ $i == 0 ? ' active' : '' }}" id="{{$item}}-tab" data-toggle="pill" href="#tab-{{$item}}" role="tab">{{ App\Enums\StaticPages::getConstants()[$item] }}</a>
@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="card-body">
-            <div class="tab-content" id="custom-tabs-four-tabContent">
+            <div class="tab-content" id="tabContent">
                 @foreach(App\Enums\StaticPages::getKeys() as $i => $item)
                     @php $meta = App\Models\Meta::query()->where('page',$item)->first(); @endphp
                     <div class="tab-pane fade{{ $i == 0 ? ' active show' : '' }}" id="tab-{{$item}}" role="tabpanel">
@@ -37,10 +37,10 @@
                                     <x-adminlte-input name="{{ $item }}_meta_title" label="Մետա վերնագիր" value="{{ old($item .'_meta_title') ?? ($meta ? $meta->meta_title : '') }}"/>
                                 </div>
                                 <div class="col-md-6">
-                                    <x-adminlte-input name="{{ $item }}_meta_keywords" label="Մետա բանալի բառեր" value="{{ old($item .'_meta_keywords') ?? ($meta ? $meta->meta_keywords : '') }}"/>
+                                    <x-adminlte-input name="{{ $item }}_meta_keywords" label="Մետա բանալի բառեր" value="{{ old($item .'_meta_keywords') ?? ($meta ? $meta->meta_key : '') }}"/>
                                 </div>
                                 <div class="col-md-12">
-                                    <x-adminlte-textarea name="{{ $item }}_meta_description" label="Մետա նկարագրություն">{{ old($item .'_meta_description') ?? ($meta ? $meta->meta_description : '') }}</x-adminlte-textarea>
+                                    <x-adminlte-textarea name="{{ $item }}_meta_description" label="Մետա նկարագրություն">{{ old($item .'_meta_description') ?? ($meta ? $meta->meta_desc : '') }}</x-adminlte-textarea>
                                 </div>
                             </div>
                             <div class="text-right">
