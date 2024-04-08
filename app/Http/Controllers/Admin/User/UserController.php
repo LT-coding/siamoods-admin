@@ -92,6 +92,6 @@ class UserController extends Controller
         $record = User::query()->admins()->findOrFail($id);
         $record->delete();
 
-        return back()->with('status', 'Removed successfully');
+        return back()->with('status', 'Հաջողությամբ հեռացված է');
     }
 }

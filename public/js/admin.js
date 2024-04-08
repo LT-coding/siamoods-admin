@@ -37,4 +37,10 @@ $(function(){
             success: function (result) {}
         });
     })
+
+    $(document).on('change', '.pro-type-select', function () {
+        let value = $(this).val();
+        $('.pro-type').hide().find('input').attr('name', '');
+        $('.pro-type-' + value).show().find('input').attr('name', 'value');
+    });
 });

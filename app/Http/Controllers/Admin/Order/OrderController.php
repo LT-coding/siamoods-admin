@@ -78,6 +78,6 @@ class OrderController extends Controller
         $record = Order::query()->findOrFail($id);
         $record->delete();
 
-        return back()->with('status', 'Removed successfully');
+        return back()->with('status', 'Հաջողությամբ հեռացված է');
     }
 }

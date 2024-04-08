@@ -88,7 +88,7 @@ class ProductController extends Controller
         $record = Product::query()->findOrFail($id);
         $record->delete();
 
-        return back()->with('status', 'Removed successfully');
+        return back()->with('status', 'Հաջողությամբ հեռացված է');
     }
 
     private function saveProduct($data): Builder|Model

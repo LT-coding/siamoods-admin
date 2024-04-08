@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PowerLabel extends Model
 {
-    use HasFactory;
+    use HasFactory, StatusTrait;
 
     protected $guarded = [];
 }

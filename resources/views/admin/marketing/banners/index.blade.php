@@ -7,9 +7,7 @@
         <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
         <li class="breadcrumb-item active">Բաններ</li>
     </ol>
-    <h1 class="mb-2">Բաններ <a href="{{ route('admin.banners.create') }}"
-                               class="btn btn-outline-danger btn-sm ml-3 float-sm-right" title="Ավելացնել">Ավելացնել</a>
-    </h1>
+    <h1 class="mb-2">Բաններ <a href="{{ route('admin.banners.create') }}" class="btn btn-outline-danger btn-sm ml-3 float-sm-right" title="Ավելացնել">Ավելացնել</a></h1>
 @stop
 
 @section('content')

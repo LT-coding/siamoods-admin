@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
 {
-    use HasFactory;
-
-    const DISCOUNT = 1;
-    const FREE_DELIVERY = 0;
-    const PRICE_REDUCTION = 2;
+    use HasFactory, StatusTrait;
 
     protected $guarded = [];
 }
