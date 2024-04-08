@@ -17,13 +17,11 @@
         $heads = [
             ['label' => '#', 'width' => 6],
             'Անուն',
-            'Տեսակ',
+            'Նկար',
             ['label' => 'Կարգավիճակ', 'width' => 15],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
             ['label' => '', 'no-export' => true, 'width' => 8],
         ];
-
-        $headTheme = "test";
 
         $config = [
             'data' => [],
@@ -32,11 +30,11 @@
         ];
 
         foreach ($records as $item) {
-            $type = $item->type ? \App\Enums\BannerTypes::text : \App\Enums\BannerTypes::graph;
+            $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
             $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.banners.edit',['banner'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.banners.destroy',['banner'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $type, $item->status_text, $created, $btnDetails.$btnDelete];
+            $row = [$item->id, $item->name, $img, $item->status_text, $created, $btnDetails.$btnDelete];
             $config['data'] [] = $row;
         }
     @endphp

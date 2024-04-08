@@ -28,22 +28,17 @@
                                 <x-adminlte-input name="name" label="Անուն" value="{{ old('name') ?? ($record ? $record->name : '') }}" data-required="true"/>
                             </div>
                             <div class="col-md-4">
-                                <x-adminlte-select name="type" label="Տեսակ" data-required="true">
-                                    <x-adminlte-options :options="$types" :selected="old('type') ?? ($record ? [$record->type] : [])"/>
-                                </x-adminlte-select>
+                                <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
+                            <div class="col-md-8">
+                                <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->url : '') }}"/>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <x-adminlte-select name="status" label="Կարգավիճակ" data-required="true">
                                     <x-adminlte-options :options="$statuses" :selected="old('status') ?? ($record ? [$record->status] : [])"/>
                                 </x-adminlte-select>
-                            </div>
-                            <div class="col-md-6">
-                                <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->url : '') }}"/>
                             </div>
                         </div>
                         <x-adminlte-input-switch name="new_tab" label="Բացել նոր էջում" :checked="old('new_tab') ?? $record && $record->new_tab == 1"/>

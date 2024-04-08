@@ -21,8 +21,6 @@
             ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
-        $headTheme = "test";
-
         $config = [
             'data' => [],
             'order' => [[0, 'asc']],

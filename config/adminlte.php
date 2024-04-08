@@ -370,7 +370,7 @@ return [
                 ],
                 [
                     'text' => 'Պրոմոկոդեր',
-                    'url'  => '#',
+                    'url'  => 'admin/promotions',
                 ],
                 [
                     'text' => 'Ծանուցումներ',

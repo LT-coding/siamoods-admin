@@ -118,7 +118,7 @@ class MigrateData
     private function migrateSiteData(): void
     {
         foreach (Banner::on('old_db')->get() as $item) {
-            $data = array_except($item->toArray(),['media']);
+            $data = array_except($item->toArray(),['media','type']);
             $data['image'] = $item->media;
             $timestamps = [
                 'created_at' => $item->created_at,
@@ -181,7 +181,7 @@ class MigrateData
             ];
             \App\Models\Menu::query()->create(array_merge($data, $timestamps));
         }
-        foreach (Notification::on('old_db')->get() as $item) {
+        foreach (Notification::on('old_db')->where('type','!=',18)->get() as $item) {
             $data = $item->toArray();
             $timestamps = [
                 'created_at' => $item->created_at,

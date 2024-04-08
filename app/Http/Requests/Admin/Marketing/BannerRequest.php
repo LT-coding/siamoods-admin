@@ -26,7 +26,6 @@ class BannerRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'type' => ['required'],
             'image' => [Rule::requiredIf(fn () => !$this->id)],
             'url' => ['nullable','url'],
             'new_tab' => ['nullable'],
