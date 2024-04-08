@@ -93,6 +93,7 @@ class MediaService
 
     public function getWebp($filePath)
     {
+        $base = str_ends_with(config('app.url'), '/') ? config('app.url') : config('app.url') . '/';
 //        If the image link is external
         if (str_contains($filePath, 'http') && !str_contains($filePath, config('app.url'))) {
             return $filePath;
@@ -105,10 +106,10 @@ class MediaService
                 $webpPath = str_replace($file->extension(), 'webp', $filePath);
                 $localPathWebp = str_replace(config('app.url'),'',$filePath);
                 if (File::exists(public_path($localPathWebp))) {
-                    return !str_contains($webpPath, config('app.url')) ? config('app.url').$webpPath : $webpPath;
+                    return !str_contains($webpPath, config('app.url')) ? $base.$webpPath : $webpPath;
                 }
 //            }
-            return !str_contains($filePath, config('app.url')) ? config('app.url').$filePath : $filePath;
+            return !str_contains($filePath, config('app.url')) ? $base.$filePath : $filePath;
         }
         return config('app.url') . '/img/no-image.png';
     }
