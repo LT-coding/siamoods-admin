@@ -60,12 +60,12 @@ class NotificationSeeder extends Seeder
         Notification::query()->create([
             'type' => Notification::WAITING_ORDER_2,
             'title' => 'Ավարտեք Ձեր պատվերը',
-            'text' => 'Ողջույն %name%, դուք ունեք չավարտված պատվեր մեր կայքում, ավարտեք պատվերը հղումով. %link%',
+            'text' => 'Ողջույն %name%, դուք ունեք չավարտված պատվեր մեր կայքում, ավարտեք պատվերը հղումով.',
         ]);
         Notification::query()->create([
             'type' => Notification::WAITING_ORDER_7,
             'title' => 'Ավարտեք Ձեր պատվերը զեղչված գնով',
-            'text' => 'Ողջույն  %name%, դուք ունեք չավարտված պատվեր մեր կայքում, օգտագործեք այս պռոմոկոդը %promo% և վճարեք %promo_percent% քիչ, ավարտեք պատվերը հղումով. %link%',
+            'text' => 'Ողջույն  %name%, դուք ունեք չավարտված պատվեր մեր կայքում, օգտագործեք այս պռոմոկոդը %promo% և վճարեք %promo_percent% քիչ, ավարտեք պատվերը հղումով.',
         ]);
         Notification::query()->create([
             'type' => Notification::WAITING_LIST_REGISTER,
@@ -96,11 +96,6 @@ class NotificationSeeder extends Seeder
             'type' => Notification::RATE_NOTIFICATION,
             'title' => 'Գնահատականներ - Ապրանք',
             'text' => 'Ողջույն,Նոր գրառման մասին տեղեկացում Ապրանք:',
-        ]);
-        Notification::query()->create([
-            'type' => Notification::NEW_ORDER,
-            'title' => 'Պատվերի տեղեկություն',
-            'text' => 'Ողջույն,պատվերի մասին տեղեկացում:Պատվեր № %id% , կարգավիճակ %status%',
         ]);
     }
 }

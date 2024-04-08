@@ -31,7 +31,13 @@
                                 <x-adminlte-button class="btn-sm ml-2" type="submit" name="send" value="1" label="Ուղարկել" theme="outline-secondary" icon="fas fa-lg fa-envelope"/>
                             @endif
                         </div>
-                        <p class="mt-2" style="margin-left: auto">%id% -> Պատվերի id <br>%name% ->Օգտատիրոջ անունը <br> %product_name%֊> Ապրանքի անուն</p>
+                        <p class="mt-2" style="margin-left: auto">
+                            <b>%id%</b> -> Պատվերի ID<br>
+                            <b>%name%</b> -> Օգտատիրոջ անուն<br>
+                            <b>%promo%</b> -> Պրոմոկոդ<br>
+                            <b>%promo_percent%</b> -> Պրոմոկոդի զեղչ<br>
+                            <b>%product_name%</b> ֊> Ապրանքի անուն
+                        </p>
                     </div>
                 </div>
             </div>

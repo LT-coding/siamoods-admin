@@ -26,7 +26,6 @@ class Notification extends Model
     const GIFT = 15;//Waiting list when product is existed
     const LOW_INVENTORY = 16;//Waiting list when product is existed
     const RATE_NOTIFICATION = 17;//Waiting list when product is existed
-    const NEW_ORDER = 18;//Waiting list when product is existed
 
     const TYPES = [
         self::ORDER_CREATE => 'Պատվերի գրանցում/հաստատում',
@@ -46,7 +45,6 @@ class Notification extends Model
         self::GIFT => 'GIFT',
         self::LOW_INVENTORY => 'LOW_INVENTORY',
         self::RATE_NOTIFICATION => 'RATE_NOTIFICATION',
-        self::NEW_ORDER => 'NEW_ORDER',
     ];
 
     protected $guarded = [];
