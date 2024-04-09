@@ -69,6 +69,7 @@
                         <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="Մետա նկարագրություն">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
                         <div class="text-right">
+                            <a href="{{ route('admin.contents.index', ['type' => $type]) }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>

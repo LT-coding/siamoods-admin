@@ -26,6 +26,7 @@
                         <x-adminlte-input name="title" label="Վերնագիր" value="{{ old('title') ?? ($record ? $record->title : '') }}"/>
                         <x-adminlte-textarea name="text" label="Նամակ">{{ old('text') ?? ($record ? $record->text : '') }}</x-adminlte-textarea>
                         <div class="text-right">
+                            <a href="{{ route('admin.notifications.index') }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                             @if($record->type ==\App\Models\Notification::CUSTOM)
                                 <x-adminlte-button class="btn-sm ml-2" type="submit" name="send" value="1" label="Ուղարկել" theme="outline-secondary" icon="fas fa-lg fa-envelope"/>

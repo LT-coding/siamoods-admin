@@ -42,8 +42,8 @@
                             </div>
                         </div>
                         <x-adminlte-input-switch name="new_tab" label="Բացել նոր էջում" :checked="old('new_tab') ?? $record && $record->new_tab == 1"/>
-
                         <div class="text-right">
+                            <a href="{{ route('admin.banners.index') }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </form>
