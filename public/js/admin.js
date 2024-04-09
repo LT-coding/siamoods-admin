@@ -43,4 +43,47 @@ $(function(){
         $('.pro-type').hide().find('input').attr('name', '');
         $('.pro-type-' + value).show().find('input').attr('name', 'value');
     });
+
+    $(document).on('change','.label-type',function(e){
+        $('.preview-label').hide().find('.img_preview-label').attr('src','');
+        $('.preview-text').hide();
+        $('#label-image').val('');
+        $('.lb-text').val('');
+        $('.label-input').val('');
+        if($(this).val() == 0){
+            $('.graph-label').show();
+            $('.text-label').hide();
+        }else{
+            $('.graph-label').hide();
+            $('.text-label').show();
+        }
+    });
+
+    $(document).on('keyup','.label-input',function(){
+        $('.preview-text').show().find('.lb-text').text($(this).val())
+    })
+
+    $(document).on('change','.label-type-select',function(){
+        let i=$(this).val();
+        $('.pr-label').attr('class','pr-label').addClass('label-position-'+i)
+
+    })
+    $(document).on('change','#label-image',function (e){
+        let file=URL.createObjectURL(e.target.files[0]);
+        $('.preview-label').show().find('.img_preview-label').attr('src',file);
+    })
+
+    $(document).on('change','.txt-color',function (){
+        $('.lb-text').css('color',$(this).val());
+    })
+
+
+    $(document).on('change','.bg-color',function (){
+        $('.lb-text').css('background-color',$(this).val());
+    })
+
+    $(document).on('change','#label-image',function (e){
+        let file=URL.createObjectURL(e.target.files[0]);
+        $('.preview-label').show().find('.img_preview-label').attr('src',file);
+    })
 });
