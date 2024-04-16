@@ -54,7 +54,7 @@ ul {
 .dataTable-admin .table td, .dataTable-admin .table th {
     padding: 0.5rem 0.75rem;
 }
-.categories-list .form-group {
+.levels-list .form-group {
     margin-bottom: 0;
 }
 .label-display {
@@ -101,6 +101,38 @@ ul {
     background-color: #0b2e7a;
     color: #fff;
     max-width: 80px
+}
+.levels-list,
+.levels-list ul {
+    padding: 0;
+}
+.levels-list li {
+    width: 100%;
+    padding-left: var(--i);
+    transition: .3s all;
+}
+.level-item {
+    border-bottom: 1px solid #e3ebf6;
+    padding-right: 10px;
+}
+.sub-open {
+    transition: .3s all;
+    cursor: pointer;
+}
+.sub-closed {
+    transform: rotate(-90deg);
+    transition: .3s all;
+}
+.sub-open,
+.sub-item {
+    font-size: 1.25rem;
+}
+.level-item .item-text {
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+}
+.gap-2 {
+    gap: .5rem !important;
 }
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {

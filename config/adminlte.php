@@ -326,15 +326,15 @@ return [
             'submenu' => [
                 [
                     'text' => 'Կատեգորիաներ',
-                    'url'  => '#',
+                    'url'  => 'admin/categories',
                 ],
                 [
                     'text' => 'Ապրանքներ',
-                    'url'  => '#',
+                    'url'  => 'admin/products',
                 ],
                 [
                     'text' => 'Նվեր Քարտ',
-                    'url'  => '#',
+                    'url'  => 'admin/gift-cards',
                 ],
                 [
                     'text' => 'Գնահատականներ և կարծիքներ',

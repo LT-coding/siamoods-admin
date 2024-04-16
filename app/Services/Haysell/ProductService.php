@@ -413,7 +413,7 @@ class ProductService
                 'name' => $category['name'],
                 'level' => $category['level'],
                 'short_url' => $category['short_url'],
-                'status' => $category['active'],
+                'status' => !$category['active'],
                 'additional' => $category['additional'],
                 'extra_categories' => $category['extra_categories'],
                 'sort' => $category['sort'],

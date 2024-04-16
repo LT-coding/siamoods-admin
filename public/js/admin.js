@@ -23,6 +23,13 @@ $(function(){
         $('.form-remove').attr('action', action).submit()
     })
 
+    $(document).on('click', '.sub-open', function () {
+        let id = $(this).closest('li').data('id');
+        let level = $("ul li[data-id='level-" + id + "']");
+        level.toggle();
+        $(this).toggleClass('sub-closed')
+    })
+
     $(document).on('change', '.status-change', function (e) {
         e.preventDefault()
         let form = $('.form-status')

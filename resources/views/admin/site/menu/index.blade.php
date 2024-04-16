@@ -40,25 +40,21 @@
                                 {{--                            </a>--}}
                             </div>
                             <div class="card pt-2">
-                                <ul class="categories-list ">
-                                    @foreach($headerMenusAll as $k=>$menu)
-                                        @php
-                                            $nextLevel = $menu->childrenAll;
-                                        @endphp
-                                        @include('admin.site.menu._menu',['menu' => $menu,'level' => 0,'next' => $nextLevel,'data_id'=>$k])
-                                        @if($nextLevel)
+                                <ul class="levels-list">
+                                    @foreach ($headerMenusAll as $k => $menu)
+                                        @php $nextLevel = $menu->childrenAll; @endphp
+                                        @include('admin.site.menu._menu',['menu' => $menu,'level' => 0,'next' => $nextLevel->count() > 0,'data_id' => $k])
+                                        @if ($nextLevel->count() > 0)
                                             <li data-id="level-{{$k}}" >
                                                 <ul>
-                                                    @foreach($nextLevel as $j=>$child)
-                                                        @php
-                                                            $end_cats=$child->childrenAll;
-                                                        @endphp
-                                                        @include('admin.site.menu._menu',['menu'=>$child,'level'=>1,'next'=> $end_cats,'data_id'=>$k.$j])
-                                                        @if($end_cats)
+                                                    @foreach ($nextLevel as $j => $child)
+                                                        @php $endLevel = $child->childrenAll; @endphp
+                                                        @include('admin.site.menu._menu',['menu' => $child,'level' => 1,'next' => $endLevel->count() > 0,'data_id' => $k.$j])
+                                                        @if($endLevel->count() > 0)
                                                             <li data-id="level-{{$k.$j}}" >
                                                                 <ul>
-                                                                    @foreach($end_cats as $m=>$item)
-                                                                        @include('admin.site.menu._menu',['menu'=>$item,'level'=>2,'next'=>null,'data_id'=>$k.$j.$m])
+                                                                    @foreach ($endLevel as $m => $item)
+                                                                        @include('admin.site.menu._menu',['menu' => $item,'level' => 2,'next' => null,'data_id' => $k.$j.$m])
                                                                     @endforeach
                                                                 </ul>
                                                             </li>
@@ -89,25 +85,25 @@
                                 {{--                        </a>--}}
                             </div>
                             <div class="card pt-2">
-                                <ul class="categories-list ">
-                                    @foreach($footerMenusAll as $k=>$menu)
+                                <ul class="levels-list">
+                                    @foreach($footerMenusAll as $k => $menu)
                                         @php
                                             $nextLevel = $menu->childrenAll;
                                         @endphp
-                                        @include('admin.site.menu._menu',['menu' => $menu,'level' => 0,'next' => $nextLevel,'data_id'=>$k])
-                                        @if($nextLevel)
+                                        @include('admin.site.menu._menu',['menu' => $menu,'level' => 0,'next' => $nextLevel->count() > 0 ? $nextLevel : null,'data_id' => $k])
+                                        @if($nextLevel->count() > 0)
                                             <li data-id="level-{{$k}}" >
                                                 <ul>
                                                     @foreach($nextLevel as $j=>$child)
                                                         @php
-                                                            $end_cats=$child->childeren;
+                                                            $endLevel=$child->childrenAll;
                                                         @endphp
-                                                        @include('admin.site.menu._menu',['menu'=>$child,'level'=>1,'next'=> $end_cats,'data_id'=>$k.$j])
-                                                        @if($end_cats)
+                                                        @include('admin.site.menu._menu',['menu' => $child,'level' => 1,'next' => $endLevel->count() > 0 ? $endLevel : null,'data_id' => $k.$j])
+                                                        @if($endLevel->count() > 0)
                                                             <li data-id="level-{{$k.$j}}" >
                                                                 <ul>
-                                                                    @foreach($end_cats as $m=>$item)
-                                                                        @include('admin.site.menu._menu',['menu'=>$item,'level'=>2,'next'=>null,'data_id'=>$k.$j.$m])
+                                                                    @foreach($endLevel as $m => $item)
+                                                                        @include('admin.site.menu._menu',['menu' => $item,'level' => 2,'next' => null,'data_id' => $k.$j.$m])
                                                                     @endforeach
                                                                 </ul>
                                                             </li>

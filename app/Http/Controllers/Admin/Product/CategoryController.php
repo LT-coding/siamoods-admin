@@ -6,6 +6,7 @@ use App\Enums\MetaTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CategoryRequest;
 use App\Models\Category;
+use App\Models\GeneralCategory;
 use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,56 +28,41 @@ class CategoryController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Category::query()->get();
+        $general = GeneralCategory::with('categories')->where('id',126)->first();
+        $records = $general->categories->where('level','0');
+        $level = Category::query()->max('level');
 
-        return view('admin.product.categories.index', compact('records'));
+        return view('admin.product.categories.index', compact('records','level'));
     }
 
-    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $record = null;
-
-        return view('admin.product.categories.create-edit', compact('record'));
-    }
+//    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+//    {
+//        $record = null;
+//
+//        return view('admin.product.categories.create-edit', compact('record'));
+//    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request): RedirectResponse
-    {
-        $data = $request->validated();
-
-        $data['code'] = str_slug($data['title'],'-');
-        if (Category::query()->where('code',$data['code'])->first()) {
-            return back()->withErrors(['code' => 'The category with the same URL already exists'])->withInput();
-        }
-
-        $imagePath = $this->imageService->dispatch($request->image)->upload('categories')->getUrl();
-        $data['image'] = $imagePath;
-
-        $record = Category::query()->create([
-            'title' => $data['title'],
-            'code' => $data['code'],
-            'parent_id' => $data['parent_id'],
-            'image' => $data['image'],
-            'show_in_menu' => $data['show_in_menu'] ?? 0,
-            'show_in_best' => $data['show_in_best'] ?? 0,
-            'show_in_new' => $data['show_in_new'] ?? 0,
-            'rush_service_available' => $data['rush_service_available'] ?? 0,
-            'extra_shipping_price' => $data['extra_shipping_price'] ?? 0
-        ]);
-
-        $record->metas()->create([
-            'type' => MetaTypes::category->name,
-            'meta_title' => $data['meta_title'],
-            'meta_keywords' => $data['meta_keywords'],
-            'meta_description' => $data['meta_description']
-        ]);
-
-        $this->saveRushServices($record,$data);
-
-        return Redirect::route('admin.categories.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
-    }
+//    public function store(CategoryRequest $request): RedirectResponse
+//    {
+//        $data = $request->validated();
+//
+//        $data['url'] = str_slug($data['name'],'-');
+//        if (Category::query()->where('url',$data['url'])->first()) {
+//            return back()->withErrors(['url' => 'The category with the same URL already exists'])->withInput();
+//        }
+//
+//        $imagePath = $this->imageService->dispatch($request->image)->upload('categories')->getUrl();
+//        $data['image'] = $imagePath;
+//
+//        $record = Category::query()->create();
+//
+//        $record->metas()->create();
+//
+//        return Redirect::route('admin.categories.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -96,35 +82,20 @@ class CategoryController extends Controller
         $data = $request->validated();
         $record = Category::query()->findOrFail($id);
 
-        $data['code'] = str_slug($data['title'],'-');
-        if (Category::query()->where('code',$data['code'])->where('id','!=',$id)->first()) {
-            return back()->withErrors(['code' => 'The category with the same URL already exists'])->withInput();
-        }
-
-        $imagePath = $request->image
-            ? $this->imageService->dispatch($request->image)->upload('categories')->getUrl()
-            : $record->image;
-        $data['image'] = $imagePath;
+//        $imagePath = $request->image
+//            ? $this->imageService->dispatch($request->image)->upload('categories')->getUrl()
+//            : $record->image;
+//        $data['image'] = $imagePath;
 
         $record->update([
-            'title' => $data['title'],
-            'code' => $data['code'],
-            'parent_id' => $data['parent_id'],
-            'image' => $data['image'],
-            'show_in_menu' => $data['show_in_menu'] ?? 0,
-            'show_in_best' => $data['show_in_best'] ?? 0,
-            'show_in_new' => $data['show_in_new'] ?? 0,
-            'rush_service_available' => $data['rush_service_available'] ?? 0,
-            'extra_shipping_price' => $data['extra_shipping_price'] ?? 0
+            'status' => $data['status']
         ]);
 
-        $record->metas()->update([
+        $record->meta()->update([
             'meta_title' => $data['meta_title'],
-            'meta_keywords' => $data['meta_keywords'],
-            'meta_description' => $data['meta_description']
+            'meta_key' => $data['meta_keywords'],
+            'meta_desc' => $data['meta_description']
         ]);
-
-        $this->saveRushServices($record,$data);
 
         return Redirect::route('admin.categories.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
@@ -138,22 +109,5 @@ class CategoryController extends Controller
         $record->delete();
 
         return back()->with('status', 'Հաջողությամբ հեռացված է');
-    }
-
-    private function saveRushServices($record, $data): void
-    {
-        if (!isset($data['rush_service_available'])) {
-            $record->rushServices()->delete();
-        } else {
-            foreach ($data['service_days'] as $key => $val) {
-                if ($val) {
-                    $record->rushServices()->updateOrCreate([
-                        'service_days' => $val
-                    ],[
-                        'service_price' => $data['service_prices'][$key] ?? 0
-                    ]);
-                }
-            }
-        }
     }
 }

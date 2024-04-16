@@ -221,6 +221,7 @@ class MigrateData
         foreach (Category::on('old_db')->get() as $item) {
             $data = $item->toArray();
             $data['recommended'] = $item->recomended;
+            $data['status'] = !$item->status;
             $timestamps = [
                 'created_at' => $item->created_at,
                 'updated_at' => $item->updated_at,

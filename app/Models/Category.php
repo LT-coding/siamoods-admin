@@ -4,16 +4,17 @@ namespace App\Models;
 
 use App\Enums\MetaTypes;
 use App\Traits\ImageLinkTrait;
+use App\Traits\MetaTrait;
+use App\Traits\StatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Category extends Model
 {
-    use HasFactory, ImageLinkTrait;
+    use HasFactory, ImageLinkTrait, StatusTrait, MetaTrait;
 
     protected $fillable=[
         "id",
@@ -45,7 +46,7 @@ class Category extends Model
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
-    public function metas(): HasOne
+    public function meta(): HasOne
     {
         return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::category->name);
     }
