@@ -30,7 +30,6 @@
         ];
 
         foreach ($records as $item) {
-            $row = [$item->id];
             $img = $item->general_image?->image ? '<img src="'.$item->general_image->image.'" alt="image" style="max-height:100px;">' : '-';
             $btnDetails = '<a href="'.route('admin.products.edit',['product'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.products.destroy',['product'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';

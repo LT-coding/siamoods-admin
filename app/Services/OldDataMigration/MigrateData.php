@@ -48,11 +48,19 @@ use App\OldModels\Variation;
 use App\OldModels\VariationType;
 use App\OldModels\WaitingList;
 use App\OldModels\WishingList;
+use App\Services\Tools\MediaService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MigrateData
 {
+    private MediaService $imageService;
+
+    public function __construct(MediaService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     /**
      * @return void
      */
@@ -354,9 +362,13 @@ class MigrateData
         foreach (ProductImage::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id','image','image_path']);
             $data['haysell_image'] = $item->image;
-            $data['image'] = $item->image_path;
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $imagePath = null;
+//                $item->image
+//                ? $this->imageService->dispatchFromUrl($item->image)->upload('products/'.$item->haysell_id)->getUrl()
+//                : null;
+            $data['image'] = $imagePath ?? $item->image_path;
             $timestamps = [
                 'created_at' => $item->created_at,
                 'updated_at' => $item->updated_at,
@@ -526,6 +538,7 @@ class MigrateData
                 $data['total'] = $orderInfo['total'] ?? $item->total ?? 0;
                 $data['paid'] = reset($orderInfo['payment']) ?? $item->paid ?? 0;
                 $data['id'] = $item->id;
+                $data['gift_card_id'] = $item->gift_card_id;
                 $order = \App\Models\Order::query()->create(array_merge($data, $timestamps));
                 $total = $data['paid'] > 20000 ? 0 : $data['delivery_price'];
                 foreach ($orderItems as $key => $orderItem) {
