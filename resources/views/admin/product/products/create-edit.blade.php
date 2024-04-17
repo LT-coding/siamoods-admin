@@ -33,9 +33,22 @@
                             <dt class="col-sm-4">Քանակ</dt>
                             <dd class="col-sm-8">{{ $record->balance?->balance ?? 0 }}</dd>
                         </dl>
+                        <h5>Նկարներ</h5>
+                        <div class="row mb-5">
+                            @foreach($record->images as $image)
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <img src="{{ $image->image_link }}" alt="Product image">
+                                        @if($image->is_general)
+                                            <p class="general-text">Գլխավոր նկար</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                         <h5>Մանրամասն նկարագրություն</h5>
                         <dl class="row mb-5">
-                            @foreach(\App\Models\Product::detailsList() as $key=>$detail)
+                            @foreach(\App\Models\Product::detailsList() as $key => $detail)
                                 <dt class="col-sm-4">{{ $detail['name'] }}</dt>
                                 <dd class="col-sm-8">{!! $record->productDetails->where('detail_id',$key)->first()?->value ?? '-' !!}</dd>
                             @endforeach
@@ -50,18 +63,19 @@
                                 @endif
                             @endforeach
                         </dl>
-                        <h5>Վարիացիաներ</h5>
-                        <dl class="row mb-5">
-                            @foreach($record->variations as $variation)
-                                <dt class="col-sm-4"><img src="{{ $variation->image }}" alt="Variant image" style="max-height: 120px;"></dt>
-                                <dd class="col-sm-8">Բնութագրիչ - {{ $variation->variation?->variation_type->title }}<br>
-                                    Տեսակ - {{ $variation->variation?->title }}<br>
-                                    Գին (֏) - {{ $variation->prices?->first()?->price ?? 0 }}<br>
-                                    Քանակ - {{ $variation->balance }}
-                                </dd>
-                            @endforeach
-                        </dl>
-
+                        @if($record->variations->count() > 0)
+                            <h5>Վարիացիաներ</h5>
+                            <dl class="row mb-5">
+                                @foreach($record->variations as $variation)
+                                    <dt class="col-sm-4"><img src="{{ $variation->image }}" alt="Variant image" style="max-height: 120px;"></dt>
+                                    <dd class="col-sm-8">Բնութագրիչ - {{ $variation->variation?->variation_type->title }}<br>
+                                        Տեսակ - {{ $variation->variation?->title }}<br>
+                                        Գին (֏) - {{ $variation->prices?->first()?->price ?? 0 }}<br>
+                                        Քանակ - {{ $variation->balance }}
+                                    </dd>
+                                @endforeach
+                            </dl>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -148,6 +148,15 @@ ul {
 .prod-gift li {
     cursor: pointer;
 }
+.general-text {
+    position: absolute;
+    bottom: 0;
+    background-color: #00000080;
+    margin: 0;
+    color: #fff;
+    padding: 0 8px;
+    font-weight: 600;
+}
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1420px;
