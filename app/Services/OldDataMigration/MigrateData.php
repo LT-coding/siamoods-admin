@@ -339,9 +339,10 @@ class MigrateData
             }
         }
         foreach (ProductGift::on('old_db')->get() as $item) {
-            $data = array_except($item->toArray(),['product_id']);
+            $data = array_except($item->toArray(),['product_id','gift_product_id']);
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+            $data['gift_haysell_id'] = $item->gift_product_id;
             $timestamps = [
                 'created_at' => $item->created_at,
                 'updated_at' => $item->updated_at,

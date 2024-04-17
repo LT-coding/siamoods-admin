@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -24,9 +25,9 @@ class Product extends Model
         return $this->hasOne(ProductBalance::class,'haysell_id','haysell_id');
     }
 
-    public function labels(): HasOneThrough
+    public function label(): BelongsTo
     {
-        return $this->hasOneThrough(PowerLabel::class,ProductPowerLabel::class,'haysell_id','haysell_id');
+        return $this->belongsTo(ProductPowerLabel::class, 'haysell_id', 'haysell_id');
     }
 
     public function gift(): HasOne
@@ -36,7 +37,7 @@ class Product extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'product_categories');
+        return $this->belongsToMany(Category::class, 'product_categories', 'haysell_id', 'category_id', 'haysell_id', 'id', 'id');
     }
 
     public function reviews(): HasMany
@@ -59,11 +60,6 @@ class Product extends Model
         return $this->hasOne(ProductPrice::class, 'haysell_id','haysell_id')->where('type','static');
     }
 
-    public function cats():HasMany
-    {
-        return $this->hasMany(ProductCategory::class, 'haysell_id','haysell_id')->where('type','basic');
-    }
-
     public function variations(): HasMany
     {
         return $this->hasMany(ProductVariation::class, 'haysell_id','haysell_id');
@@ -82,6 +78,11 @@ class Product extends Model
     public function productDetails(): HasMany
     {
         return $this->hasMany(ProductDetail::class,'haysell_id','haysell_id');
+    }
+
+    public function category():Attribute
+    {
+        return Attribute::make(get: fn() => $this->categories()->where('categories.general_category_id',126)->first());
     }
 
     public function content(): Attribute

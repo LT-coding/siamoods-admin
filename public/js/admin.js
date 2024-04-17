@@ -93,4 +93,58 @@ $(function(){
         let file=URL.createObjectURL(e.target.files[0]);
         $('.preview-label').show().find('.img_preview-label').attr('src',file);
     })
+
+    $(document).on('keyup','#gift',function(){
+        if ($(this).val().length >= 3) {
+            searchAjax($(this).val(),$(this).data('url'))
+        }
+    });
+
+    $(document).on('focusout','#gift',function(){
+        if ($('.product-zero').length > 0) {
+            $('#gift').val('');
+            $('.product-gifts').hide();
+            $('#gift_val').val('');
+        }
+    });
+
+    $(document).on('click','.prod-gift li',function(){
+        $('#gift_val').val($(this).data('id'));
+        $('#gift').val($(this).find('p').text());
+        $('.product-gifts').hide();
+    })
+
+    $(document).on('click','.labels-list .label-display',function(){
+        $('.label-display').removeClass('active');
+        $(this).addClass('active');
+    })
+
+    $(document).on('click','.remove-label',function(e){
+        e.preventDefault();
+        $('.label-display').removeClass('active');
+        $('.labels-list input').prop('checked',false);
+    })
+
+    $(document).on('click','.remove-gift',function(e){
+        e.preventDefault();
+        $('#gift').val('');
+        $('#gift_val').val('');
+    })
 });
+function searchAjax(input,url){
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        url: url+'/'+input,
+        type: "GET",
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-CSRF-TOKEN": csrfToken // Include the CSRF token in the request headers
+        },
+        success: function(data){
+            $('#gift_types').html(data['view'])
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {}
+    });
+}

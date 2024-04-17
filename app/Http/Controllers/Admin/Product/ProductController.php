@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Enums\MetaTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\ProductRequest;
+use App\Models\GeneralCategory;
+use App\Models\PowerLabel;
 use App\Models\Product;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -26,30 +28,24 @@ class ProductController extends Controller
         return view('admin.product.products.index', compact('records'));
     }
 
-    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $record = null;
-
-        return view('admin.product.products.create-edit', compact('record'));
-    }
+//    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+//    {
+//        $record = null;
+//
+//        return view('admin.product.products.create-edit', compact('record'));
+//    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request): RedirectResponse
-    {
-        $data = $request->validated();
-
-        $data['code'] = Product::generateUniqueCode();
-        $data['slug'] = str_slug($data['name'],'-') . '-' . $data['code'];
-        if (Product::query()->where('slug',$data['slug'])->first()) {
-            return back()->withErrors(['slug' => 'The product with the same URL already exists'])->withInput();
-        }
-
-        $record = $this->saveProduct($data);
-
-        return Redirect::route('admin.products.edit',['product' => $record->id])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
-    }
+//    public function store(ProductRequest $request): RedirectResponse
+//    {
+//        $data = $request->validated();
+//
+//        $record = $this->saveProduct($data);
+//
+//        return Redirect::route('admin.products.edit',['product' => $record->id])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,8 +53,10 @@ class ProductController extends Controller
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $record = Product::query()->findOrFail($id);
+        $generals = GeneralCategory::query()->where('is_main',0)->get();
+        $labels = PowerLabel::query()->active()->get();
 
-        return view('admin.product.products.create-edit', compact('record'));
+        return view('admin.product.products.create-edit', compact('record','generals','labels'));
     }
 
     /**
@@ -67,13 +65,6 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id): RedirectResponse
     {
         $data = $request->validated();
-        $record = Product::query()->findOrFail($id);
-
-        $data['code'] = $record->code;
-        $data['slug'] = str_slug($data['name'],'-') . '-' . $record->code;
-        if (Product::query()->where('slug',$data['slug'])->where('id','!=',$id)->first()) {
-            return back()->withErrors(['slug' => 'The product with the same URL already exists'])->withInput();
-        }
 
         $this->saveProduct($data);
 
@@ -91,31 +82,54 @@ class ProductController extends Controller
         return back()->with('status', 'Հաջողությամբ հեռացված է');
     }
 
-    private function saveProduct($data): Builder|Model
+    private function saveProduct($data): void
     {
         $record = Product::query()->updateOrCreate([
-            'code' => $data['code'],
+            'id' => $data['id'],
         ],[
-            'slug' => $data['slug'],
-            'category_code' => $data['category_code'],
-            'name' => $data['name'],
-            'subtitle' => $data['subtitle'],
-            'specification' => $data['specification'],
-            'description' => $data['description'],
-            'show_in_hot_sales' => $data['show_in_hot_sales'] ?? 0,
-            'currency' => $data['currency'],
-            'discount' => $data['discount'],
-            'discount_start_date' => $data['discount_start_date'],
-            'discount_end_date' => $data['discount_end_date'],
+            'liked' => $data['liked'] ?? 0
         ]);
 
-        $record->metas()->updateOrCreate([
+        if (!isset($data['gift']) && $record->gift) {
+            $record->gift()->delete();
+        } else if (isset($data['gift'])) {
+            $record->gift()->updateOrCreate([
+                'gift_haysell_id' => $data['gift'],
+            ]);
+        }
+
+        if (!isset($data['label_id']) && $record->label) {
+            $record->label()->delete();
+        } else if (isset($data['label_id'])) {
+            $record->label()->updateOrCreate([
+                'haysell_id' => $record->haysell_id
+            ],[
+                'label_id' => $data['label_id'],
+            ]);
+        }
+
+        $record->meta()->updateOrCreate([
             'type' => MetaTypes::product->name,
-            'meta_title' => $data['meta_title'] ?? $data['name'],
-            'meta_keywords' => $data['meta_keywords'] ?? $data['name'],
-            'meta_description' => $data['meta_description'] ?? $data['description']
+            'meta_title' => $data['meta_title'] ?? $record->item_name,
+            'meta_key' => $data['meta_keywords'] ?? $record->item_name,
+            'meta_desc' => $data['meta_description'] ?? $record->item_name
         ]);
+    }
 
-        return $record;
+    public function searchByName(string $name): Application|Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+    {
+        $products = Product::query()->where('item_name','like','%'.$name.'%')->get();
+        $items = [];
+        foreach ($products as $product) {
+            $items[] = [
+                'id' => $product->haysell_id,
+                'name' => $product->item_name,
+                'image' => $product->general_image?->image,
+            ];
+        }
+
+        return response([
+            'view' => view('admin.product.products._gift',compact('items'))->render()
+        ]);
     }
 }

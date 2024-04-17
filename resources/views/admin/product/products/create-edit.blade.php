@@ -1,27 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', $record ? __('Update Product') . ' | ' . $record->title : __('Create Product'))
+@section('title', $record ? 'Խմբագրել ապրանքը' . ' | ' . $record->item_name : 'Ավելացնել ապրանք')
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="mb-2">{{ $record ? __('Update Product') .  ' | ' . $record->title : __('Create Product') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('Products') }}</a></li>
-                <li class="breadcrumb-item active">{{ $record ? __('Update Product') : __('Create Product') }}</li>
-            </ol>
-        </div>
-    </div>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Ապրանքներ</a></li>
+        <li class="breadcrumb-item active">{{ $record ? 'Խմբագրել ապրանքը' : 'Ավելացնել ապրանք' }}</li>
+    </ol>
+    <h1 class="mb-2">{{ $record ? 'Խմբագրել ապրանքը' . ' | ' . $record->item_name : 'Ավելացնել ապրանք' }}</h1>
 @stop
 
 @section('content')
-    @php $categories = \App\Models\Category::query()->pluck('title','code')->toArray(); $currencies = \App\Enums\Currencies::list() @endphp
     <form action="{{ $record ? route('admin.products.update',['product'=>$record->id]) : route('admin.products.store') }}" method="post">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="card card-danger card-outline">
                     <div class="card-body">
                         @csrf
@@ -29,86 +22,89 @@
                             @method('PUT')
                             <input name="id" type="hidden" value="{{ $record->id }}"/>
                         @endif
-                        <div class="row">
-                            <div class="col-md-3">
-                                <x-adminlte-select name="category_code" label="Category">
-                                    <x-adminlte-options :options="$categories" :selected="old('category_code') ?? ($record ? [$record->category_code] : [])" empty-option="Select a Category"/>
-                                </x-adminlte-select>
-                            </div>
-                            <div class="col-md-4">
-                                <x-adminlte-input name="name" label="Name" value="{{ old('name') ?? ($record ? $record->name : '') }}"/>
-                                @if($errors->has('slug'))
-                                    <span class="invalid-feedback d-block" role="alert">
-                                        <strong>{{ $errors->first('slug') }}</strong>
-                                    </span>
+                        <input type="hidden" name="gift" id='gift_val' value="{{ $record?->gift?->product?->haysell_id }}">
+                        <dl class="row mb-5">
+                            <dt class="col-sm-4">Անուն</dt>
+                            <dd class="col-sm-8">{{ $record->item_name }}</dd>
+                            <dt class="col-sm-4">Կատեգորիա</dt>
+                            <dd class="col-sm-8">{{ $record->category?->name }}</dd>
+                            <dt class="col-sm-4">Գին (֏)</dt>
+                            <dd class="col-sm-8">{{ $record->price?->price ?? 0 }}</dd>
+                            <dt class="col-sm-4">Քանակ</dt>
+                            <dd class="col-sm-8">{{ $record->balance?->balance ?? 0 }}</dd>
+                        </dl>
+                        <h5>Մանրամասն նկարագրություն</h5>
+                        <dl class="row mb-5">
+                            @foreach(\App\Models\Product::detailsList() as $key=>$detail)
+                                <dt class="col-sm-4">{{ $detail['name'] }}</dt>
+                                <dd class="col-sm-8">{!! $record->productDetails->where('detail_id',$key)->first()?->value ?? '-' !!}</dd>
+                            @endforeach
+                        </dl>
+                        <h5>Դասակարգիչներ</h5>
+                        <dl class="row mb-5">
+                            @foreach($generals as $general)
+                                @php $cats = $record->categories()->where('categories.general_category_id',$general->id)->orderBy('sort')->pluck('name')->toArray() @endphp
+                                @if(count($cats) > 0)
+                                    <dt class="col-sm-4">{{ $general->title }}</dt>
+                                    <dd class="col-sm-8">{{ implode(', ', $cats) }}</dd>
                                 @endif
-                            </div>
-                            <div class="col-md-5">
-                                <x-adminlte-input name="subtitle" label="Subtitle" value="{{ old('subtitle') ?? ($record ? $record->subtitle : '') }}"/>
-                            </div>
-                            <div class="col-md-12">
-                                <x-adminlte-input name="specification" label="Specification" value="{{ old('specification') ?? ($record ? $record->specification : '') }}"/>
-                            </div>
-                            <div class="col-md-12">
-                                <x-adminlte-textarea name="description" label="Description">{{ old('description') ?? ($record ? $record->description : '') }}</x-adminlte-textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <x-adminlte-select name="currency" label="Currency">
-                                    <x-adminlte-options :options="$currencies" :selected="old('currency') ?? ($record ? [$record->currency] : [])" empty-option="Select"/>
-                                </x-adminlte-select>
-                            </div>
-                            <div class="col-md-2">
-                                <x-adminlte-input type="number" name="discount" label="Discount (%)" value="{{ old('discount') ?? ($record ? $record->discount : '') }}" step="0.1"/>
-                            </div>
-                            <div class="col-md-4">
-                                <x-adminlte-input type="date" name="discount_start_date" label="Discount Start" value="{{ old('discount_start_date') ?? ($record ? $record->discount_start_date : '') }}"/>
-                            </div>
-                            <div class="col-md-4">
-                                <x-adminlte-input type="date" name="discount_end_date" label="Discount End" value="{{ old('discount_end_date') ?? ($record ? $record->discount_end_date : '') }}"/>
-                            </div>
-                        </div>
+                            @endforeach
+                        </dl>
+                        <h5>Վարիացիաներ</h5>
+                        <dl class="row mb-5">
+                            @foreach($record->variations as $variation)
+                                <dt class="col-sm-4"><img src="{{ $variation->image }}" alt="Variant image" style="max-height: 120px;"></dt>
+                                <dd class="col-sm-8">Բնութագրիչ - {{ $variation->variation?->variation_type->title }}<br>
+                                    Տեսակ - {{ $variation->variation?->title }}<br>
+                                    Գին (֏) - {{ $variation->prices?->first()?->price ?? 0 }}<br>
+                                    Քանակ - {{ $variation->balance }}
+                                </dd>
+                            @endforeach
+                        </dl>
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card card-secondary card-outline">
                     <div class="card-body">
                         <div class="text-right">
-                            <x-adminlte-input-switch name="show_in_hot_sales" label="{{ __('Show in Hot Sales') }}" :checked="old('show_in_hot_sales') ?? $record && $record->show_in_hot_sales == 1"/>
+                            <x-adminlte-input-switch name="liked" label="ՍԻՐՎԱԾ ԶԱՐԴԵՐ" :checked="old('liked') ?? $record && $record->liked == 1"/>
                         </div>
+                        <h5>Նվեր <a href="#" class="remove-gift ml-5" title="Հեռացնել նվերը"><i class="fas fa-times"></i></a></h5>
+                        <x-adminlte-input name="gift_text" id="gift" value="{{ $record?->gift?->product?->item_name }}" data-url="{{route('admin.product.search','')}}"/>
+                        <div id="gift_types" class="mb-3"></div>
+                        @if(count($labels) > 0)
+                            <h5>Պիտակ <a href="#" class="remove-label ml-5" title="Հեռացնել պիտակը"><i class="fas fa-times"></i></a></h5>
+                            <div class="row mb-3 labels-list">
+                                @foreach($labels as $label)
+                                    <label for="label-{{ $label->id }}" class="col-md-4 d-flex" title="{{ $label->name }}">
+                                        <div class="card label-display{{ $record && $record->label && $record->label->label_id == $label->id ? ' active' : '' }}">
+                                            <div class="pr-label label-position-{{ $label->position }}">
+                                                <div class="preview-label" style="display: {{ $label->type !=0 ? 'none' : 'block' }}">
+                                                    <img src="{{ $label->type == 0 && !$label->media_json ? $label->media : '#'}}" class="img_preview-label" alt="label">
+                                                </div>
+                                                <div class="preview-text" style="display:{{ $label->type == 0 ? 'none' :'block' }}">
+                                                    <p class="lb-text" style="color: {{ $label->media_json ? $label->media_json->color:''}}; background-color: {{ $label->media_json ? $label->media_json->background_color : '' }}">{{ $label->media_json ? $label->media_json->text : '' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <x-adminlte-input type="radio" name="label_id" id="label-{{ $label->id }}" value="{{ $label->id }}" data-required="true" data-checked="{{ $record && $record->label && $record->label->label_id == $label->id ? 'true' : '' }}"/>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @endif
+                        <h5>Մետա տեղեկատվություն</h5>
+                        <x-adminlte-input name="meta_url" label="URL" value="{{ old('meta_url') ?? ($record ? $record->meta_url : '') }}" data-readonly="true"/>
                         <x-adminlte-input name="meta_title" label="Մետա վերնագիր" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
                         <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="Մետա նկարագրություն">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
                         <div class="text-right">
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                @if($record)
-                    <div class="card card-success card-outline">
-                        <div class="card-body">
-                            <h5>Related Products <a href="{{ route('admin.related-products.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h5>
-                            @include('admin.product.includes.related-products',['relatedProducts' => $record->relatedProducts ?? null])
-                        </div>
-                    </div>
-                @endif
-            </div>
-            <div class="col-md-6">
-                @if($record)
-                    <div class="card card-success card-outline">
-                        <div class="card-body">
-                            <h5>Product Variants <a href="{{ route('admin.variants.create', ['product' => $record->id]) }}" class="btn btn-outline-danger btn-sm float-sm-right" title="Ավելացնել">Ավելացնել</a></h5>
-                            @include('admin.product.includes.variants',['variants' => $record->variants ?? null])
-                        </div>
-                    </div>
-                @endif
             </div>
         </div>
     </form>

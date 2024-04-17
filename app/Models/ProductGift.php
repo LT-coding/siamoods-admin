@@ -15,6 +15,6 @@ class ProductGift extends Model
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class,'gift_product_id','id');
+        return $this->belongsTo(Product::class,'gift_haysell_id','haysell_id');
     }
 }

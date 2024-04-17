@@ -14,3 +14,4 @@ Route::resource('products', ProductController::class)->except([
 Route::resource('testimonials', TestimonialController::class)->only([
     'index', 'update'
 ]);
+Route::get('product/search/{name}',[ProductController::class, 'searchByName'])->name('product.search');

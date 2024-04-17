@@ -46,8 +46,9 @@ class PowerLabelController extends Controller
     public function store(PowerLabelRequest $request): RedirectResponse
     {
         $data = $request->validated();
-
         if ($data['type'] != 0) {
+            $data['media_text']['color'] = $data['media_text']['color'] ?? '#ffffff';
+            $data['media_text']['background_color'] = $data['media_text']['background_color'] ?? '#0b2e7a';
             $data['media'] = json_encode($data['media_text']);
         } elseif ($request->media) {
             $imagePath = $this->imageService->dispatch($request->media)->upload('labels')->getUrl();
@@ -77,8 +78,9 @@ class PowerLabelController extends Controller
     {
         $data = $request->validated();
         $record = PowerLabel::query()->findOrFail($id);
-
         if ($data['type'] != 0) {
+            $data['media_text']['color'] = $data['media_text']['color'] ?? '#ffffff';
+            $data['media_text']['background_color'] = $data['media_text']['background_color'] ?? '#0b2e7a';
             $data['media'] = json_encode($data['media_text']);
         } else {
             $imagePath = $request->media

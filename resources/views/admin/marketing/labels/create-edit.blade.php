@@ -44,29 +44,29 @@
                                 </x-adminlte-select>
                             </div>
                             <div class="col-sm-12">
-                                <div class="graph-label" style="display: {{ $record && $record->type != 0 ? 'none' : 'block' }}">
+                                <div class="graph-label" style="display: {{ old('type') && old('type') != 0 ? 'none' : ($record && $record->type != 0 ? 'none' : 'block' )}}">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <x-adminlte-input type="file" id="label-image" name="media" label="Պիտակ" data-required="true"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="display: {{ $record && $record->type == 0 ? 'none' : 'block' }}" class="text-label">
+                                <div style="display: {{ old('type') && old('type') == 1 ? 'block' : (!$record || $record->type == 0 ? 'none' : 'block') }}" class="text-label">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <x-adminlte-input class="form-control label-input" name="media_text[text]" label="Պիտակ" value="{{ old('media_text[text]') ?? ($record && $record->media_json ? $record->media_json->text : '') }}" data-required="true"/>
+                                            <x-adminlte-input class="form-control label-input" name="media_text[text]" label="Պիտակ" value="{{ old('media_text.text') ?? ($record?->media_json?->text ?? '') }}" data-required="true"/>
                                         </div>
                                         <div class="col-md-4">
-                                            <x-adminlte-input type="color" class="form-control txt-color" name="media_text[color]" label="Տեքստի գույն" value="{{ old('media_text[color]') ?? ($record && $record->media_json ? $record->media_json->color : '#ffffff') }}" data-required="true"/>
+                                            <x-adminlte-input type="color" class="form-control txt-color" name="media_text[color]" label="Տեքստի գույն" value="{{ old('media_text.color') ?? ($record?->media_json?->color ?? '#ffffff') }}" data-required="true"/>
                                         </div>
                                         <div class="col-md-4">
-                                            <x-adminlte-input type="color" class="form-control bg-color" name="media_text[background_color]" label="Պիտակի գույն" value="{{ old('media_text[background_color]') ?? ($record && $record->media_json ? $record->media_json->background_color : '#0b2e7a') }}" data-required="true"/>
+                                            <x-adminlte-input type="color" class="form-control bg-color" name="media_text[background_color]" label="Պիտակի գույն" value="{{ old('media_text.background_color') ?? ($record?->media_json?->background_color ?? '#0b2e7a') }}" data-required="true"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <x-adminlte-textarea name="description" label="Նկարագրություն">{{ old('description') ?? ($record ? $record->description : '') }}</x-adminlte-textarea>
+                        <x-adminlte-textarea name="description" label="Նկարագրություն">{{ old('description') ?? $record?->description }}</x-adminlte-textarea>
                         <div class="text-right">
                             <a href="{{ route('admin.labels.index') }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>
@@ -77,9 +77,9 @@
         </div>
         <div class="col-md-3">
             <div class="card card-secondary card-outline">
-                <div class="card-body">
+                <div class="card-body row">
                     @if($record)
-                        <div class="col-lg-3 d-flex">
+                        <div class="col-lg-6 d-flex">
                             <div class="card label-display">
                                 <div class="pr-label label-position-{{ $record->position }}">
                                     <div class="preview-label" style="display: {{ $record->type !=0 ? 'none' : 'block' }}">
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     @else
-                        <div class="col-lg-3 d-flex">
+                        <div class="col-lg-6 d-flex">
                             <div class="card label-display">
                                 <div class="pr-label label-position-0">
                                     <div class="preview-label" style="display: none">

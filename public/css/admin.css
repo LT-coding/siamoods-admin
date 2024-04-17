@@ -10,6 +10,7 @@ a, .page-link {
 }
 ul {
     list-style: none;
+    padding-left: 0;
 }
 .page-item.active .page-link,
 .dropdown-item.active, .dropdown-item:active {
@@ -60,7 +61,8 @@ ul {
 .label-display {
     position: relative;
     height: 200px;
-    min-width: 180px;
+    width: 180px;
+    max-width: 100%;
 }
 .img_preview-label {
     width: 50px;
@@ -102,9 +104,18 @@ ul {
     color: #fff;
     max-width: 80px
 }
-.levels-list,
-.levels-list ul {
-    padding: 0;
+.labels-list .form-group {
+    opacity: 0;
+}
+.labels-list label {
+    cursor: pointer;
+}
+.labels-list .label-display {
+    transition: all 0.3s;
+}
+.labels-list .label-display:hover,
+.labels-list .label-display.active {
+    box-shadow: 2px 2px 3px rgb(255,55,32,0.2), 0 3px 5px rgb(255,55,32,0.2);
 }
 .levels-list li {
     width: 100%;
@@ -133,6 +144,9 @@ ul {
 }
 .gap-2 {
     gap: .5rem !important;
+}
+.prod-gift li {
+    cursor: pointer;
 }
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {

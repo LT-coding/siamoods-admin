@@ -32,6 +32,7 @@
                                 </x-adminlte-select>
                             </div>
                         </div>
+                        <x-adminlte-input name="short_url" label="URL" value="{{ old('short_url') ?? ($record ? $record->short_url : '') }}" data-readonly="true"/>
                         <x-adminlte-input name="meta_title" label="Մետա վերնագիր" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
                         <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="Մետա նկարագրություն">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>

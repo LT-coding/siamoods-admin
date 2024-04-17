@@ -15,24 +15,13 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'currency' => ['required'],
-            'category_code' => ['required'],
-            'name' => ['required'],
-            'subtitle' => ['nullable', 'string'],
-            'specification' => ['nullable', 'string'],
-            'description' => ['nullable', 'string'],
-            'show_in_hot_sales' => ['nullable'],
+            'id' => ['nullable'],
+            'gift' => ['nullable'],
+            'label_id' => ['nullable'],
+            'liked' => ['nullable'],
             'meta_title' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
             'meta_description' => ['nullable', 'string'],
-            'discount' => ['nullable', 'numeric', 'between:1,100'],
-            'discount_start_date' => ['nullable', 'date', 'after_or_equal:now'],
-            'discount_end_date' => [
-                'nullable',
-                'date',
-                'after_or_equal:now',
-                Rule::when(!empty($this->discount_start_date), 'after_or_equal:' . $this->input('discount_start_date')),
-            ],
         ];
     }
 }

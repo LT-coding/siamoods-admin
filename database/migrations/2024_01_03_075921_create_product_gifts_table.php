@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('product_gifts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Product::class, 'haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
-            $table->foreignIdFor(Product::class,'gift_product_id')->references('haysell_id')->on('products')->cascadeOnDelete();
+            $table->foreignIdFor(Product::class,'gift_haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }

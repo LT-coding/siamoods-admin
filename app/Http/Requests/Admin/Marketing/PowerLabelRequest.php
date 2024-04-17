@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Marketing;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PowerLabelRequest extends FormRequest
 {
@@ -28,8 +29,8 @@ class PowerLabelRequest extends FormRequest
             'type' => ['required'],
             'status' => ['required'],
             'description' => ['nullable'],
-            'media' => ['required_without:media_text.text'],
-            'media_text' => ['required_without:media'],
+            'media' => [Rule::requiredIf(!$this->id && $this->type == 0)],
+            'media_text.text' => [Rule::requiredIf($this->type == 1)],
             'position' => ['required']
         ];
     }
