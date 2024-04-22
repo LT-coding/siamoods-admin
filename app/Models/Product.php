@@ -95,9 +95,11 @@ class Product extends Model
         return Attribute::make(get: fn() => $this->images()->where('is_general',1)->first());
     }
 
-    public function slug(): Attribute
+    public function url(): Attribute
     {
-        return Attribute::make(get: fn() => $this->meta?->url);
+        return Attribute::make(
+            get: fn () => config('app.frontend_url') .'/product/'. $this->meta_url
+        );
     }
 
     public function computedDiscount(): Attribute

@@ -3,7 +3,10 @@
 use App\Http\Controllers\Api\Site\ContactController;
 use App\Http\Controllers\Api\Site\ContentController;
 use App\Http\Controllers\Api\Site\CustomizationController;
+use App\Http\Controllers\Api\SitemapController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/sitemap', [SitemapController::class, 'index']);
 
 Route::get('/get-customization', [CustomizationController::class, 'getCustomization']);
 Route::get('/get-banners', [CustomizationController::class, 'getBanners']);
