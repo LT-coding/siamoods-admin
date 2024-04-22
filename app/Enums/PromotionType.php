@@ -10,8 +10,6 @@ enum PromotionType: string
     case discount = 'Զեղչ';//1
     case amount = 'Գնիջեցում';//2
 
-
-
     /**
      * @param bool $as_string
      * @return array|string
@@ -25,8 +23,5 @@ enum PromotionType: string
         ];
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }

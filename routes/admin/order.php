@@ -10,3 +10,5 @@ Route::resource('shipping-methods', ShippingMethodController::class)->except([
 Route::resource('orders', OrderController::class)->except([
     'show', 'create', 'store'
 ]);
+Route::get('/get-shipping-methods', [ShippingMethodController::class, 'getRecords'])->name('shipping-methods.get');
+Route::get('/get-orders', [OrderController::class, 'getRecords'])->name('orders.get');

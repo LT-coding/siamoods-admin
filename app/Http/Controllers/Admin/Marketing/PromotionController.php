@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Marketing;
 
+use App\Enums\PromotionType;
 use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\PromotionRequest;
@@ -9,7 +10,10 @@ use App\Models\Promotion;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class PromotionController extends Controller
@@ -19,9 +23,7 @@ class PromotionController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Promotion::query()->get();
-
-        return view('admin.marketing.promotions.index', compact('records'));
+        return view('admin.marketing.promotions.index');
     }
 
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -75,5 +77,45 @@ class PromotionController extends Controller
         $record->delete();
 
         return back()->with('status', 'Հաջողությամբ հեռացված է');
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Promotion::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search['value'];
+
+            $query->where(function ($q) use ($search) {
+                // Add all potential search conditions
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('promo_code', 'like', "%$search%");
+                $q->orWhere(DB::raw("DATE_FORMAT(created_at, '%d.%m.%Y')"), 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $type = \App\Enums\PromotionType::promotions()[$item->type];
+            $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
+            $btnDetails = '<a href="'.route('admin.promotions.edit',['promotion'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = $item->promo_code == 'ABCARD5' ? '' : '<a href="#" data-action="'.route('admin.promotions.destroy',['promotion'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = [$item->id, $item->name, $item->promo_code, $type, $item->status_text, $created, $btnDetails.$btnDelete];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+        ]);
     }
 }

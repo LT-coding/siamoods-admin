@@ -16,3 +16,4 @@ Route::resource('{type}/contents', ContentController::class)->except([
     'show'
 ]);
 
+Route::get('/get-contents/{type}', [ContentController::class, 'getRecords'])->name('contents.get');

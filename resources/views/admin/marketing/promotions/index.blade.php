@@ -23,19 +23,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'desc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.promotions.get')
+            ],
             'columns' => [null, null, null, null, null, null, ['orderable' => false]],
         ];
-
-        foreach ($records as $item) {
-            $type = \App\Enums\PromotionType::promotions()[$item->type];
-            $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
-            $btnDetails = '<a href="'.route('admin.promotions.edit',['promotion'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $btnDelete = $item->promo_code == 'ABCARD5' ? '' : '<a href="#" data-action="'.route('admin.promotions.destroy',['promotion'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $item->promo_code, $type, $item->status_text, $created, $btnDetails.$btnDelete];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

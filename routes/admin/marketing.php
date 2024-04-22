@@ -23,4 +23,7 @@ Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
 Route::post('/seo-store', [SeoController::class, 'store'])->name('seo.store');
 
 Route::get('/get-banners', [BannerController::class, 'getRecords'])->name('banners.get');
+Route::get('/get-notifications', [NotificationController::class, 'getRecords'])->name('notifications.get');
+Route::get('/get-labels', [PowerLabelController::class, 'getRecords'])->name('labels.get');
+Route::get('/get-promotions', [PromotionController::class, 'getRecords'])->name('promotions.get');
 

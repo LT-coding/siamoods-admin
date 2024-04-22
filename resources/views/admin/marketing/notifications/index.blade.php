@@ -21,16 +21,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'desc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.notifications.get')
+            ],
             'columns' => [null, null, null, null, ['orderable' => false]],
         ];
-
-        foreach ($records as $item) {
-            $btnDetails = '<a href="'.route('admin.notifications.edit',['notification'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $row = [$item->id, $types[$item->type], $item->title, $item->text, $btnDetails];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

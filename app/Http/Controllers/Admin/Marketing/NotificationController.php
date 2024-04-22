@@ -10,7 +10,9 @@ use App\Models\Subscriber;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
@@ -21,10 +23,7 @@ class NotificationController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Notification::query()->get();
-        $types = Notification::TYPES;
-
-        return view('admin.marketing.notifications.index', compact('records', 'types'));
+        return view('admin.marketing.notifications.index');
     }
 
     /**
@@ -55,5 +54,39 @@ class NotificationController extends Controller
         }
 
         return Redirect::route('admin.notifications.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Notification::query();
+        $types = Notification::TYPES;
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search['value'];
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $btnDetails = '<a href="'.route('admin.notifications.edit',['notification'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $row = [$item->id, $types[$item->type], $item->title, $item->text, $btnDetails];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+        ]);
     }
 }
