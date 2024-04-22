@@ -30,7 +30,7 @@ class GiftCard extends Model
 
     public function spend():Attribute
     {
-        return Attribute::make(get: fn() => Order::query()->where('gift_card_id',$this->id)->sum('promo_gift_count'));
+        return Attribute::make(get: fn() => Order::query()->where('gift_card_id',$this->id)->where('status','<>',Order::UNDEFINED)->sum('promo_gift_count'));
     }
 
     public function exist():Attribute

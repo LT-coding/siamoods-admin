@@ -30,6 +30,7 @@ class BannerRequest extends FormRequest
             'url' => ['nullable','url'],
             'new_tab' => ['nullable'],
             'status' => ['required'],
+            'order' => ['nullable'],
         ];
     }
 }

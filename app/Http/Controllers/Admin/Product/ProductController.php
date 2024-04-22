@@ -12,7 +12,9 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,29 +25,8 @@ class ProductController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Product::query()->orderBy('id','desc')->get();
-
-        return view('admin.product.products.index', compact('records'));
+        return view('admin.product.products.index');
     }
-
-//    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-//    {
-//        $record = null;
-//
-//        return view('admin.product.products.create-edit', compact('record'));
-//    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-//    public function store(ProductRequest $request): RedirectResponse
-//    {
-//        $data = $request->validated();
-//
-//        $record = $this->saveProduct($data);
-//
-//        return Redirect::route('admin.products.edit',['product' => $record->id])->with('status', 'Տվյալները հաջողությամբ պահպանված են');
-//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -130,6 +111,42 @@ class ProductController extends Controller
 
         return response([
             'view' => view('admin.product.products._gift',compact('items'))->render()
+        ]);
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Product::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search['value'];
+            $query->where(function ($q) use ($search) {
+                $q->where('item_name', 'like', "%$search%")
+                    ->orWhere('articul', 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id','desc')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $img = $item->general_image?->image ? '<img src="'.$item->general_image->image.'" alt="image" style="max-height:100px;">' : '-';
+            $btnDetails = '<a href="'.route('admin.products.edit',['product'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = '<a href="#" data-action="'.route('admin.products.destroy',['product'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = [$item->id,$item->articul,$item->item_name,$item->category?->name,$img,$item->price?->price ?? 0,$item->balance?->balance ?? 0,$btnDetails.$btnDelete];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
         ]);
     }
 }

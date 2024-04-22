@@ -24,16 +24,7 @@ class SubscriberController extends Controller
      */
     public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $subscribers = Subscriber::query();
-
-        if ($request->active) {
-            $subscribers->active();
-        }
-
-        $records = $subscribers->get();
-        $statuses = StatusTypes::statusList();
-
-        return view('admin.user.subscribers.index', compact('records','statuses'));
+        return view('admin.user.subscribers.index');
     }
 
     /**
@@ -52,5 +43,50 @@ class SubscriberController extends Controller
         }
 
         return Redirect::route('admin.subscribers.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Subscriber::query();
+
+        if ($request->active) {
+            $query->active();
+        }
+
+        $statuses = StatusTypes::statusList();
+
+        if ($request->has('search') && !empty($request->search['value'])) {
+            $search = $request->search['value'];
+            $query->where(function ($q) use ($search) {
+                $q->where('email', 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id', 'desc')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $statusSelect = '<select name="status" class="form-control status-change" data-id="'.$item->id.'">';
+            foreach ($statuses as $key => $value) {
+                $selected = $key == $item->status ? 'selected' : '';
+                $statusSelect .= '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
+            }
+            $statusSelect .= '</select>';
+
+            $row = [$item->id, $item->email, $statusSelect];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+        ]);
     }
 }

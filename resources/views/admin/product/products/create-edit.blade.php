@@ -86,7 +86,7 @@
                             <x-adminlte-input-switch name="liked" label="ՍԻՐՎԱԾ ԶԱՐԴԵՐ" :checked="old('liked') ?? $record && $record->liked == 1"/>
                         </div>
                         <h5>Նվեր <a href="#" class="remove-gift ml-5" title="Հեռացնել նվերը"><i class="fas fa-times"></i></a></h5>
-                        <x-adminlte-input name="gift_text" id="gift" value="{{ $record?->gift?->product?->item_name }}" data-url="{{route('admin.product.search','')}}"/>
+                        <x-adminlte-input name="gift_text" id="gift" value="{{ $record?->gift?->product?->item_name }}" data-url="{{route('admin.products.search','')}}"/>
                         <div id="gift_types" class="mb-3"></div>
                         @if(count($labels) > 0)
                             <h5>Պիտակ <a href="#" class="remove-label ml-5" title="Հեռացնել պիտակը"><i class="fas fa-times"></i></a></h5>

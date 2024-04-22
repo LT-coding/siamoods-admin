@@ -18,4 +18,7 @@ Route::resource('reviews', ReviewController::class)->only([
 Route::resource('gift-cards', GiftCardController::class)->only([
     'index'
 ]);
-Route::get('product/search/{name}',[ProductController::class, 'searchByName'])->name('product.search');
+Route::get('product/search/{name}',[ProductController::class, 'searchByName'])->name('products.search');
+Route::get('/get-products', [ProductController::class, 'getRecords'])->name('products.get');
+Route::get('/get-gift-cards', [GiftCardController::class, 'getRecords'])->name('gift-cards.get');
+Route::get('/get-reviews', [ReviewController::class, 'getRecords'])->name('reviews.get');

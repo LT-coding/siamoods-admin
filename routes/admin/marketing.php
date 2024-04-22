@@ -22,3 +22,5 @@ Route::resource('promotions', PromotionController::class)->except([
 Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
 Route::post('/seo-store', [SeoController::class, 'store'])->name('seo.store');
 
+Route::get('/get-banners', [BannerController::class, 'getRecords'])->name('banners.get');
+

@@ -10,7 +10,9 @@ use App\Services\Tools\MediaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class BannerController extends Controller
@@ -27,9 +29,7 @@ class BannerController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Banner::query()->get();
-
-        return view('admin.marketing.banners.index', compact('records'));
+        return view('admin.marketing.banners.index');
     }
 
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -93,5 +93,41 @@ class BannerController extends Controller
         $record->delete();
 
         return back()->with('status', 'Հաջողությամբ հեռացված է');
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Banner::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search['value'];
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
+            $created = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
+            $btnDetails = '<a href="'.route('admin.banners.edit', ['banner' => $item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = '<a href="#" data-action="'.route('admin.banners.destroy', ['banner' => $item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = [$item->id, $item->name, $img, $item->status_text, $created, $btnDetails.$btnDelete];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+        ]);
     }
 }

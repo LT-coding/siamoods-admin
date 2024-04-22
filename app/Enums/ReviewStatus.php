@@ -10,8 +10,6 @@ enum ReviewStatus: string
     case confirmed = 'Հաստատված';//1
     case declined = 'Մերժված';//2
 
-
-
     /**
      * @param bool $as_string
      * @return array|string
@@ -23,8 +21,5 @@ enum ReviewStatus: string
         $result [] = self::declined->value;
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }

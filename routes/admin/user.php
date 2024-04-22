@@ -14,3 +14,7 @@ Route::resource('accounts', AccountController::class)->except([
 Route::resource('subscribers', SubscriberController::class)->except([
     'create', 'store', 'show', 'edit', 'destroy'
 ]);
+
+Route::get('/get-users', [UserController::class, 'getRecords'])->name('users.get');
+Route::get('/get-accounts', [AccountController::class, 'getRecords'])->name('accounts.get');
+Route::get('/get-subscribers', [SubscriberController::class, 'getRecords'])->name('subscribers.get');

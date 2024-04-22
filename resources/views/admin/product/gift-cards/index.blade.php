@@ -25,15 +25,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'desc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.gift-cards.get')
+            ],
             'columns' => [null, null, null, null, null, null, null, null, null],
         ];
-
-        foreach ($records as $item) {
-            $row = [$item->id,$item->unique_id,$item->sender,$item->senderUser->email,$item->recipient,$item->recipientUser->email,$item->amount,$item->spend,$item->exist];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

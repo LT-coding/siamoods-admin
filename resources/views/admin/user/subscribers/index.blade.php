@@ -19,22 +19,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'desc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.subscribers.get')
+            ],
             'columns' => [null, null, ['orderable' => true]],
         ];
-
-        foreach ($records as $item) {
-            $statusSelect = '<select name="status" class="form-control status-change" data-id="'.$item->id.'">';
-            foreach ($statuses as $key => $value) {
-                $selected = $key == $item->status ? 'selected' : '';
-                $statusSelect .= '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
-            }
-            $statusSelect .= '</select>';
-
-            $row = [$item->id, $item->email, $statusSelect];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

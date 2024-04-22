@@ -22,18 +22,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'asc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.users.get')
+            ],
             'columns' => [null, null, null, null, null, ['orderable' => false]],
         ];
-
-        foreach ($records as $item) {
-            $email = '<a href="mailto:"'.$item->email.'>'.$item->email.'</a>';
-            $btnDetails = '<a href="'.route('admin.users.edit',['user'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $btnDelete = '<a href="#" data-action="'.route('admin.users.destroy',['user'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->full_name, $email, $item->role_name, $item->status_text, $btnDetails.$btnDelete];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

@@ -130,6 +130,14 @@ $(function(){
         $('#gift').val('');
         $('#gift_val').val('');
     })
+
+    $(document).on('focusout ', '.review-input', function () {
+        tableAjax($(this));
+    })
+
+    $(document).on('change', '.review-select', function () {
+        tableAjax($(this));
+    })
 });
 function searchAjax(input,url){
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -146,5 +154,26 @@ function searchAjax(input,url){
         },
         error: function (jqXHR, textStatus, errorThrown)
         {}
+    });
+}
+function tableAjax(input) {
+    let form = input.closest('form')[0];
+    const data = new FormData(form);
+    let url = input.closest('form').attr('action');
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data: data,
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-CSRF-TOKEN": csrfToken // Include the CSRF token in the request headers
+        },
+        success: function (data, textStatus, jqXHR) {
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
     });
 }

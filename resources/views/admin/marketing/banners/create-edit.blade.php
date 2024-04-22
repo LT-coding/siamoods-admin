@@ -24,11 +24,14 @@
                             <img src="{{ $record->image_link }}" alt="image" style="max-height:150px;max-width: 100%;">
                         @endif
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <x-adminlte-input name="name" label="Անուն" value="{{ old('name') ?? ($record ? $record->name : '') }}" data-required="true"/>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
+                            </div>
+                            <div class="col-md-3">
+                                <x-adminlte-input name="order" label="Հերթականություն" type="number" value="{{ old('name') ?? $record?->order ?? 0 }}"/>
                             </div>
                         </div>
                         <div class="row">

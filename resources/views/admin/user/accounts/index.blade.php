@@ -22,17 +22,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'desc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.accounts.get')
+            ],
             'columns' => [null, null, null, null, ['orderable' => true]],
         ];
-
-        foreach ($records as $item) {
-            $email = '<a href="mailto:"'.$item->email.'>'.$item->email.'</a>';
-//            $btnDetails = '<a href="'.route('admin.accounts.show',['account'=>$item->id]).'" class="text-info mx-1" title="Details"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
-            $row = [$item->id, $item->full_name, $item->phone, $email, $item->registered];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>

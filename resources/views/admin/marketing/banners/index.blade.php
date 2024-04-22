@@ -22,19 +22,13 @@
         ];
 
         $config = [
-            'data' => [],
-            'order' => [[0, 'asc']],
+            'processing' => true,
+            'serverSide' => true,
+            'ajax' => [
+                'url' => route('admin.banners.get')
+            ],
             'columns' => [null, null, null, null, null, ['orderable' => false]],
         ];
-
-        foreach ($records as $item) {
-            $img = '<img src="'.$item->image_link.'" alt="image" style="max-height:100px;">';
-            $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
-            $btnDetails = '<a href="'.route('admin.banners.edit',['banner'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $btnDelete = '<a href="#" data-action="'.route('admin.banners.destroy',['banner'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $img, $item->status_text, $created, $btnDetails.$btnDelete];
-            $config['data'] [] = $row;
-        }
     @endphp
 
     <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>
