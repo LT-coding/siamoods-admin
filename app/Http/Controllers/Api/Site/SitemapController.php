@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Routing\ResponseFactory;

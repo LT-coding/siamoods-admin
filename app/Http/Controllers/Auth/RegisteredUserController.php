@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleTypes;
 use App\Http\Controllers\Controller;
+use App\Models\Subscriber;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -26,23 +29,53 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = User::query()->where([['email', $request->email], ['registered', 0]])->first();
+        if ($user) {
+            $request->validate([
+                'firstName' => ['required', 'string', 'max:255'],
+                'lastName' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+            $user->update([
+                'name' => $request->firstName,
+                'lastname' => $request->lastName,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => 0,
+                'registered' => 1,
+            ]);
+        } else {
+            $request->validate([
+                'firstName' => ['required', 'string', 'max:255'],
+                'lastName' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class . ',email'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+            $user = User::create([
+                'name' => $request->firstName,
+                'lastname' => $request->lastName,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => 0,
+            ])->assignRole(RoleTypes::account->name);
+        }
 
         event(new Registered($user));
+
+        // Create subscription if checked
+        if ($request->subscribe) {
+            Subscriber::query()->create([
+                'email' => $request->email,
+                'status' => 1
+            ]);
+        }
+
+        $user->sendEmailVerificationNotification();
 
         Auth::login($user);
 

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\Site\ContactController;
 use App\Http\Controllers\Api\Site\ContentController;
 use App\Http\Controllers\Api\Site\SiteController;
-use App\Http\Controllers\Api\SitemapController;
+use App\Http\Controllers\Api\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/sitemap', [SitemapController::class, 'index']);
