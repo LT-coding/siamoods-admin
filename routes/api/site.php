@@ -2,16 +2,14 @@
 
 use App\Http\Controllers\Api\Site\ContactController;
 use App\Http\Controllers\Api\Site\ContentController;
-use App\Http\Controllers\Api\Site\CustomizationController;
+use App\Http\Controllers\Api\Site\SiteController;
 use App\Http\Controllers\Api\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/sitemap', [SitemapController::class, 'index']);
 
-Route::get('/get-customization', [CustomizationController::class, 'getCustomization']);
-Route::get('/get-banners', [CustomizationController::class, 'getBanners']);
-Route::get('/get-sale', [CustomizationController::class, 'getSale']);
-Route::get('/get-static-metas/{page}', [CustomizationController::class, 'getStaticMetas']);
+Route::get('/get-home', [SiteController::class, 'index']);
+Route::get('/get-static-metas/{page}', [SiteController::class, 'getStaticMetas']);
 
 Route::get('/blog', [ContentController::class, 'getBlog']);
 Route::get('/content/{type}/{slug}', [ContentController::class, 'getContent']);
