@@ -15,10 +15,8 @@ class CustomizationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'image' => $this->image_link,
             'name' => $this->name,
-            'url' => $this->url,
-            'new_tab' => $this->new_tab,
+            'value' => $this->value
         ];
     }
 }
