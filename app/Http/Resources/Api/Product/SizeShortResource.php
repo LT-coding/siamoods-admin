@@ -18,7 +18,7 @@ class SizeShortResource extends JsonResource
             'code' => $this->code,
             'name' => $this->sizeName,
             'quantity' => $this->quantity,
-            'prices' => PriceResource::collection($this->resource->prices)
+            'prices' => PowerLabelResource::collection($this->resource->prices)
         ];
     }
 }

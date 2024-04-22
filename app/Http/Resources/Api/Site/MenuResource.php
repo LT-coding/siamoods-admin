@@ -15,8 +15,9 @@ class MenuResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'menu_title' => $this->menu_title,
-            'items' => MenuItemResource::collection($this->children)
+            'name' => $this->name_hy,
+            'href' => $this->url,
+            'subItems' => self::collection($this->children)
         ];
     }
 }

@@ -154,4 +154,9 @@ class Product extends Model
 
         return $data;
     }
+
+    public static function formatPrice($price): string
+    {
+        return number_format($price);
+    }
 }

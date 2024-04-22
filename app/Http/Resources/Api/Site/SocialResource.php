@@ -15,9 +15,8 @@ class SocialResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this->title,
             'icon' => $this->image_link,
-            'link' => $this->link,
+            'url' => $this->url,
         ];
     }
 }

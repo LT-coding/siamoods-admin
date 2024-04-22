@@ -16,13 +16,9 @@ class BannerResource extends JsonResource
     {
         return [
             'image' => $this->image_link,
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'offer_text' => $this->offer_text,
-            'main_button_text' => $this->main_button_text,
-            'main_button_url' => $this->main_button_url,
-            'secondary_button_text' => $this->secondary_button_text,
-            'secondary_button_url' => $this->secondary_button_url,
+            'name' => $this->name,
+            'url' => $this->url,
+            'new_tab' => $this->new_tab,
         ];
     }
 }

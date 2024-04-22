@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Api\Site;
+namespace App\Http\Resources\Api\Product;
 
+use App\Enums\LabelType;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ContactResource extends JsonResource
+class PowerLabelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +17,9 @@ class ContactResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => $this->type,
-            'text' => $this->text
+            'type' => LabelType::types()[$this->type],
+            'position' => $this->position,
+            'media' => $this->media
         ];
     }
 }

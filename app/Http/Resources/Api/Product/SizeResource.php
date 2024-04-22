@@ -21,7 +21,7 @@ class SizeResource extends JsonResource
             'quantity' => $this->quantity,
             'price' => Product::formatPrice($this->price),
             'discount_price' => $this->discount_price,
-            'prices' => PriceResource::collection($this->resource->prices)
+            'prices' => PowerLabelResource::collection($this->resource->prices)
         ];
     }
 }

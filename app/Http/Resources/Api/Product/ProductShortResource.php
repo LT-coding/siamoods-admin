@@ -18,26 +18,13 @@ class ProductShortResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image ?? asset('/img/no-image.png'),
-            'title' => $this->title,
-            'slug' => $this->slug,
+            'images' => ProductImageResource::collection($this->resource->images()->orderBy('is_general','desc')->get()),
+            'title' => $this->item_name,
             'url' => $this->url,
-            'external_url' => $this->external_url,
-            'price' => Product::formatPrice($this->display_price),
-            'currency' => $this->currency_sign,
-            'discount' => $this->discount_percent,
-            'discount_price' => $this->discount_price,
-            'colors' => OptionValueResource::collection(
-                $this->resource->variants()->hasPrices()->available()->with('color.values')->get()
-                    ->filter(function ($variant) {
-                        return $variant->color && $variant->color->values->isNotEmpty();
-                    })
-                    ->pluck('color.values')
-                    ->flatten()
-                    ->unique('value')
-            ),
-            'rate_count' => $this->rate_count,
-            'rating' => $this->rating
+            'price' => Product::formatPrice($this->price?->price ?? 0),
+            'discount' => $this->computed_discount ?? Product::formatPrice($this->computed_discount),
+            'discount_left' => $this->show_discount_left && $this->discount_left ? 'Մնաց ' . $this->discount_left : null,
+            'label' => $this->resource->label ? new PowerLabelResource($this->resource->label->active()) : null
         ];
     }
 }

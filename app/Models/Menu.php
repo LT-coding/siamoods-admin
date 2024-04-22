@@ -33,7 +33,7 @@ class Menu extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(Menu::class,'parent_id')->where('status',1)->orderBy('position');
+        return $this->hasMany(Menu::class,'parent_id')->active()->orderBy('position');
     }
 
     public function childrenAll(): HasMany

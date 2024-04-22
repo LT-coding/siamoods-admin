@@ -21,7 +21,7 @@ class ResentBlogResource extends JsonResource
             'image' => $this->image_link,
             'title' => $this->title,
             'slug' => $this->slug,
-            'created_at' => Carbon::parse($this->created_at)->format('d F, Y'),
+            'date' => Carbon::parse($this->created_at)->format('d.m.Y'),
         ];
     }
 }
