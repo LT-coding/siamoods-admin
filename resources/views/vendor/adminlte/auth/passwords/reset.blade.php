@@ -15,7 +15,7 @@
         @csrf
 
         {{-- Token field --}}
-        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="token" value="{{ $request->token }}">
 
         {{-- Email field --}}
         <div class="input-group mb-3">
