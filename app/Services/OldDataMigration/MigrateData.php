@@ -181,14 +181,14 @@ class MigrateData
             ];
             \App\Models\Customization::query()->create(array_merge($data, $timestamps));
         }
-        foreach (Menu::on('old_db')->get() as $item) {
-            $data = $item->toArray();
-            $timestamps = [
-                'created_at' => $item->created_at,
-                'updated_at' => $item->updated_at,
-            ];
-            \App\Models\Menu::query()->create(array_merge($data, $timestamps));
-        }
+//        foreach (Menu::on('old_db')->get() as $item) {
+//            $data = $item->toArray();
+//            $timestamps = [
+//                'created_at' => $item->created_at,
+//                'updated_at' => $item->updated_at,
+//            ];
+//            \App\Models\Menu::query()->create(array_merge($data, $timestamps));
+//        }
         foreach (Notification::on('old_db')->where('type','!=',18)->get() as $item) {
             $data = $item->toArray();
             $timestamps = [

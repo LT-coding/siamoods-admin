@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function storeAccount(Request $request): RedirectResponse
     {
         $user = User::query()->where([['email', $request->email], ['registered', 0]])->first();
         if ($user) {
