@@ -13,7 +13,7 @@ trait UserAuthOrCreate
 {
     protected function register_or_login($social_user, $provider): void
     {
-        $user = User::firstOrCreate(
+        $user = User::query()->firstOrCreate(
             ['email' => $social_user->getEmail()],
             [
                 'name' => str_contains($social_user->getName(),' ') ? explode(' ', $social_user->getName())[0] : $social_user->getName(),

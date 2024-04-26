@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Social;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\JsonResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -18,14 +19,16 @@ class SocialAuthController extends Controller
     }
 
     // Facebook callback
-    public function handleFacebookCallback(): \Illuminate\Http\RedirectResponse
+    public function handleFacebookCallback(): JsonResponse
     {
         // Get user
         $user = Socialite::driver('facebook')->user();
         // Auth  User
         $this->register_or_login($user, "facebook");
         // Return profile page after login
-        return redirect(RouteServiceProvider::SITE);
+        return response()->json([
+            'status' => "success",
+        ]);
     }
 
 
@@ -36,11 +39,13 @@ class SocialAuthController extends Controller
     }
 
     // Google callback
-    public function handleGoogleCallback(): \Illuminate\Http\RedirectResponse
+    public function handleGoogleCallback(): JsonResponse
     {
         $user = Socialite::driver('google')->stateless()->user();
         $this->register_or_login($user, "google");
         // Return profile page after login
-        return redirect(RouteServiceProvider::SITE);
+        return response()->json([
+            'status' => "success",
+        ]);
     }
 }
