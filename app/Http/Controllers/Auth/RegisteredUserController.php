@@ -75,9 +75,9 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        $user->sendEmailVerificationNotification();
-
         Auth::login($user);
+
+        $user->sendEmailVerificationNotification();
 
         return redirect(RouteServiceProvider::HOME);
     }
