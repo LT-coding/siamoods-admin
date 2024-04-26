@@ -8,6 +8,7 @@ use App\Models\Subscriber;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function storeAccount(Request $request): RedirectResponse
+    public function storeAccount(Request $request): JsonResponse
     {
         $user = User::query()->where([['email', $request->email], ['registered', 0]])->first();
         if ($user) {
@@ -79,6 +80,8 @@ class RegisteredUserController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return redirect(RouteServiceProvider::HOME);
+        return response()->json([
+            'status' => "success",
+        ]);
     }
 }
