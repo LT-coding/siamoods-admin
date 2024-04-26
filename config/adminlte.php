@@ -258,7 +258,7 @@ return [
     'login_url' => 'login',
     'register_url' => false,
     'password_reset_url' => 'forgot-password',
-    'password_reset_email_url' => 'reset-password',
+    'password_reset_email_url' => '/reset-password',
     'password_email_url' => 'forgot-password',
     'profile_url' => 'admin/profile',
 
