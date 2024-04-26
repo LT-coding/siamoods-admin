@@ -16,35 +16,6 @@ enum RoleTypes: string
     case editor = 'Խմբագիր';
     case account = 'Հաշիվ';
 
-
-    /**
-     * @param bool $as_string
-     * @return array|string
-     */
-    public static function adminPanelRoles(bool $as_string = false): array|string
-    {
-        $result= [
-            self::admin,
-            self::editor
-        ];
-
-        return $as_string ? implode('|', $result) : $result;
-    }
-
-    /**
-     * @param bool $as_string
-     * @return array|string
-     */
-    public static function rolesNames(bool $as_string = false): array|string
-    {
-        $result= [
-            self::admin->value,
-            self::editor->value,
-            self::account->value
-        ];
-        return $as_string ? implode('|', $result) : $result;
-    }
-
     /**
      * @param bool $as_string
      * @return array|string
