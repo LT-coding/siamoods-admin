@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\RoleType;
 use App\Enums\RoleTypes;
 use App\Traits\StatusTrait;
 use Carbon\Carbon;
@@ -104,6 +105,18 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn () => Carbon::parse($this->created_at)->format('d.m.Y')
+        );
+    }
+
+    /**
+     * Check if this user is Account.
+     *
+     * @return Attribute
+     */
+    protected function isAccount(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->hasRole(RoleTypes::account->name)
         );
     }
 
