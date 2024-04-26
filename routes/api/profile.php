@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\User\ProfileController;
 use App\Http\Controllers\Api\User\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'role:Account'])->group(static function () {
+Route::middleware(['auth:sanctum', 'verified', 'role:Account'])->group(static function () {
     Route::get('/account', [ProfileController::class, 'edit']);
     Route::post('/account', [ProfileController::class, 'update']);
 

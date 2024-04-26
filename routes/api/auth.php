@@ -13,4 +13,4 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 
 Route::post('/account-logout', [AuthenticatedSessionController::class, 'destroyAccount'])
-    ->middleware(['auth:sanctum']);
+    ->middleware(['auth:sanctum', 'verified']);

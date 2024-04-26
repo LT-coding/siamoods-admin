@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\RoleTypes;
 use App\Notifications\CustomResetPasswordNotification;
+use App\Notifications\CustomVerifyEmailNotification;
 use App\Traits\StatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -61,7 +62,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Send the password reset notification.
+     * Send the custom password reset notification.
      *
      * @param  string  $token
      * @return void
@@ -69,6 +70,16 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+    /**
+     * Send the custom email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new CustomVerifyEmailNotification());
     }
 
     /**

@@ -37,7 +37,7 @@ Route::middleware([])->group(function () {
 //Route::post('telcell/result', [PaymentController::class, 'telcell']);
 //Route::post('card/result', [PaymentController::class, 'card']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum', 'verified'])->get('/user', function (Request $request) {
     return $request->user();
 });
 

@@ -19,7 +19,7 @@ class CustomResetPasswordNotification extends ResetPasswordNotification
 
         if ($notifiable->isAccout) {
             // Customize the password reset link for Account users
-            return config('app.frontend_url')."/password-reset?token={$this->token}&email={$notifiable->getEmailForPasswordReset()}";
+            return config('app.frontend_url')."/reset-password?token={$this->token}&email={$notifiable->getEmailForPasswordReset()}";
         }
 
         return url(route('password.reset', [
