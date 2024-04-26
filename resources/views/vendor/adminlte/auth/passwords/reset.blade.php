@@ -1,12 +1,6 @@
 @extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
-@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
-
-@if (config('adminlte.use_route_url', false))
-    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
-@else
-    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
-@endif
+@php( $password_reset_url = config('adminlte.password_reset_email_url', 'password/reset') )
 
 @section('auth_header', __('adminlte::adminlte.password_reset_message'))
 
