@@ -17,7 +17,7 @@ class CustomResetPasswordNotification extends ResetPasswordNotification
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         }
 
-        if ($notifiable->isAccout) {
+        if ($notifiable->isAccount) {
             // Customize the password reset link for Account users
             return config('app.frontend_url')."/reset-password?token={$this->token}&email={$notifiable->getEmailForPasswordReset()}";
         }
