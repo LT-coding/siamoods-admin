@@ -5,26 +5,16 @@ namespace App\Http\Controllers\Api\Site;
 use App\Enums\MetaTypes;
 use App\Enums\StaticPages;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Site\BannerDataResource;
 use App\Http\Resources\Api\Site\SiteResource;
-use App\Http\Resources\Api\Site\DiscountResource;
 use App\Http\Resources\Api\Site\SeoResource;
 use App\Models\Banner;
 use App\Models\Content;
 use App\Models\Customization;
-use App\Models\FooterMenu;
 use App\Models\Menu;
 use App\Models\Meta;
 use App\Models\Product;
 use App\Models\SocialMedia;
-use App\Models\VariationType;
-use Carbon\Carbon;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {

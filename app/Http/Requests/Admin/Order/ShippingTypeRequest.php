@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\Admin\Order;
 
-use App\Models\AdditionTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ShippingMethodRequest extends FormRequest
+class ShippingTypeRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,15 +16,11 @@ class ShippingMethodRequest extends FormRequest
     {
         $productCode = $this->input('product_code');
         return [
-            'title' => [
+            'name' => [
                 'required',
-                Rule::unique('shipping_methods')->ignore($this->id),
+                Rule::unique('shipping_types')->ignore($this->id),
             ],
-            'image' => [Rule::requiredIf(fn () => !$this->id),'mimes:jpeg,png','max:2048'],
-            'prices' => ['nullable','array'],
-            'prices.*' => ['nullable'],
-            'price_from_counts' => ['nullable','array'],
-            'price_from_counts.*' => ['nullable'],
+            'image' => [Rule::requiredIf(fn () => !$this->id),'mimes:jpeg,png,webp','max:2048'],
         ];
     }
 }

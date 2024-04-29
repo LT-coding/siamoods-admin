@@ -31,7 +31,7 @@
                                 <x-adminlte-input name="image" label="Բովանդակություն" type="file" data-required="true"/>
                             </div>
                             <div class="col-md-3">
-                                <x-adminlte-input name="order" label="Հերթականություն" type="number" value="{{ old('name') ?? $record?->order ?? 0 }}"/>
+                                <x-adminlte-input name="order" label="Հերթականություն" type="number" value="{{ old('order') ?? $record?->order ?? 0 }}"/>
                             </div>
                         </div>
                         <div class="row">

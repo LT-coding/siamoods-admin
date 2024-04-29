@@ -349,11 +349,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Առաքման մեթոդներ',
-                    'url'  => '#',
+                    'url'  => 'admin/shipping-types',
                 ],
                 [
                     'text' => 'Պատվերներ',
-                    'url'  => '#',
+                    'url'  => 'admin/orders',
                 ],
             ],
         ],
