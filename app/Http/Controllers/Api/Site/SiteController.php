@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Site;
 use App\Enums\MetaTypes;
 use App\Enums\StaticPages;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Product\ProductShortResource;
 use App\Http\Resources\Api\Site\SiteResource;
 use App\Http\Resources\Api\Site\SeoResource;
 use App\Models\Banner;
@@ -15,6 +16,7 @@ use App\Models\Meta;
 use App\Models\Product;
 use App\Models\SocialMedia;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SiteController extends Controller
 {
@@ -55,5 +57,10 @@ class SiteController extends Controller
         $meta = Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => $request->page])->first()
             ?? Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => StaticPages::home->name])->first();
         return new SeoResource($meta);
+    }
+
+    public function getRecentlyViewed($ids): AnonymousResourceCollection
+    {
+        return ProductShortResource::collection(Product::query()->whereIn('id',$ids)->get());
     }
 }
