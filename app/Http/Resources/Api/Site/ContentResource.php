@@ -25,7 +25,7 @@ class ContentResource extends JsonResource
             'meta_title' => $this->meta_title,
             'meta_keywords' => $this->meta_keywords,
             'meta_description' => $this->meta_description,
-            'created_at' => Carbon::parse($this->created_at)->format('d F, Y'),
+            'created_at' => Carbon::parse($this->created_at)->format('d.m.Y'),
             'resents' => $this->type == ContentTypes::blog->name
                 ? ResentBlogResource::collection(Content::query()->blog()->active()->where('id','!=',$this->id)->orderBy('created_at','desc')->limit(5)->get())
                 : null

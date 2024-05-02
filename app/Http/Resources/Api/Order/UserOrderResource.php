@@ -32,7 +32,7 @@ class UserOrderResource extends JsonResource
             'tax' => Product::formatPrice($this->tax),
             'total' => Product::formatPrice($this->total),
             'currency' => $this->currency,
-            'order_date' => Carbon::parse($this->paid_at)->format('d F, Y'),
+            'order_date' => Carbon::parse($this->paid_at)->format('d.m.Y'),
             'currency_text' => Currencies::listLower()[$this->currency]
         ];
     }
