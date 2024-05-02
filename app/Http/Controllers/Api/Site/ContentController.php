@@ -13,8 +13,13 @@ class ContentController extends Controller
 {
     public function getContent(string $type, string $slug): ContentResource
     {
-        $content = Content::query()->$type()->active()->where('slug',$slug)->firstOrFail();
-
+        $content = Content::query()
+            ->whereHas('meta', function ($query) use ($slug) {
+                $query->where('url', $slug);
+            })
+            ->$type()
+            ->active()
+            ->firstOrFail();
         return new ContentResource($content);
     }
 
