@@ -34,7 +34,7 @@ use App\OldModels\ProductRecomendation;
 use App\OldModels\ProductVariation;
 use App\OldModels\ProductVariationPrice;
 use App\OldModels\Promotion;
-use App\OldModels\RecentlyViewed;
+//use App\OldModels\RecentlyViewed;
 use App\OldModels\Review;
 use App\OldModels\ShippingArea;
 use App\OldModels\ShippingRate;
@@ -146,7 +146,7 @@ class MigrateData
             $newBlog = Content::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::blog->name,
+                'type' => MetaTypes::content->name,
                 'model_id' => $newBlog->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,
@@ -165,7 +165,7 @@ class MigrateData
             $newPage = Content::query()->create(array_merge($data, $timestamps));
             $meta = $item->meta;
             Meta::query()->create([
-                'type' => MetaTypes::page->name,
+                'type' => MetaTypes::content->name,
                 'model_id' => $newPage->id,
                 'meta_title' => $meta->meta_title,
                 'meta_desc' => $meta->meta_desc,
@@ -415,18 +415,18 @@ class MigrateData
                 ProductRecommendation::query()->create(array_merge($data, $timestamps));
             }
         }
-        foreach (RecentlyViewed::on('old_db')->get() as $item) {
-            $data = array_except($item->toArray(),['product_id']);
-            $product = Product::query()->find($item->product_id);
-            $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
-            $timestamps = [
-                'created_at' => $item->created_at,
-                'updated_at' => $item->updated_at,
-            ];
-            if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
-                \App\Models\RecentlyViewed::query()->create(array_merge($data, $timestamps));
-            }
-        }
+//        foreach (RecentlyViewed::on('old_db')->get() as $item) {
+//            $data = array_except($item->toArray(),['product_id']);
+//            $product = Product::query()->find($item->product_id);
+//            $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
+//            $timestamps = [
+//                'created_at' => $item->created_at,
+//                'updated_at' => $item->updated_at,
+//            ];
+//            if (Product::query()->where('haysell_id',$data['haysell_id'])->first()) {
+//                \App\Models\RecentlyViewed::query()->create(array_merge($data, $timestamps));
+//            }
+//        }
         foreach (Review::on('old_db')->get() as $item) {
             $data = array_except($item->toArray(),['product_id']);
             $product = Product::query()->find($item->product_id);

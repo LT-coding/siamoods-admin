@@ -31,7 +31,7 @@ class Content extends Model
 
     public function meta(): HasOne
     {
-        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', $this->type);
+        return $this->hasOne(Meta::class, 'model_id', 'id')->where('type', MetaTypes::content->name);
     }
 
     protected function url(): Attribute
