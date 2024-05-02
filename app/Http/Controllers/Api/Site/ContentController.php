@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\Site;
 
+use App\Enums\MetaTypes;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Site\BlogResource;
 use App\Http\Resources\Api\Site\ContentResource;
 use App\Models\Content;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Models\Meta;
 
 class ContentController extends Controller
 {
@@ -16,10 +18,14 @@ class ContentController extends Controller
         return new ContentResource($content);
     }
 
-    public function getBlog(): AnonymousResourceCollection
+    public function getBlog(): BlogResource
     {
-        $blog = Content::query()->blog()->active()->orderBy('created_at','desc')->get();
+        $data = [
+            'blog' => Content::query()->blog()->active()->orderBy('created_at','desc')->get(),
+            'resents' => Content::query()->blog()->active()->where('id','!=',$this->id)->orderBy('created_at','desc')->limit(5)->get(),
+            'meta' => Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => 'blog'])->first()
+        ];
 
-        return ContentResource::collection($blog);
+        return new BlogResource($data);
     }
 }

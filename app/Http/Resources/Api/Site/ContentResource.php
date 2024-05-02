@@ -20,7 +20,7 @@ class ContentResource extends JsonResource
         return [
             'image' => $this->image_link,
             'title' => $this->title,
-            'slug' => $this->slug,
+            'slug' => $this->meta_url,
             'description' => $this->description,
             'meta_title' => $this->meta_title,
             'meta_keywords' => $this->meta_keywords,
