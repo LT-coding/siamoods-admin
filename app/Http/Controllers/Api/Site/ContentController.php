@@ -22,7 +22,7 @@ class ContentController extends Controller
     {
         $data = [
             'blog' => Content::query()->blog()->active()->orderBy('created_at','desc')->get(),
-            'resents' => Content::query()->blog()->active()->where('id','!=',$this->id)->orderBy('created_at','desc')->limit(5)->get(),
+            'resents' => Content::query()->blog()->active()->orderBy('created_at','desc')->limit(5)->get(),
             'meta' => Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => 'blog'])->first()
         ];
 
