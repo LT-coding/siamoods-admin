@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -150,5 +152,32 @@ class User extends Authenticatable
     public function scopeAdmins(Builder $query): void
     {
         $query->role(RoleTypes::adminRoles());
+    }
+
+    public function subscription(): HasOne
+    {
+        return $this->hasOne(Subscriber::class, 'email', 'email');
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(AccountAddress::class,'user_id','id');
+    }
+
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(WishingList::class,'user_id','id');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'user_id','id')->whereNotIn('status',[Order::CANCELED,Order::NOT_COMPLETED,Order::UNDEFINED])->orderBy('created_at', 'desc');
+    }
+
+    public function updateSubscrption($s): void
+    {
+        if ($this->subscription || $s) {
+            $this->subscription()->updateOrCreate(['email' => $this->email], ['status' => $s]);
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Order\UserOrderDetailsResource;
@@ -21,12 +21,5 @@ class OrderController extends Controller
         $user = $request->user('sanctum');
         $order = $user->orders()->where('id', $request->order_id)->firstOrFail();
         return new UserOrderDetailsResource($order);
-    }
-
-    public function orderInvoice(Request $request): UserOrderResource
-    {
-        $user = $request->user('sanctum');
-        $order = $user->orders()->where('id', $request->order_id)->firstOrFail();
-        return new UserOrderResource($order);
     }
 }

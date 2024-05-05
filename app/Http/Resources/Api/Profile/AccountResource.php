@@ -17,10 +17,9 @@ class AccountResource extends JsonResource
     {
         return [
             'id' => $this->getKey(),
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'date_of_birth' => $this->date_of_birth,
-            'phone_number' => $this->phone_number,
+            'name' => $this->name,
+            'lastname' => $this->lastname,
+            'phone' => $this->phone,
             'email' => $this->email,
             'subscribe' => $this->subscription?->active()->first() ? 1 : 0,
         ];

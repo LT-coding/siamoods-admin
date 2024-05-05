@@ -15,7 +15,7 @@ use App\Http\Resources\Api\Order\CartItemShortResource;
 use App\Http\Resources\Api\Order\OrderResource;
 use App\Http\Resources\Api\Order\StateResource;
 use App\Http\Resources\Api\Profile\AccountResource;
-use App\Http\Resources\Api\Profile\UserAddressItemResource;
+use App\Http\Resources\Api\Profile\AccountAddressItemResource;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Product;
@@ -274,7 +274,7 @@ class OrderController extends Controller
         return response()->json([
             'shipping' => [
                 'personal' => $user ? new AccountResource($user) : json_decode($order->personal, true),
-                'addresses' => $user ? UserAddressItemResource::collection($user->addresses()->get()) : json_decode($order->shipping, true),
+                'addresses' => $user ? AccountAddressItemResource::collection($user->addresses()->get()) : json_decode($order->shipping, true),
             ],
             'countries' => Countries::getValues(),
             'order' => new OrderResource($order)

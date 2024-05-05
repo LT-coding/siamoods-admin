@@ -17,7 +17,7 @@ class ProductShortResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'haysell_id' => $this->haysell_id,
             'images' => ProductImageResource::collection($this->resource->images()->orderBy('is_general','desc')->get()),
             'title' => $this->item_name,
             'url' => $this->url,
