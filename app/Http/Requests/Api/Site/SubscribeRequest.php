@@ -15,8 +15,7 @@ class SubscribeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', new UniqueSubscriberEmail],
-            'status' => ['nullable']
+            'email' => ['required', 'email', new UniqueSubscriberEmail]
         ];
     }
 }
