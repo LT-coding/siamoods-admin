@@ -98,7 +98,7 @@ class Product extends Model
     public function url(): Attribute
     {
         return Attribute::make(
-            get: fn () => config('app.frontend_url') .'/product/'. $this->meta_url
+            get: fn () => config('app.frontend_url') .'/product/'. $this->metaUrl
         );
     }
 

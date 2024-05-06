@@ -20,7 +20,7 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => $this->meta_url,
+            'slug' => $this->metaUrl,
             'price' => Product::formatPrice($this->display_price),
             'currency' => $this->currency_sign,
             'discount' => $this->discount_percent,
