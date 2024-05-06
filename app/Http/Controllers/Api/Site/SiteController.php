@@ -46,7 +46,7 @@ class SiteController extends Controller
             'discount' => $discount->values()->all(),
             'new' => $new,
             'liked' => Product::query()->where('liked', 1)->limit(10)->get(),
-            'blog' => Content::query()->blog()->limit(5)->get()
+            'blog' => Content::query()->blog()->active()->limit(5)->get()
         ];
 
         return new SiteResource($data);
