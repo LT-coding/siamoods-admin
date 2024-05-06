@@ -26,7 +26,9 @@ class ContactController extends Controller
 //        $confirm = config('app.frontend_url') . '/confirm-subscription/'.$data['email'];
         $unsubscribe = config('app.frontend_url') . '/unsubscribe/'.$data['email'];
 
-        Subscriber::query()->updateOrCreate($data,$data);
+        Subscriber::query()->updateOrCreate([
+            'email' => $data['email']
+        ],$data);
 
         Mail::to($subscriber)->send(new SubscriberEmail($data['email'],$unsubscribe));
 
