@@ -56,6 +56,13 @@ class ProfileController extends Controller
         return ProductShortResource::collection($products);
     }
 
+    public function addFavorite(Request $request, $haysell_id): \Illuminate\Http\Response
+    {
+        $request->user('sanctum')->favorites()->updateOrCreate(['haysell_id', $haysell_id]);
+
+        return response()->noContent(Response::HTTP_NO_CONTENT);
+    }
+
     public function removeFavorite(Request $request, $haysell_id): \Illuminate\Http\Response
     {
         $request->user('sanctum')->favorites()->where('haysell_id', $haysell_id)->first()?->delete();
