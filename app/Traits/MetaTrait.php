@@ -8,28 +8,28 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait MetaTrait
 {
-    protected function metaTitle(): Attribute
+    protected function meta_title(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->meta ? $this->meta->meta_title : ''
         );
     }
 
-    protected function metaUrl(): Attribute
+    protected function meta_url(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->meta ? $this->meta->url : ''
         );
     }
 
-    protected function metaDescription(): Attribute
+    protected function meta_description(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->meta ? $this->meta->meta_desc : ''
         );
     }
 
-    protected function metaKeywords(): Attribute
+    protected function meta_keywords(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->meta ? $this->meta->meta_key : ''

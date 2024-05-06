@@ -20,7 +20,7 @@ class ContentShortResource extends JsonResource
         return [
             'image' => $this->image_link,
             'title' => $this->title,
-            'slug' => $this->metaUrl,
+            'slug' => $this->meta_url,
             'short_description' => substr($this->description, 0, 500),
             'date' => Carbon::parse($this->created_at)->format('d.m.Y'),
         ];
