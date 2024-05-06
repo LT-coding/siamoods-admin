@@ -19,7 +19,8 @@ class ContactController extends Controller
     {
         $data = $request->validated();
         $subscriber = [
-            $data['email'] => $data['email']
+            $data['email'] => $data['email'],
+            $data['status'] => StatusTypes::active->value
         ];
 
 //        $confirm = config('app.frontend_url') . '/confirm-subscription/'.$data['email'];
