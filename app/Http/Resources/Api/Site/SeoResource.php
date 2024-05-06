@@ -16,8 +16,8 @@ class SeoResource extends JsonResource
     {
         return [
             'meta_title' => $this->resource ? $this->meta_title : null,
-            'meta_description' => $this->resource ? $this->meta_description : null,
-            'meta_keywords' => $this->resource ? $this->meta_keywords : null
+            'meta_description' => $this->resource ? $this->meta_desc : null,
+            'meta_keywords' => $this->resource ? $this->meta_key : null
         ];
     }
 }

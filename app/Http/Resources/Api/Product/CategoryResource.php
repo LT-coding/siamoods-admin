@@ -20,9 +20,9 @@ class CategoryResource extends JsonResource
             'childCategories' => self::collection($this->childCategories),
             'url' => $this->url,
             'slug' => $this->code,
-            'meta_title' => $this->meta_title,
-            'meta_keywords' => $this->meta_keywords,
-            'meta_description' => $this->meta_description,
+            'meta_title' => $this->metaTitle,
+            'meta_keywords' => $this->metaKeywords,
+            'meta_description' => $this->metaDescription,
         ];
     }
 }
