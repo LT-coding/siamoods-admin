@@ -28,7 +28,7 @@ class SiteResource extends JsonResource
             'discount' => ProductShortResource::collection($this->resource['discount']),
             'new' => ProductShortResource::collection($this->resource['new']),
             'liked' => ProductShortResource::collection($this->resource['liked']),
-            'blog' => ResentBlogResource::collection($this->resource['blog'])
+            'blog' => ContentShortResource::collection($this->resource['blog'])
         ];
     }
 }
