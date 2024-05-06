@@ -16,6 +16,7 @@ class SubscribeRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', new UniqueSubscriberEmail],
+            'status' => ['nullable']
         ];
     }
 }
