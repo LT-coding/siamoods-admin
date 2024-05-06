@@ -18,7 +18,6 @@ class ResentBlogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'image' => $this->image_link,
             'title' => $this->title,
             'slug' => $this->metaUrl,
             'date' => Carbon::parse($this->created_at)->format('d.m.Y'),
