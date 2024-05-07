@@ -138,6 +138,22 @@ $(function(){
     $(document).on('change', '.review-select', function () {
         tableAjax($(this));
     })
+
+    $(document).on('click','#free-shipping',function(){
+        if (!$(this).is(':checked')) {
+            let url = $(this).data('url');
+            let k = $(this).closest('.shipping-item').data('id');
+            shippingAjax(url,$(this),k);
+        } else {
+            $(this).closest('.shipping-item').find('.shipping-rate .rate-item').remove();
+        }
+    })
+
+    $(document).on('click','.add-rate',function(){
+        let url = $(this).data('url');
+        let k = $(this).closest('.shipping-item').data('id');
+        shippingAjax(url,$(this),k);
+    })
 });
 function searchAjax(input,url){
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -175,5 +191,26 @@ function tableAjax(input) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
         }
+    });
+}
+function shippingAjax(url, item, k=null){
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        url: url+'/'+k,
+        type: "GET",
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-CSRF-TOKEN": csrfToken
+        },
+        success: function(data){
+            if (data['type'] === 1) {
+                item.closest('.shipping-item').find('.shipping-rate').html(data['view'])
+                item.closest('.shipping-item').find('.shipping-rate .add-rate').trigger('click')
+            } else {
+                item.closest('.shipping-item').find('.shipping-option').append(data['view'])
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {}
     });
 }

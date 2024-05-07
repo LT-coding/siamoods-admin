@@ -47,29 +47,24 @@
         <div class="col-md-5">
             <div class="card card-secondary card-outline">
                 <div class="card-body">
-                    <div class="row mt-4">
-                        <div class="p-0 col-sm-3 nav flex-column nav-pills ship-buttons" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <div class="mt-4">
+                        <ul class="nav nav-tabs customization-tabs" id="tab" role="tablist">
                             @foreach($areas as $k => $area)
-                                <button class="nav-link {{ $k==0 ? 'active' : '' }}" id="v-pills-{{$k}}-tab" data-bs-toggle="pill" data-bs-target="#v-pills-{{$k}}" type="button" role="tab" aria-controls="v-pills-{{$k}}" aria-selected="{{ $k==0 }}">{{ $area }}</button>
+                                <li class="nav-item">
+                                    <a class="nav-link{{ $k == 0 ? ' active' : '' }}" id="{{$k}}-tab" data-toggle="pill" href="#tab-{{$k}}" role="tab">{{ $area }}</a>
+                                </li>
                             @endforeach
-                        </div>
-                        <div class="col-sm-9 tab-content" id="v-pills-tabContent">
+                        </ul>
+                        <div class="tab-content py-3" id="tabContent">
                             @foreach($areas as $k => $area)
-                                <div class="tab-pane fade {{ $k==0 ? 'show active' : '' }} shipping-item" data-id="{{$k}}" id="v-pills-{{$k}}" role="tabpanel" aria-labelledby="v-pills-{{$k}}-tab">
-                                    <x-adminlte-input name="area[{{$k}}][time]" label="Առաքման ժամանակ" value="{{ old('name') ?? $record?->areas[$k]?->time }}"/>
-
-{{--                                    <div class="row">--}}
-{{--                                        <label class="col-sm-3 form-label align-self-center mb-lg-0 text-end">Անվճար առաքում--}}
-{{--                                        </label>--}}
-{{--                                        <div class="col-sm-4">--}}
-{{--                                            <input class="form-check-input free_shipping" type="checkbox" data-url="{{route('admin.shipping.free','')}}" {{count($record->areas[$k]->rates)==0?'checked':''}}>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="shipping-rate">--}}
-{{--                                        @if(count($record->areas[$k]->rates)>0)--}}
-{{--                                            @include('admin.shipping_methods.shipping_area',['k'=>$k,'shipping_methods'=>$record])--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
+                                <div class="tab-pane fade{{ $k == 0 ? ' active show' : '' }} shipping-item" id="tab-{{$k}}" role="tabpanel" data-id="{{$k}}">
+                                    <x-adminlte-input name="area[{{$k}}][time]" label="Առաքման ժամանակ" value="{{ old('area['.$k.'][time]') ?? $record?->areas[$k]?->time }}"/>
+                                    <x-adminlte-input-switch name="rates" id="free-shipping" label="Անվճար առաքում" :checked="old('rates') ?? !$record || count($record->areas[$k]?->rates) == 0"/>
+                                    <div class="shipping-rate">
+                                        @if($record && count($record->areas[$k]?->rates) > 0)
+                                            @include('admin.includes.shipping-price',['k' => $k])
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
