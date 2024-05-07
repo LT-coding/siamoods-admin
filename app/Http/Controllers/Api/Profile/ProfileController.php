@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Profile\AccountUpdateRequest;
-use App\Http\Resources\Api\Order\OrderResource;
 use App\Http\Resources\Api\Product\ProductShortResource;
 use App\Http\Resources\Api\Profile\AccountAddressResource;
 use App\Models\Product;
@@ -43,8 +42,7 @@ class ProfileController extends Controller
             ]);
         }
 
-//        TODO save addresses
-
+        $this->saveAddresses($request);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
@@ -76,5 +74,17 @@ class ProfileController extends Controller
         $request->user('sanctum')->favorites->delete();
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
+    }
+
+    private function saveAddresses($request): void
+    {
+        $user = $request->user();
+
+        $user->addresses()->updateOrCreate(['type' => 'shipping'],[$request->shipping]);
+        if (!$request->shipping['same_for_payment']) {
+            $user->addresses()->updateOrCreate(['type' => 'payment'],[$request->payment]);
+        } else {
+            $user->addresses()->where('type', 'payment')->first()?->delete();
+        }
     }
 }
