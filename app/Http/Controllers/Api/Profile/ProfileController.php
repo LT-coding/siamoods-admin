@@ -45,6 +45,7 @@ class ProfileController extends Controller
 
 //        TODO save addresses
 
+
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
 
