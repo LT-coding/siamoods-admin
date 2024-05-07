@@ -20,7 +20,6 @@ class AccountUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'regex:/^(?:\+374)[1-9]\d{7}$/'],
-            'new_password' => ['sometimes', 'confirmed', Rules\Password::defaults()],
             'subscribe' => ['nullable', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'shipping.name' => 'required|string|min:3',

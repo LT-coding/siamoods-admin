@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Profile\AccountUpdateRequest;
+use App\Http\Requests\Api\Profile\PasswordUpdateRequest;
 use App\Http\Resources\Api\Product\ProductShortResource;
 use App\Http\Resources\Api\Profile\AccountAddressResource;
 use App\Models\Product;
@@ -36,13 +37,18 @@ class ProfileController extends Controller
 
         $request->user()->updateSubscrption((int) $request->subscribe);
 
-        if ($request->new_password) {
-            $request->user()->update([
-                'password' => Hash::make($request->new_password),
-            ]);
-        }
-
         $this->saveAddresses($request);
+
+        return response()->noContent(Response::HTTP_NO_CONTENT);
+    }
+
+    public function updatePassword(PasswordUpdateRequest $request): JsonResponse|Response
+    {
+        $data = $request->validated();
+
+        $request->user()->update([
+            'password' => Hash::make($data['new_password']),
+        ]);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
