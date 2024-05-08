@@ -9,7 +9,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role:account'])->group(static fu
     Route::post('/account', [ProfileController::class, 'update']);
     Route::post('/change-password', [ProfileController::class, 'updatePassword']);
 
-    Route::post('/favorites', [ProfileController::class, 'favorites']);
+    Route::get('/favorites', [ProfileController::class, 'favorites']);
     Route::post('/add-favorite/{haysell_id}', [ProfileController::class, 'addFavorite']);
     Route::delete('/remove-favorite/{haysell_id}', [ProfileController::class, 'removeFavorite']);
     Route::post('/clear-favorites', [ProfileController::class, 'clearFavorites']);
