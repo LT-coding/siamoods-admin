@@ -64,7 +64,7 @@ class ProfileController extends Controller
 
     public function addFavorite(Request $request): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites()->updateOrCreate(['haysell_id', $request->haysell_id]);
+        $request->user('sanctum')->favorites()->updateOrCreate(['haysell_id', $request->haysell_id],[]);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
