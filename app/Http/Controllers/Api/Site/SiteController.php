@@ -59,8 +59,8 @@ class SiteController extends Controller
         return new SeoResource($meta);
     }
 
-    public function getRecentlyViewed($ids): AnonymousResourceCollection
+    public function getRecentlyViewed(Request $request): AnonymousResourceCollection
     {
-        return ProductShortResource::collection(Product::query()->whereIn('id',$ids)->get());
+        return ProductShortResource::collection(Product::query()->whereIn('id',$request->ids)->get());
     }
 }
