@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Profile\AccountUpdateRequest;
 use App\Http\Requests\Api\Profile\PasswordUpdateRequest;
 use App\Http\Resources\Api\Product\ProductShortResource;
-use App\Http\Resources\Api\Profile\AccountAddressResource;
+use App\Http\Resources\Api\Profile\AccountResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,13 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 class ProfileController extends Controller
 {
 
-    public function edit(Request $request): AccountAddressResource
+    public function edit(Request $request): AccountResource
     {
-        $data = [
-            'user' => $request->user('sanctum'),
-            'addresses' => $request->user('sanctum')->addresses()->get(),
-        ];
-        return new AccountAddressResource($data);
+        return new AccountResource($request->user('sanctum'));
     }
 
     /**

@@ -22,6 +22,8 @@ class AccountResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'subscribe' => $this->subscription?->active()->first() ? 1 : 0,
+            'shipping' => $this->resource->addresses()->where('type','shipping')->first() ? AccountAddressResource::collection($this->resource->addresses()->where('type','shipping')->first()) : null,
+            'payment' => $this->resource->addresses()->where('type','payment')->first() ? AccountAddressResource::collection($this->resource->addresses()->where('type','payment')->first()) : null,
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\Order;
 
-use App\Http\Resources\Api\Profile\AccountAddressItemResource;
+use App\Http\Resources\Api\Profile\AccountAddressResource;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
