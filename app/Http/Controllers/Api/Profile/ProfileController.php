@@ -74,7 +74,7 @@ class ProfileController extends Controller
 
     public function removeFavorite(Request $request, $haysell_id): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites()->where('haysell_id', $haysell_id)->first()->delete();
+        $request->user('sanctum')->favorites()->where('haysell_id', $haysell_id)->first()?->delete();
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
