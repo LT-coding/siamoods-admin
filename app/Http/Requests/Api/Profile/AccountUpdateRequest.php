@@ -33,7 +33,7 @@ class AccountUpdateRequest extends FormRequest
             'payment.name' => 'required_if:shipping.same_for_payment,0|string|min:3|nullable',
             'payment.lastname' => 'required_if:shipping.same_for_payment,0|string|min:3|nullable',
             'payment.address_1' => 'required_if:shipping.same_for_payment,0|string|nullable',
-            'payment.phone' => 'required_if:shipping.same_for_payment,0|nullable|regex:/^(?:\+374)[1-9]\d{7}$/',
+            'payment.phone' => ['required_if:shipping.same_for_payment,0','regex:/^(?:\+374)[1-9]\d{7}$/'],
             'payment.city' => 'required_if:shipping.same_for_payment,0|string|nullable',
             'payment.state' => 'required_if:shipping.same_for_payment,0|string|nullable',
             'payment.zip' => 'nullable|string|digits:4',
