@@ -64,13 +64,10 @@ class ProfileController extends Controller
 
     public function addFavorite(Request $request): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites()->updateOrCreate(
-            [
+        $request->user('sanctum')->favorites()->updateOrCreate([
                 'user_id' => $request->user('sanctum')->id,
                 'haysell_id' => $request->haysell_id,
-            ],
-            []
-        );
+            ],[]);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
@@ -84,7 +81,7 @@ class ProfileController extends Controller
 
     public function clearFavorites(Request $request): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites->delete();
+        $request->user('sanctum')->favorites()?->delete();
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
