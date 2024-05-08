@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends Controller
@@ -86,9 +87,9 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $user->addresses()->updateOrCreate(['type' => 'shipping'],[$request->shipping]);
+        $user->addresses()->updateOrCreate(['type' => 'shipping'],$request->shipping);
         if (!$request->shipping['same_for_payment']) {
-            $user->addresses()->updateOrCreate(['type' => 'payment'],[$request->payment]);
+            $user->addresses()->updateOrCreate(['type' => 'payment'],$request->payment);
         } else {
             $user->addresses()->where('type', 'payment')->first()?->delete();
         }
