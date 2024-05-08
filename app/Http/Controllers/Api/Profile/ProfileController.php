@@ -56,7 +56,7 @@ class ProfileController extends Controller
 
     public function favorites(Request $request): AnonymousResourceCollection
     {
-        $list = $request->user('sanctum')->favorites->pluck('haysell_id')->toArray();
+        $list = $request->user('sanctum')->favorites()->pluck('haysell_id')->toArray();
         $products = Product::query()->whereIn('haysell_id', $list)->get();
 
         return ProductShortResource::collection($products);
