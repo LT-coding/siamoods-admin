@@ -10,8 +10,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:account'])->group(static fu
     Route::post('/change-password', [ProfileController::class, 'updatePassword']);
 
     Route::get('/favorites', [ProfileController::class, 'favorites']);
-    Route::post('/add-favorite/{haysell_id}', [ProfileController::class, 'addFavorite']);
-    Route::delete('/remove-favorite/{haysell_id}', [ProfileController::class, 'removeFavorite']);
+    Route::post('/add-favorite', [ProfileController::class, 'addFavorite']);
+    Route::delete('/remove-favorite', [ProfileController::class, 'removeFavorite']);
     Route::post('/clear-favorites', [ProfileController::class, 'clearFavorites']);
 
     Route::get('/orders', [OrderController::class, 'getOrders']);

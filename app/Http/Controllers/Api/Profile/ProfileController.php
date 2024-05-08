@@ -62,16 +62,16 @@ class ProfileController extends Controller
         return ProductShortResource::collection($products);
     }
 
-    public function addFavorite(Request $request, $haysell_id): \Illuminate\Http\Response
+    public function addFavorite(Request $request): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites()->updateOrCreate(['haysell_id', $haysell_id]);
+        $request->user('sanctum')->favorites()->updateOrCreate(['haysell_id', $request->haysell_id]);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
 
-    public function removeFavorite(Request $request, $haysell_id): \Illuminate\Http\Response
+    public function removeFavorite(Request $request): \Illuminate\Http\Response
     {
-        $request->user('sanctum')->favorites()->where('haysell_id', $haysell_id)->first()?->delete();
+        $request->user('sanctum')->favorites()->where('haysell_id', $request->haysell_id)->first()?->delete();
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
