@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources\Api\Product;
 
-use App\Http\Resources\Api\Order\ShippingMethodResource;
 use App\Models\Product;
-use App\Models\ShippingMethod;
+use App\Models\ProductRecommendation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,6 +19,7 @@ class ProductResource extends JsonResource
     {
         $user = $request->user('sanctum');
         $variant = $request->variant;
+        $related = ProductRecommendation::query()->where('haysell_id', $this->haysell_id)->get()->pluck('recomendation_id')->toArray();
 
         return [
             'haysell_id' => $this->haysell_id,
@@ -42,6 +42,11 @@ class ProductResource extends JsonResource
             'meta_keywords' => $this->metaKeywords,
             'meta_description' => $this->metaDescription,
             'reviews' => ReviewResource::collection($this->resource->reviews()->active()->get()),
+            'linked_title' => 'Ավելացրեք շղթա',
+            'linked_products' => $this->resource->category->id == 27455 ? ProductShortResource::collection(Product::query()->whereHas('categories', function ($query){
+                $query->where('category_id', 27458);
+            })->available()->get()) : null,
+            'related_products' => ProductShortResource::collection(Product::query()->whereIn('haysell_id', $related)->get())
         ];
     }
 }

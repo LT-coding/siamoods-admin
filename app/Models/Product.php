@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -115,6 +115,13 @@ class Product extends Model
     public function discountPrice(): Attribute
     {
         return Attribute::make(get: fn() => $this->computed_discount ? $this->price->price*(1 - $this->computed_discount) : null);
+    }
+
+    public function scopeAvailable(Builder $query): void
+    {
+        $query->whereHas('balance', function ($q) {
+            $q->where('balance', '>', 0);
+        });
     }
 
     public function getDiscountLeftAttribute(): string
