@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\Product;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TestimonialRequest extends FormRequest
+class ReviewRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,10 +15,10 @@ class TestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => ['required'],
+            'haysell_id' => ['required'],
             'name' => ['required', 'string', 'max:255'],
-            'comment' => ['required', 'string', 'max:255'],
-            'rate' => ['required', 'numeric', 'min:1'],
+            'review' => ['required', 'string', 'max:255'],
+            'rating' => ['required', 'numeric', 'min:1'],
         ];
     }
 }
