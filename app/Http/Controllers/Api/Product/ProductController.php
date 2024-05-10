@@ -14,17 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    private ProductFilterService $service;
-
-    public function __construct(ProductFilterService $service)
-    {
-        $this->service = $service;
-    }
-
-    public function getProducts(Request $request): \Illuminate\Http\Response|JsonResponse
-    {
-        return $this->service->index($request);
-    }
+//    private ProductFilterService $service;
+//
+//    public function __construct(ProductFilterService $service)
+//    {
+//        $this->service = $service;
+//    }
+//
+//    public function getProducts(Request $request): \Illuminate\Http\Response|JsonResponse
+//    {
+//        return $this->service->index($request);
+//    }
 
     public function getProduct(Request $request): ProductResource
     {
