@@ -17,16 +17,18 @@ class ProductShortResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = $request->user();
+
         return [
             'haysell_id' => $this->haysell_id,
-            'images' => ProductImageResource::collection($this->resource->images()->orderBy('is_general','desc')->get()),
+            'images' => ProductImageResource::collection($this->resource->images()->orderBy('is_general', 'desc')->get()),
             'title' => $this->item_name,
             'url' => $this->url,
             'price' => $this->price?->price,
             'discount' => $this->computed_discount ?? $this->computed_discount,
             'discount_left' => $this->show_discount_left && $this->discount_left ? 'Մնաց ' . $this->discount_left : null,
             'label' => $this->resource->label ? new PowerLabelResource($this->resource->label->active()) : null,
-            'is_favorite' => Auth::user() && Auth::user()->favorites()->where('haysell_id',$this->haysell_id)->first()
+            'is_favorite' => $user ? $user->favorites()->where('haysell_id', $this->haysell_id)->exists() : false,
         ];
     }
 }
