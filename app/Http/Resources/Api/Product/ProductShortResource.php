@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProductShortResource extends JsonResource
 {
@@ -24,7 +25,8 @@ class ProductShortResource extends JsonResource
             'price' => $this->price?->price,
             'discount' => $this->computed_discount ?? $this->computed_discount,
             'discount_left' => $this->show_discount_left && $this->discount_left ? 'Մնաց ' . $this->discount_left : null,
-            'label' => $this->resource->label ? new PowerLabelResource($this->resource->label->active()) : null
+            'label' => $this->resource->label ? new PowerLabelResource($this->resource->label->active()) : null,
+            'is_favorite' => Auth::user() && Auth::user()->favorites()->where('haysell_id',$this->haysell_id)->first()
         ];
     }
 }

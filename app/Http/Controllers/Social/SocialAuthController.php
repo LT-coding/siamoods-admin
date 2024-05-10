@@ -6,6 +6,7 @@ use App\Enums\RoleTypes;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class SocialAuthController extends Controller
 {
     // Social login
-    public function store(Request $request): void
+    public function store(Request $request): JsonResponse
     {
         $userData = $request->userData;
         $provider = $request->provider;
@@ -38,5 +39,10 @@ class SocialAuthController extends Controller
 //        TODO need to send email
 
         Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'token' => $token
+        ]);
     }
 }
