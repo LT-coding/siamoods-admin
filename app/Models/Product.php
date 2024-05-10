@@ -112,6 +112,11 @@ class Product extends Model
         return Attribute::make(get: fn() => $this->discount_left ? $this->discount : false);
     }
 
+    public function discountPrice(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->computed_discount ? $this->price*(1 - $this->computed_discount) : null);
+    }
+
     public function getDiscountLeftAttribute(): string
     {
         if ($this->discount_end_date && Carbon::parse($this->discount_end_date)->diffInMinutes(Carbon::now()) > 0) {

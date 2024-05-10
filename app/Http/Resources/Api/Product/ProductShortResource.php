@@ -25,10 +25,13 @@ class ProductShortResource extends JsonResource
             'title' => $this->item_name,
             'slug' => $this->metaUrl,
             'price' => $this->price?->price,
-            'discount' => $this->computed_discount ?? $this->computed_discount,
+            'discount_price' => $this->discount_price,
+            'discount' => $this->computed_discount,
             'discount_left' => $this->show_discount_left && $this->discount_left ? 'Մնաց ' . $this->discount_left : null,
             'label' => $this->resource->label ? new PowerLabelResource($this->resource->label->active()) : null,
+            'available' => $this->resource->balance?->balance,
             'is_favorite' => $user ? $user->favorites()->where('haysell_id', $this->haysell_id)->exists() : false,
+            'variations' => ProductVariantResource::collection($this->resource->variations()->get()),
         ];
     }
 }
