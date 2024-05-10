@@ -90,6 +90,11 @@ class Product extends Model
         return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','89')->first()?->value);
     }
 
+    public function specification(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','97')->first()?->value);
+    }
+
     public function generalImage(): Attribute
     {
         return Attribute::make(get: fn() => $this->images()->where('is_general',1)->first());

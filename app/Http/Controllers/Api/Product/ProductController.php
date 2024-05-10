@@ -26,18 +26,15 @@ class ProductController extends Controller
         return $this->service->index($request);
     }
 
-    public function getProduct(string $slug, string $variant): JsonResponse|Response
+    public function getProduct(Request $request): ProductResource
     {
-        $product = Product::query()->where('slug',$slug)->first();
-        $variantItem = $product?->variants()?->where('code',$variant)->hasPrices()->available()->first();
+        $slug = $request->slug;
 
-        if (!$product || !$variantItem) {
-            return response()->noContent(Response::HTTP_NOT_FOUND);
-        }
+        $product = Product::query()->whereHas('meta', function ($query) use ($slug) {
+            $query->where('url', $slug);
+        })->firstOrFail();
 
-        return response()->json([
-            'product' => new ProductResource($product),
-        ]);
+        return new ProductResource($product);
     }
 
     public function saveReview(ReviewRequest $request): \Illuminate\Http\Response

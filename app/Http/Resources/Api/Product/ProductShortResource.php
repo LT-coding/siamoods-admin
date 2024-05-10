@@ -23,7 +23,6 @@ class ProductShortResource extends JsonResource
             'haysell_id' => $this->haysell_id,
             'images' => ProductImageResource::collection($this->resource->images()->orderBy('is_general', 'desc')->get()),
             'title' => $this->item_name,
-            'url' => $this->url,
             'slug' => $this->metaUrl,
             'price' => $this->price?->price,
             'discount' => $this->computed_discount ?? $this->computed_discount,
