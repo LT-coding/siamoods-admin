@@ -6,6 +6,7 @@ use App\Enums\RoleTypes;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -14,8 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 class SocialAuthController extends Controller
 {
     // Social login
-    public function store($userData, $provider): void
+    public function store(Request $request): void
     {
+        $userData = $request->userData;
+        $provider = $request->provider;
+
         $user = User::query()->firstOrCreate(
             ['email' => $userData['email']],
             [
