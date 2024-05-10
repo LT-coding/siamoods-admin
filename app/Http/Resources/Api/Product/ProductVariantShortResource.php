@@ -15,8 +15,8 @@ class ProductVariantShortResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->variant?->id,
-            'title' => $this->resource->variant?->title
+            'id' => $this->resource->variation->id,
+            'title' => $this->resource->variation->title
         ];
     }
 }
