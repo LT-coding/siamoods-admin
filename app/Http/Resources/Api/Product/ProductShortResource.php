@@ -17,7 +17,7 @@ class ProductShortResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = $request->user();
+        $user = $request->user('sanctum');
 
         return [
             'haysell_id' => $this->haysell_id,
