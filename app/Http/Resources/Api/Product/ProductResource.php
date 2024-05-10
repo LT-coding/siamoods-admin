@@ -41,7 +41,7 @@ class ProductResource extends JsonResource
             'meta_title' => $this->metaTitle,
             'meta_keywords' => $this->metaKeywords,
             'meta_description' => $this->metaDescription,
-            'reviews' => ReviewResource::collection($this->resource->reviews()->get()),
+            'reviews' => ReviewResource::collection($this->resource->reviews()->active()->get()),
         ];
     }
 }
