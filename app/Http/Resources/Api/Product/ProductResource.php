@@ -29,7 +29,7 @@ class ProductResource extends JsonResource
             'price' => $variant && $this->resource->variations->where('variation_id',$variant)->first()?->price ? $this->resource->variations->where('variation_id',$variant)->first()?->price->price : $this->price?->price,
             'discount' => $this->computed_discount ?? $this->computed_discount,
             'discount_left' => $this->show_discount_left && $this->discount_left ? 'Մնաց ' . $this->discount_left : null,
-            'label' => $this->resource->label->active() ? new PowerLabelResource($this->resource->label) : null,
+            'label' => $this->resource->label?->active() ? new PowerLabelResource($this->resource->label) : null,
             'is_favorite' => $user ? $user->favorites()->where('haysell_id', $this->haysell_id)->exists() : false,
             'is_available' => $this->resource->balance?->balance > 0 || $variant && $this->resource->variations->where('variation_id',$variant)->first()?->balance > 0,
             'variation_type' => $this->resource->variations()?->first()?->variation?->variation_type?->title,
