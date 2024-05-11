@@ -114,7 +114,7 @@ class Product extends Model
 
     public function discountPrice(): Attribute
     {
-        return Attribute::make(get: fn() => $this->computed_discount ? $this->price->price*(1 - $this->computed_discount) : null);
+        return Attribute::make(get: fn() => $this->computed_discount ? $this->price->price*(1 - $this->computed_discount/100) : null);
     }
 
     public function scopeAvailable(Builder $query): void

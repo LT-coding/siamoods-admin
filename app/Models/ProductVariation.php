@@ -31,6 +31,6 @@ class ProductVariation extends Model
 
     public function discountPrice(): Attribute
     {
-        return Attribute::make(get: fn() => $this->product->computed_discount ? $this->price->price*(1 - $this->product->computed_discount) : null);
+        return Attribute::make(get: fn() => $this->product->computed_discount ? $this->price->price*(1 - $this->product->computed_discount/100) : null);
     }
 }
