@@ -1,17 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', __('Orders'))
+@section('title', 'Պատվերներ')
 
 @section('content_header')
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1 class="mb-2">{{ __('Orders') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
-                <li class="breadcrumb-item active">{{ __('Orders') }}</li>
-            </ol>
+    <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="/">Գլխավոր</a></li>
+        <li class="breadcrumb-item active">Պատվերներ</li>
+    </ol>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h1>Պատվերներ</h1>
+        <div class="date-filter d-flex justify-content-between align-items-center">
+            <form method="{{ url()->current() }}" class="d-flex">
+                <input type="date" class="form-control mr-1" name="from" value="{{ \Request::get('from') ?? '' }}"/>
+                <input type="date" class="form-control mr-1" name="to" value="{{ \Request::get('to') ?? '' }}"/>
+                <input type="submit" value="Ֆիլտրել" class="btn btn-success btn-sm"/>
+                <a href="{{ url()->current() }}" class="btn btn-danger btn-sm">x</a>
+            </form>
         </div>
     </div>
 @stop
@@ -19,34 +23,27 @@
 @section('content')
     @php
         $heads = [
-                'Order #',
-                ['label' => 'Client', 'width' => 30],
-                'Payment Method',
-                'Total',
-                'Order Date',
-                'Tracking time',
-                'Status',
-                ['label' => '', 'no-export' => true, 'width' => 8],
+                ['label' => '#', 'width' => 6],
+                ['label' => 'Կարգավիճակ', 'width' => 16],
+                'Ամսաթիվ',
+                'Հաճախորդ',
+                'Հեռախոսահամար',
+                'Փոստ. ինդեքս',
+                'Ընդամենը',
+                'Վճարման մեթոդ',
+                ['label' => '', 'no-export' => true, 'width' => 7],
             ];
 
             $config = [
-                'data' => [],
+                'processing' => true,
+                'serverSide' => true,
+                'ajax' => [
+                    'url' => route('admin.orders.get')
+                ],
                 'order' => [[0, 'desc']],
-                'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
             ];
-
-            foreach ($records as $record) {
-                $row = [$record->id];
-                $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$record->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-                $row = [$record->code,$record->user?$record->user->display_name:'Guest',
-                        $record->payment_method,$record->currency.\App\Models\Product::formatPrice($record->total),
-                        Carbon\Carbon::parse($record->paid_at)->format('d F, Y h:i'),
-                        $record->tracking_time,
-                        \App\Enums\OrderStatuses::getConstants()[$record->status],$btnDetails
-                    ];
-                $config['data'] [] = $row;
-            }
     @endphp
 
-    <x-adminlte-datatable id="data-table" :heads="$heads" :config="$config"/>
+    <x-adminlte-datatable id="orders-data-table" :heads="$heads" :config="$config"/>
 @stop

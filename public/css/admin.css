@@ -55,6 +55,9 @@ ul {
 .dataTable-admin .table td, .dataTable-admin .table th {
     padding: 0.5rem 0.75rem;
 }
+.dataTable-admin .table {
+    font-size: 0.92rem;
+}
 .levels-list .form-group {
     margin-bottom: 0;
 }
@@ -156,6 +159,24 @@ ul {
     color: #fff;
     padding: 0 8px;
     font-weight: 600;
+}
+.order-status-1 {
+    background-color: #265aa750
+}
+.order-status-2 {
+    background-color: #007bff50
+}
+.order-status-3 {
+    background-color: #28a74550
+}
+.order-status-4 {
+    background-color: #dc354550
+}
+.order-status-5 {
+    background-color: #ffc10750
+}
+.order-status {
+    color: #0e0f12!important
 }
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {

@@ -20,7 +20,7 @@
             ['label' => 'Նկար', 'width' => 10],
             'Գին (֏)',
             'Քանակ',
-            ['label' => '', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 7],
         ];
 
         $config = [

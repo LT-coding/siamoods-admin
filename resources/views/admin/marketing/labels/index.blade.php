@@ -18,7 +18,7 @@
             'Տեսակ',
             ['label' => 'Կարգավիճակ', 'width' => 15],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 7],
         ];
 
         $config = [

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Order;
 
-use App\Enums\OrderItemsStatuses;
-use App\Enums\OrderStatuses;
 use App\Http\Controllers\Controller;
-use App\Models\CartItem;
 use App\Models\Order;
-use App\Models\UserAddress;
+use App\Models\ShippingType;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -23,9 +21,7 @@ class OrderController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $records = Order::query()->whereNotNull('paid_at')->get();
-
-        return view('admin.order.orders.index', compact('records'));
+        return view('admin.order.orders.index');
     }
 
     /**
@@ -79,5 +75,40 @@ class OrderController extends Controller
         $record->delete();
 
         return back()->with('status', 'Հաջողությամբ հեռացված է');
+    }
+
+    public function getRecords(Request $request): JsonResponse
+    {
+        $query = Order::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search['value'];
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%$search%");
+            });
+        }
+
+        $totalRecords = $query->count();
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+
+        $records = $query->orderBy('id','desc')->offset($start)->limit($length)->get();
+
+        $data = [];
+        foreach ($records as $item) {
+            $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
+            $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = '<a href="#" data-action="'.route('admin.orders.destroy', ['order' => $item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = ['<span data-id="'.$item->status.'">'.$item->id.'</span>',Order::STATUS_SHOW[$item->status],$created,$item->user?->display_name,$item->user?->phone,$item->user?->shippingAddress?->zip,$item->paid,$item->payment?->title,$btnDetails.$btnDelete];
+            $data[] = $row;
+        }
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $totalRecords,
+            'data' => $data,
+        ]);
     }
 }

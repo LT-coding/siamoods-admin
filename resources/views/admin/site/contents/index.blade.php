@@ -17,14 +17,14 @@
             'Վերնագիր',
             ['label' => 'Կարգավիճակ', 'width' => 10],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 7],
         ] : [
             ['label' => '#', 'width' => 6],
             'Վերնագիր',
             ['label' => 'Նկար', 'width' => 10],
             ['label' => 'Կարգավիճակ', 'width' => 8],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 7],
         ];
 
         $config = [

@@ -125,12 +125,12 @@ class ShippingTypeController extends Controller
         $records = $query->orderBy('id')->offset($start)->limit($length)->get();
 
         $data = [];
-        foreach ($records as $record) {
-            $img = '<img src="'.$record->image_link.'" alt="'.$record->title.'" style="max-width:100%;max-height:100px;">';
-            $created = Carbon::createFromFormat('Y-m-d H:i:s', $record->created_at)->format('d.m.Y');
-            $btnDetails = '<a href="'.route('admin.shipping-types.edit',['shipping_type'=>$record->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $btnDelete = '<a href="#" data-action="'.route('admin.shipping-types.destroy',['shipping_type'=>$record->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$record->id,$record->name,$img, $record->status_text, $created,$btnDetails.$btnDelete];
+        foreach ($records as $item) {
+            $img = '<img src="'.$item->image_link.'" alt="'.$item->title.'" style="max-width:100%;max-height:100px;">';
+            $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
+            $btnDetails = '<a href="'.route('admin.shipping-types.edit',['shipping_type'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
+            $btnDelete = '<a href="#" data-action="'.route('admin.shipping-types.destroy',['shipping_type'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
+            $row = [$item->id,$item->name,$img, $item->status_text, $created,$btnDetails.$btnDelete];
             $data[] = $row;
         }
 

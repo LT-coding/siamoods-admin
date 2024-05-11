@@ -164,6 +164,16 @@ class User extends Authenticatable
         return $this->hasMany(AccountAddress::class,'user_id','id');
     }
 
+    public function shippingAddress(): HasOne
+    {
+        return $this->hasOne(AccountAddress::class,'user_id','id')->where('type','shipping');
+    }
+
+    public function paymentAddress(): HasOne
+    {
+        return $this->hasOne(AccountAddress::class,'user_id','id')->where('type','payment');
+    }
+
     public function favorites(): HasMany
     {
         return $this->hasMany(WishingList::class,'user_id','id');

@@ -42,6 +42,13 @@
 
     $(() => {
         $('#{{ $id }}').DataTable( @json($config) );
+
+        $('#orders-data-table').on( 'draw.dt', function () {
+            $(this).find('tr').each(function() {
+                let dataId = $(this).find('span').data('id');
+                $(this).addClass('order-status order-status-'+dataId);
+            });
+        });
     })
 
 </script>

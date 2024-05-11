@@ -18,7 +18,7 @@
             ['label' => 'Էլ․ հասցե', 'width' => 35],
             ['label' => 'Դեր', 'width' => 15],
             ['label' => 'Կարգավիճակ', 'width' => 15],
-            ['label' => '', 'no-export' => true, 'width' => 8],
+            ['label' => '', 'no-export' => true, 'width' => 7],
         ];
 
         $config = [
