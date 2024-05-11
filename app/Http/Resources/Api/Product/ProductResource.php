@@ -38,6 +38,7 @@ class ProductResource extends JsonResource
             'variations' => ProductVariantResource::collection($this->resource->variations()->get()),
             'specification' => $this->specification,
             'description' => $this->description,
+            'weight' => $this->weight,
             'meta_title' => $this->metaTitle,
             'meta_keywords' => $this->metaKeywords,
             'meta_description' => $this->metaDescription,
