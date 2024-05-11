@@ -19,7 +19,7 @@ class ProductResource extends JsonResource
     {
         $user = $request->user('sanctum');
         $variant = $request->variant;
-        $related = ProductRecommendation::query()->where('haysell_id', $this->haysell_id)->get()->pluck('recomendation_id')->toArray();
+        $related = ProductRecommendation::query()->where('haysell_id', $this->haysell_id)->get()->pluck('recommendation_id')->toArray();
 
         return [
             'haysell_id' => $this->haysell_id,
