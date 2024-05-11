@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Order extends Model
+class  Order extends Model
 {
     use HasFactory;
 
@@ -43,19 +43,28 @@ class Order extends Model
 
     protected $guarded = [];
 
-    public function orderProducts(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(OrderProduct::class);
     }
 
     public function user(): HasOne
     {
-//        return $this->hasOne(User::class,'haysell_id','user_haysell_id');
         return $this->hasOne(User::class,'id','user_id');
     }
 
     public function payment(): HasOne
     {
         return $this->hasOne(Payment::class,'id','payment_id');
+    }
+
+    public function shipping(): HasOne
+    {
+        return $this->hasOne(ShippingType::class,'id','shipping_type_id');
+    }
+
+    public function giftCard(): HasOne
+    {
+        return $this->hasOne(GiftCard::class,'order_id','id');
     }
 }

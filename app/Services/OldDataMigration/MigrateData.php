@@ -527,7 +527,7 @@ class MigrateData
             $data = array_except($item->toArray(),['shipping_total','submitted_id','submitted_at']);
             $haysellData = $this->getHaysellOrder($item->id);
             $timestamps = [
-                'created_at' => $item->created_at,
+                'created_at' => $item->submitted_at ?? $item->created_at,
                 'updated_at' => $item->updated_at,
             ];
             if ($haysellData['status'] == "success") {

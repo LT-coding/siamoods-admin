@@ -178,6 +178,9 @@ ul {
 .order-status {
     color: #0e0f12!important
 }
+.no-border.table td {
+    padding: 0.2rem .75rem;
+}
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1420px;

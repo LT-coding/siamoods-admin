@@ -179,6 +179,6 @@ class Product extends Model
 
     public static function formatPrice($price): string
     {
-        return number_format($price);
+        return number_format($price) . ' ֏';
     }
 }

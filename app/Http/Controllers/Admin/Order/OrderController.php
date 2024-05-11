@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\ShippingType;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -29,13 +29,9 @@ class OrderController extends Controller
      */
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $record = Order::query()->whereNotNull('paid_at')->findOrFail($id);
-        $personal = $record->user ?? json_decode($record->personal, true);
-        $shipping = $record->address_id && UserAddress::query()->find($record->address_id) ? UserAddress::query()->find($record->address_id) : json_decode($record->shipping, true);
-        $statuses = OrderStatuses::getConstants();
-        $itemStatuses = OrderItemsStatuses::getConstants();
+        $record = Order::query()->findOrFail($id);
 
-        return view('admin.order.orders.create-edit', compact('record', 'personal','itemStatuses','shipping', 'statuses'));
+        return view('admin.order.orders.create-edit', compact('record'));
     }
 
     /**
@@ -45,23 +41,7 @@ class OrderController extends Controller
     {
         $record = Order::query()->findOrFail($request->id);
 
-        $orderShipped = true;
-
-        foreach ($request->item_id as $item_id) {
-            $item = CartItem::query()->find($item_id);
-            $itemStatus = 'status_'.$item_id;
-            $item->update([
-                'status' => $request->$itemStatus
-            ]);
-
-            if ($request->$itemStatus != OrderItemsStatuses::shipped->name) {
-                $orderShipped = false;
-            }
-        }
-
-        $record->update([
-            'status' => $orderShipped ? OrderStatuses::shipped->name : $record->status,
-        ]);
+        $record->update($request->except('_token'));
 
         return Redirect::route('admin.orders.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
@@ -100,7 +80,14 @@ class OrderController extends Controller
             $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.orders.destroy', ['order' => $item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = ['<span data-id="'.$item->status.'">'.$item->id.'</span>',Order::STATUS_SHOW[$item->status],$created,$item->user?->display_name,$item->user?->phone,$item->user?->shippingAddress?->zip,$item->paid,$item->payment?->title,$btnDetails.$btnDelete];
+            $row = ['<span data-id="'.$item->status.'">'.$item->id.'</span>',
+                Order::STATUS_SHOW[$item->status],
+                $created,
+                $item->user?->display_name,
+                $item->user?->phone,
+                $item->user?->shippingAddress?->zip,
+                Product::formatPrice($item->paid) . '',
+                $item->payment?->title,$btnDetails.$btnDelete];
             $data[] = $row;
         }
 

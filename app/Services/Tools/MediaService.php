@@ -111,7 +111,7 @@ class MediaService
 //            }
             return !str_contains($filePath, config('app.url')) ? $base.$filePath : $filePath;
         }
-        return $base . 'img/no-image.png';
+        return $base . 'images/no-image.png';
     }
 
     public function upload(string $prefix = '_', $folder = 'public'): static

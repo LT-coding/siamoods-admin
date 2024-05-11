@@ -13,8 +13,8 @@
             <form method="{{ url()->current() }}" class="d-flex">
                 <input type="date" class="form-control mr-1" name="from" value="{{ \Request::get('from') ?? '' }}"/>
                 <input type="date" class="form-control mr-1" name="to" value="{{ \Request::get('to') ?? '' }}"/>
-                <input type="submit" value="Ֆիլտրել" class="btn btn-success btn-sm"/>
-                <a href="{{ url()->current() }}" class="btn btn-danger btn-sm">x</a>
+                <input type="submit" value="Ֆիլտրել" class="btn btn-success btn-sm mr-1"/>
+                <a href="{{ url()->current() }}" class="btn btn-danger btn-sm d-flex align-items-center"><i class="fas fa-times"></i></a>
             </form>
         </div>
     </div>
