@@ -85,14 +85,9 @@ class Product extends Model
         return Attribute::make(get: fn() => $this->categories()->where('categories.general_category_id',126)->first());
     }
 
-    public function content(): Attribute
-    {
-        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','89')->first()?->value);
-    }
-
     public function specification(): Attribute
     {
-        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','97')->first()?->value);
+        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','89')->first()?->value);
     }
 
     public function generalImage(): Attribute
