@@ -59,7 +59,7 @@
 {{--                @endif--}}
                 <tr>
                     <td><h5>Ընդամենը:</h5></td>
-                    <td class="text-success">{{ $record->giftCard ? App\Models\Product::formatPrice($record->giftCard->amount) : App\Models\Product::formatPrice($record->total) }}</td>
+                    <td class="text-success text-bold">{{ $record->giftCard ? App\Models\Product::formatPrice($record->giftCard->amount) : App\Models\Product::formatPrice($record->total) }}</td>
                 </tr>
             </tbody>
         </table>
