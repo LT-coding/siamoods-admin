@@ -95,6 +95,11 @@ class Product extends Model
         return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','87')->first()?->value);
     }
 
+    public function size(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->productDetails()->where('detail_id','125')->first()?->value);
+    }
+
     public function generalImage(): Attribute
     {
         return Attribute::make(get: fn() => $this->images()->where('is_general',1)->first());
