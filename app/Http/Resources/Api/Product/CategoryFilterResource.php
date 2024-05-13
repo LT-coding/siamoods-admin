@@ -15,9 +15,9 @@ class CategoryFilterResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this->title,
-            'slug' => $this->code,
-            'products_count' => $this->resource->products()->hasPrices()->available()->count(),
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->metaUrl,
         ];
     }
 }

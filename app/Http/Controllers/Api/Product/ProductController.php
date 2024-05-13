@@ -10,23 +10,24 @@ use App\Http\Resources\Api\Product\ProductResource;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\WaitingList;
+use App\Services\Api\ProductFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-//    private ProductFilterService $service;
-//
-//    public function __construct(ProductFilterService $service)
-//    {
-//        $this->service = $service;
-//    }
-//
-//    public function getProducts(Request $request): \Illuminate\Http\Response|JsonResponse
-//    {
-//        return $this->service->index($request);
-//    }
+    private ProductFilterService $service;
+
+    public function __construct(ProductFilterService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function getProducts(Request $request): \Illuminate\Http\Response|JsonResponse
+    {
+        return $this->service->index($request);
+    }
 
     public function getProduct(Request $request): ProductResource
     {
