@@ -92,7 +92,6 @@ class ProductFilterService
         $productQuery = Product::query()
             ->distinct()
             ->select('products.*')
-            ->with('labels')
             ->where('item_name', 'NOT LIKE', 'test product')
             ->whereDoesntHave('categories', function ($query) {
                 $query->where('category_id', '27501'); // not gift card
