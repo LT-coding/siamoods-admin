@@ -80,8 +80,10 @@ class RegisteredUserController extends Controller
 
         $user->sendEmailVerificationNotification();
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
-            'status' => "success",
+            'token' => $token
         ]);
     }
 }
