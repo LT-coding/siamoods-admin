@@ -83,6 +83,6 @@ class ProductFilterService
             });
         }
 
-        return $productsQuery->orderBy('created_at', 'desc')->paginate(15);
+        return $productsQuery->orderBy('created_at', 'desc')->paginate(12);
     }
 }
