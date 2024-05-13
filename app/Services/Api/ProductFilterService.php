@@ -25,13 +25,13 @@ class ProductFilterService
         }
         $products = $this->applyFilters($request);
 
-        $types = GeneralCategory::query()->where('id', '126')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'level' => '2', 'status' => 1]);
-        $stones = GeneralCategory::query()->where('id', '125')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'status' => 1])->sortBy('sort')->filter(
+        $types = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 126, 'delete' => '0', 'level' => '2', 'status' => 1])->get();
+        $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->get()->sortBy('sort')->filter(
             fn ($item) => $item
                 ->products
                 ->count()
         );
-        $collections = GeneralCategory::query()->where('id', '112')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'status' => 1]);
+        $collections = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 112, 'delete' => '0', 'status' => 1])->get();
         $minPrice = 100;
         $maxPrice = 50000;
 
