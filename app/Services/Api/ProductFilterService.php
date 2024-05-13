@@ -24,13 +24,13 @@ class ProductFilterService
         }
         $products = $this->applyFilters($request);
 
-        $types = GeneralCategory::query()->where([['id', '126']])->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('level', '2')->where('status', 0)->get();
-        $stones = GeneralCategory::query()->where('id', '125')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0)->sortBy('sort')->get()->filter(
+        $types = GeneralCategory::query()->where([['id', '126']])->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('level', '2')->where('status', 0);
+        $stones = GeneralCategory::query()->where('id', '125')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0)->sortBy('sort')->filter(
             fn ($item) => $item
                 ->products
                 ->count()
         );
-        $collections = GeneralCategory::query()->where('id', '112')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0)->get();
+        $collections = GeneralCategory::query()->where('id', '112')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0);
         $minPrice = 100;
         $maxPrice = 50000;
 
