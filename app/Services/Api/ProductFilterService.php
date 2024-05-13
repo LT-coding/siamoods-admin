@@ -91,7 +91,7 @@ class ProductFilterService
         }
         $productQuery = Product::query()
             ->distinct()
-            ->select('products.*')
+            ->select('products.id')
             ->where('item_name', 'NOT LIKE', 'test product')
             ->whereDoesntHave('categories', function ($query) {
                 $query->where('category_id', '27501'); // not gift card
@@ -159,7 +159,7 @@ class ProductFilterService
         }
 
         return [
-            'products' => $products->groupBy('products.id','products.haysell_id')->paginate(12),
+            'products' => $products->groupBy('products.id')->paginate(12),
             'min_price' => $minPrice,
             'max_price' => $maxPrice
         ];
