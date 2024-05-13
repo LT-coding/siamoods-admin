@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\Product;
 use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Product\ReviewRequest;
+use App\Http\Requests\Api\Product\WaitingRequest;
 use App\Http\Resources\Api\Product\ProductResource;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\WaitingList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,6 +45,15 @@ class ProductController extends Controller
         $data['status'] = StatusTypes::inactive;
 
         Review::query()->create($data);
+
+        return response()->noContent(Response::HTTP_NO_CONTENT);
+    }
+
+    public function addWaiting(WaitingRequest $request): \Illuminate\Http\Response
+    {
+        $data = $request->validated();
+
+        WaitingList::query()->updateOrCreate($data);
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
