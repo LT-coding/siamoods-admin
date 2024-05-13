@@ -89,7 +89,7 @@ class ProductFilterService
         if ($subType && is_array($subType)) {
             $type = $subType;
         }
-        $products = Product::query()
+        $productQuery = Product::query()
             ->distinct()
             ->select('products.*')
             ->with('labels')
@@ -121,12 +121,28 @@ class ProductFilterService
                 return $query->whereDoesntHave('balance', function ($query) {
                     $query->where('balance', '=', 0);
                 });
-            })
-            ->whereHas('prices', function ($query) use ($min, $max) {
+            });
+
+        $productPrice = $productQuery;
+        $minPrice = $productPrice->get()->load('prices')->min(function ($product) {
+            return $product->prices->min('price');
+        });
+        $maxPrice = $productPrice->get()->load('prices')->max(function ($product) {
+            return $product->prices->max('price');
+        });
+
+        $products = $productQuery->whereHas('prices', function ($query) use ($min, $max) {
                 if (!is_null($min) && !is_null($max)) {
                     $query->where('price', '>=', $min)->where('price', '<=', $max);
                 }
             });
+
+        if ($search) {
+            $products->where(function($query) use ($search){
+                $query->where('item_name', 'LIKE', '%'.$search.'%')
+                    ->orWhere('description', 'LIKE', '%'.$search.'%');
+            });
+        }
 
         if ($sort == '3' || $sort == '4') {
             $products->orderBy(
@@ -142,22 +158,6 @@ class ProductFilterService
         } else {
             $products->orderBy($order[0], $order[1]);
         }
-
-        if ($search) {
-            $products->where(function($query) use ($search){
-                $query->where('item_name', 'LIKE', '%'.$search.'%')
-                    ->orWhere('description', 'LIKE', '%'.$search.'%');
-            });
-        }
-
-        $productQuery = $products;
-
-        $minPrice = $productQuery->get()->load('prices')->min(function ($product) {
-            return $product->prices->min('price');
-        });
-        $maxPrice = $productQuery->get()->load('prices')->max(function ($product) {
-            return $product->prices->max('price');
-        });
 
         return [
             'products' => $products->groupBy('products.id')->paginate(12),
