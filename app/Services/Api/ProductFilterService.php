@@ -27,8 +27,8 @@ class ProductFilterService
         $products = $this->applyFilters($request);
 
         $types = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 126, 'delete' => '0', 'level' => '2', 'status' => 1])->get();
-        $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->orderBy('sort')->get()
-            ->filter(fn ($item) => $item->products()->count() > 0);
+        $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->orderBy('sort')->get();
+//            ->filter(fn ($item) => $item->products()->count() > 0);
         $collections = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 112, 'delete' => '0', 'status' => 1])->get();
         $minPrice = 100;
         $maxPrice = 50000;
