@@ -159,7 +159,7 @@ class ProductFilterService
         }
 
         return [
-            'products' => $products->groupBy('products.id')->paginate(12),
+            'products' => $products->groupBy('products.haysell_id')->paginate(12),
             'min_price' => $minPrice,
             'max_price' => $maxPrice
         ];
