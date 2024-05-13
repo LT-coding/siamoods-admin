@@ -6,6 +6,7 @@ use App\Http\Resources\Api\Product\ProductShortResource;
 use App\Models\Category;
 use App\Models\GeneralCategory;
 use App\Models\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +25,13 @@ class ProductFilterService
         }
         $products = $this->applyFilters($request);
 
-        $types = GeneralCategory::query()->where([['id', '126']])->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('level', '2')->where('status', 0);
-        $stones = GeneralCategory::query()->where('id', '125')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0)->sortBy('sort')->filter(
+        $types = GeneralCategory::query()->where('id', '126')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'level' => '2', 'status' => 1]);
+        $stones = GeneralCategory::query()->where('id', '125')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'status' => 1])->sortBy('sort')->filter(
             fn ($item) => $item
                 ->products
                 ->count()
         );
-        $collections = GeneralCategory::query()->where('id', '112')->first()->categories->where('name', '<>', '-')->where('delete','=','0')->where('name', '<>', '')->where('status', 0);
+        $collections = GeneralCategory::query()->where('id', '112')->first()->categories->whereNotIn('name', ['-',''])->where(['delete' => '0', 'status' => 1]);
         $minPrice = 100;
         $maxPrice = 50000;
 
@@ -60,7 +61,7 @@ class ProductFilterService
         return response()->json($response);
     }
 
-    private function applyFilters(Request $request)
+    private function applyFilters(Request $request): LengthAwarePaginator
     {
         $type = $request->type;
         $subType = $request->sub_type;
