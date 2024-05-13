@@ -42,6 +42,7 @@ class CopyDataFromOldDB extends Command
         try {
             Artisan::call('migrate:fresh');
             $this->service->migrateData();
+            Artisan::call('db:seed --class="Database\Seeders\Admin\MenusSeeder"');
         } catch (\Exception $e) {
             Log::debug($e->getFile() . ' - ' . $e->getLine() . ' - ' . $e->getMessage());
         }
