@@ -39,7 +39,7 @@ class Category extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_categories', 'haysell_id');
+        return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'haysell_id', 'id', 'haysell_id', 'id');
     }
 
     public function childCategories(): HasMany
