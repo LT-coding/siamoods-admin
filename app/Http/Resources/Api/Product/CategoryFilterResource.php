@@ -17,7 +17,8 @@ class CategoryFilterResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->metaUrl,
+            'slug' => $this->meta_url,
+            'childCategories' => self::collection($this->resource->childCategories)
         ];
     }
 }
