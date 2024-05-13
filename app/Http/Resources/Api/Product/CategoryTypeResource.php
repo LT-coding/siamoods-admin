@@ -18,7 +18,7 @@ class CategoryTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->short_url,
-            'childCategories' => self::collection($this->resource->childCategories),
+            'subTypes' => self::collection($this->resource->childCategories),
             'meta_title' => $this->metaTitle,
             'meta_keywords' => $this->metaKeywords,
             'meta_description' => $this->metaDescription,
