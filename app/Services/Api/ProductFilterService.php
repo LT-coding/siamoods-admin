@@ -1,7 +1,8 @@
 <?php
 namespace App\Services\Api;
 
-use App\Http\Resources\Api\Product\CategoryFilterResource;
+use App\Http\Resources\Api\Product\CategoryResource;
+use App\Http\Resources\Api\Product\CategoryTypeResource;
 use App\Http\Resources\Api\Product\ProductShortResource;
 use App\Models\Category;
 use App\Models\GeneralCategory;
@@ -34,9 +35,9 @@ class ProductFilterService
         $maxPrice = 50000;
 
         $response = [
-            'types' => CategoryFilterResource::collection($types),
-            'stones' => CategoryFilterResource::collection($stones),
-            'collections' => CategoryFilterResource::collection($collections),
+            'types' => CategoryTypeResource::collection($types),
+            'stones' => CategoryResource::collection($stones),
+            'collections' => CategoryResource::collection($collections),
             'minPrice' => $minPrice,
             'maxPrice' => $maxPrice,
             'data' => ProductShortResource::collection($products),

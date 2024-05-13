@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryFilterResource extends JsonResource
+class CategoryTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,10 @@ class CategoryFilterResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->short_url,
-            'childCategories' => self::collection($this->resource->childCategories)
+            'childCategories' => self::collection($this->resource->childCategories),
+            'meta_title' => $this->metaTitle,
+            'meta_keywords' => $this->metaKeywords,
+            'meta_description' => $this->metaDescription,
         ];
     }
 }
