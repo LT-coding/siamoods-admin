@@ -1,11 +1,15 @@
 <?php
 namespace App\Services\Api;
 
+use App\Enums\MetaTypes;
 use App\Enums\SortType;
+use App\Enums\StaticPages;
 use App\Http\Resources\Api\Product\CategoryResource;
 use App\Http\Resources\Api\Product\CategoryTypeResource;
 use App\Http\Resources\Api\Product\ProductShortResource;
+use App\Http\Resources\Api\Site\SeoResource;
 use App\Models\Category;
+use App\Models\Meta;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -56,6 +60,7 @@ class ProductFilterService
                 'to' => $products->lastItem(),
                 'total' => $products->total(),
             ],
+            'seo_meta' => new SeoResource(Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => StaticPages::shop->name])->first())
         ];
 
         return response()->json($response);
