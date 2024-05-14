@@ -24,34 +24,15 @@ class ProductFilterService
      */
     public function index($request): \Illuminate\Http\Response|JsonResponse
     {
-        if ($request->category && !Category::query()->whereHas('meta', function ($query) use ($request) {
-                $query->where('url', $request->category);
-            })->first()) {
-            return response()->noContent(Response::HTTP_NOT_FOUND);
-        }
         $productFilter = $this->applyFilters($request);
         $products = $productFilter['products'];
-
-        $types = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 126, 'delete' => '0', 'level' => '2', 'status' => 1])->get();
-        $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->orderBy('sort')->get()
-            ->filter(fn ($item) => $item->products()->count());
-        $collections = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 112, 'delete' => '0', 'status' => 1])->get();
         $minPrice = $productFilter['min_price'];
         $maxPrice = $productFilter['max_price'];
 
         $response = [
-            'types' => CategoryTypeResource::collection($types),
-            'stones' => CategoryResource::collection($stones),
-            'collections' => CategoryResource::collection($collections),
             'minPrice' => $minPrice,
             'maxPrice' => $maxPrice,
             'data' => ProductShortResource::collection($products),
-//            'links' => [
-//                'first' => $products->url(1),
-//                'last' => $products->url($products->lastPage()),
-//                'prev' => $products->previousPageUrl(),
-//                'next' => $products->nextPageUrl(),
-//            ],
             'meta' => [
                 'current_page' => $products->currentPage(),
                 'from' => $products->firstItem(),
@@ -60,6 +41,23 @@ class ProductFilterService
                 'to' => $products->lastItem(),
                 'total' => $products->total(),
             ],
+        ];
+
+        return response()->json($response);
+    }
+
+    public function storeData(): \Illuminate\Http\Response|JsonResponse
+    {
+
+        $types = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 126, 'delete' => '0', 'level' => '2', 'status' => 1])->get();
+        $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->orderBy('sort')->get()
+            ->filter(fn ($item) => $item->products()->count());
+        $collections = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 112, 'delete' => '0', 'status' => 1])->get();
+
+        $response = [
+            'types' => CategoryTypeResource::collection($types),
+            'stones' => CategoryResource::collection($stones),
+            'collections' => CategoryResource::collection($collections),
             'seo_meta' => new SeoResource(Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => StaticPages::shop->name])->first())
         ];
 

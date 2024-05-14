@@ -29,6 +29,11 @@ class ProductController extends Controller
         return $this->service->index($request);
     }
 
+    public function getStoreData(): \Illuminate\Http\Response|JsonResponse
+    {
+        return $this->service->storeData();
+    }
+
     public function getProduct(Request $request): ProductResource
     {
         $slug = $request->slug;
