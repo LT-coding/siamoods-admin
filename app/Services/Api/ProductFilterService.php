@@ -14,15 +14,15 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductFilterService
 {
     /*
      * Service to filter products
      */
-    public function index($request): \Illuminate\Http\Response|JsonResponse
+    public function index($request): Response|JsonResponse
     {
         $productFilter = $this->applyFilters($request);
         $products = $productFilter['products'];
@@ -46,9 +46,8 @@ class ProductFilterService
         return response()->json($response);
     }
 
-    public function storeData(): \Illuminate\Http\Response|JsonResponse
+    public function storeData(): Response|JsonResponse
     {
-
         $types = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 126, 'delete' => '0', 'level' => '2', 'status' => 1])->get();
         $stones = Category::query()->whereNotIn('name', ['-',''])->where(['general_category_id' => 125, 'delete' => '0', 'status' => 1])->orderBy('sort')->get()
             ->filter(fn ($item) => $item->products()->count());
@@ -59,6 +58,29 @@ class ProductFilterService
             'stones' => CategoryResource::collection($stones),
             'collections' => CategoryResource::collection($collections),
             'seo_meta' => new SeoResource(Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => StaticPages::shop->name])->first())
+        ];
+
+        return response()->json($response);
+    }
+
+    public function giftCardData(): Response|JsonResponse
+    {
+        $products = Product::query()
+            ->whereHas('categories', function ($query) {
+                $query->where('category_id', '27501');
+            })->paginate(12);
+
+        $response = [
+            'data' => ProductShortResource::collection($products),
+            'meta' => [
+                'current_page' => $products->currentPage(),
+                'from' => $products->firstItem(),
+                'last_page' => $products->lastPage(),
+                'per_page' => $products->perPage(),
+                'to' => $products->lastItem(),
+                'total' => $products->total(),
+            ],
+            'seo_meta' => new SeoResource(Meta::query()->where(['type' => MetaTypes::static_page->name,'page' => StaticPages::gift_card->name])->first())
         ];
 
         return response()->json($response);

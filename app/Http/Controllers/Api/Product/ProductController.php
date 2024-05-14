@@ -34,6 +34,11 @@ class ProductController extends Controller
         return $this->service->storeData();
     }
 
+    public function getGiftCards(): \Illuminate\Http\Response|JsonResponse
+    {
+        return $this->service->giftCardData();
+    }
+
     public function getProduct(Request $request): ProductResource
     {
         $slug = $request->slug;

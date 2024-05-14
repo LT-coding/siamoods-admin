@@ -9,6 +9,7 @@ Route::get('/get-category/{slug}', [CategoryController::class, 'getCategory']);
 
 Route::get('/products', [ProductController::class, 'getProducts']);
 Route::get('/store-data', [ProductController::class, 'getStoreData']);
+Route::get('/gift-cards', [ProductController::class, 'getGiftCards']);
 Route::get('/product', [ProductController::class, 'getProduct']);
 
 Route::post('/save-review', [ProductController::class, 'saveReview']);
