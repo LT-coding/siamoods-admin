@@ -16,10 +16,21 @@
 
 {{-- Other options --}}
 @foreach($options as $key => $value)
-
     <option value="{{ $key }}"
         @if($isSelected($key)) selected @endif
-        @if($isDisabled($key)) disabled @endif>
+        @if($isDisabled($key)) disabled @endif
+        @if($attributes->get('data-s'))
+            @php $s = $attributes->get('data-s'); @endphp
+            @if(
+                ($s != 5 && $key == '5')
+                || ($s == 2 && ($key == '1' || $key == '4'))
+                || ($s == 3 && ($key == '1' || $key == '2' || $key == '4'))
+                || ($s == 4 && ($key == '1' || $key == '2' || $key == '3'))
+            )
+                disabled
+            @endif
+        @endif
+    >
         {{ $value }}
     </option>
 

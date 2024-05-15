@@ -61,7 +61,7 @@
                                         <dt class="col-sm-5">Կարգավիճակ</dt>
                                         <dd class="col-sm-7">
                                             <x-adminlte-select name="status">
-                                                <x-adminlte-options :options="App\Models\Order::STATUS_SHOW" :selected="old('status') ? [old('status')] : ($record ? [$record->status] : [])"/>
+                                                <x-adminlte-options :options="App\Models\Order::STATUS_SHOW" :selected="old('status') ? [old('status')] : ($record ? [$record->status] : [])" data-s="{{ $record?->status }}"/>
                                             </x-adminlte-select>
                                         </dd>
                                         <dt class="col-sm-5">Վճարման մեթոդ</dt>
