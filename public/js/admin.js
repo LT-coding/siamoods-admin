@@ -139,7 +139,7 @@ $(function(){
         tableAjax($(this));
     })
 
-    $(document).on('click','#free-shipping',function(){
+    $(document).on('click','.free-shipping',function(){
         if (!$(this).is(':checked')) {
             let url = $(this).data('url');
             let k = $(this).closest('.shipping-item').data('id');

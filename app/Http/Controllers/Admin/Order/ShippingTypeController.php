@@ -53,12 +53,32 @@ class ShippingTypeController extends Controller
     {
         $data = $request->validated();
 
-        $imagePath = $this->imageService->dispatch($request->file('image'))->upload('shipping'.$data['title'])->getUrl();
+        $imagePath = $this->imageService->dispatch($request->file('image'))->upload('shipping'.$request->title)->getUrl();
 
         $record = ShippingType::query()->create([
             'name' => $data['name'],
+            'description' => $data['description'],
+            'cash' => $data['cash'] ?? 0,
+            'status' => $data['status'] ?? 0,
             'image' => $imagePath,
         ]);
+
+        if (array_key_exists('area',$data)) {
+            foreach ($data['area'] as $key => $area) {
+                $shippingArea = $record->areas()->create([
+                    'area' => $key,
+                    'time' => $area['time']
+                ]);
+                if (array_key_exists('rate',$area)) {
+                    foreach ($area['rate'] as $i => $item) {
+                        $shippingArea->rates()->create([
+                            'product_cost' => $area['product_cost'][$i] ?? 0,
+                            'rate' => $area['rate'][$i],
+                        ]);
+                    }
+                }
+            }
+        }
 
         return Redirect::route('admin.shipping-types.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
@@ -89,8 +109,22 @@ class ShippingTypeController extends Controller
 
         $record->update([
             'name' => $data['name'],
+            'description' => $data['description'],
+            'cash' => $data['cash'] ?? 0,
+            'status' => $data['status'] ?? 0,
             'image' => $imagePath,
         ]);
+
+        if (array_key_exists('area',$data)) {
+            foreach ($data['area'] as $key => $area){
+                $shippingArea = $record->areas()->updateOrCreate(['area'=>$key],['time'=>$area['time'],]);
+                if (array_key_exists('rate',$area)) {
+                    foreach ($area['rate'] as $i => $item) {
+                        $shippingArea->rates()->updateOrCreate(['product_cost' => $area['product_cost'][$i] ?? 0],[ 'rate' => $area['rate'][$i]]);
+                    }
+                }
+            }
+        }
 
         return Redirect::route('admin.shipping-types.index')->with('status', 'Տվյալները հաջողությամբ պահպանված են');
     }
@@ -140,5 +174,23 @@ class ShippingTypeController extends Controller
             'recordsFiltered' => $totalRecords,
             'data' => $data,
         ]);
+    }
+
+    public function free(string $k): array
+    {
+        $record = null;
+        return [
+            'type' => 1,
+            'view' => view('admin.includes.shipping-price',compact('k','record'))->render(),
+        ];
+    }
+
+    public function range(string $k): array
+    {
+        $rate = null;
+        return [
+            'type' => 0,
+            'view' => view('admin.includes.shipping-option',compact('k','rate'))->render(),
+        ];
     }
 }

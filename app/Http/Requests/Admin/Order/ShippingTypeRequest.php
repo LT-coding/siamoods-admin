@@ -14,13 +14,13 @@ class ShippingTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $productCode = $this->input('product_code');
         return [
-            'name' => [
-                'required',
-                Rule::unique('shipping_types')->ignore($this->id),
-            ],
+            'name' => ['required',Rule::unique('shipping_types')->ignore($this->id)],
+            'description' => ['required'],
             'image' => [Rule::requiredIf(fn () => !$this->id),'mimes:jpeg,png,webp','max:2048'],
+            'cash' => ['nullable'],
+            'status' => ['required'],
+            'area' => ['nullable']
         ];
     }
 }
