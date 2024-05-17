@@ -154,6 +154,104 @@ $(function(){
         let k = $(this).closest('.shipping-item').data('id');
         shippingAjax(url,$(this),k);
     })
+
+    //chart
+    const monthsInArmenian = {
+        1: "Հունվար",
+        2: "Փետրվար",
+        3: "Մարտ",
+        4: "Ապրիլ",
+        5: "Մայիս",
+        6: "Հունիս",
+        7: "Հուլիս",
+        8: "Օգոստոս",
+        9: "Սեպտեմբեր",
+        10: "Հոկտեմբեր",
+        11: "Նոյեմբեր",
+        12: "Դեկտեմբեր",
+    };
+    let chart;
+    function getData(year) {
+        $.ajax({
+            url: "admin/getChartData",
+            type: "GET",
+            data: {
+                year,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            success: function (data) {
+                const filledData = fillMissingMonths(data);
+                const dataWithArmenianMonths = filledData.map((item) => ({
+                    ...item,
+                    month: monthsInArmenian[item.month],
+                }));
+
+                const seriesData = filledData.map((item) => parseInt(item.total, 10));
+                const xasisData = dataWithArmenianMonths.map((item) => item.month);
+
+                let options = {
+                    chart: {
+                        type: "line",
+                    },
+                    series: [
+                        {
+                            name: "Վաճառք",
+                            data: seriesData,
+                        },
+                    ],
+                    xaxis: {
+                        categories: xasisData,
+                    },
+                };
+
+                if (chart) {
+                    chart.destroy();
+                }
+
+                chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("there is problem with chart data");
+            },
+        });
+    }
+
+    $(document).on("change", "#yearSelect", function () {
+        getData($(this).val());
+    });
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    if ($("#chart").length) {
+        getData(currentYear);
+    }
+
+    function fillMissingMonths(data) {
+        // Create an object to store the data by month
+        const dataByMonth = {};
+        // Convert the "total" values to numbers
+        data.forEach((item) => {
+            item.total = parseInt(item.total, 10);
+            dataByMonth[item.month] = item.total;
+        });
+        // Find the range of months (e.g., 1 to 12)
+        const minMonth = 1;
+        const maxMonth = 12;
+        // Create an array of missing months with a total value of 0
+        const missingMonths = [];
+        for (let month = minMonth; month <= maxMonth; month++) {
+            if (dataByMonth[month] === undefined) {
+                missingMonths.push({ month, total: 0 });
+            }
+        }
+        // Merge the missing months with the existing data
+        const result = [...data, ...missingMonths];
+        // Sort the result by month
+        result.sort((a, b) => a.month - b.month);
+        return result;
+    }
 });
 function searchAjax(input,url){
     const csrfToken = $('meta[name="csrf-token"]').attr('content');

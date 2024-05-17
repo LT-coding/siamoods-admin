@@ -107,6 +107,7 @@
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="{{ asset('libs/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 

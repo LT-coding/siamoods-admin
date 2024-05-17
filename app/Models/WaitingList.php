@@ -15,6 +15,6 @@ class WaitingList extends Model
 
     public function product(): HasOne
     {
-        return $this->HasOne(Product::class,'id','haysell_id');
+        return $this->HasOne(Product::class,'haysell_id','haysell_id');
     }
 }
