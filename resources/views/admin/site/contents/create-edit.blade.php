@@ -48,6 +48,12 @@
                             </div>
                         </div>
                         <x-adminlte-textarea name="description" id="editor" label="Բովանդակություն" data-required="true">{{ old('description') ?? ($record ? $record->description : '') }}</x-adminlte-textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-secondary card-outline">
+                    <div class="card-body">
                         @if($type != \App\Enums\ContentTypes::page->name)
                             <div class="row">
                                 <div class="col-md-3 ml-auto">
@@ -58,12 +64,6 @@
                                 </div>
                             </div>
                         @endif
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-secondary card-outline">
-                    <div class="card-body">
                         <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->meta_url : '') }}" data-required="true"/>
                         <x-adminlte-input name="meta_title" label="Մետա վերնագիր" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
                         <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
