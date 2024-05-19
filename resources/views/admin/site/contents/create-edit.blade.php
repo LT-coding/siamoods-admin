@@ -56,10 +56,10 @@
                     <div class="card-body">
                         @if($type != \App\Enums\ContentTypes::page->name)
                             <div class="row">
-                                <div class="col-md-3 ml-auto">
+                                <div class="col-md-6">
                                     <x-adminlte-input name="from" label="Հասանելի է սկսած" type="date" value="{{ old('from') ?? ($record ? $record->from : '') }}"/>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <x-adminlte-input name="to" label="Հասանելի է մինչև" type="date" value="{{ old('to') ?? ($record ? $record->to : '') }}"/>
                                 </div>
                             </div>
