@@ -23,8 +23,8 @@
                             @method('PUT')
                             <input name="id" type="hidden" value="{{ $record->id }}"/>
                         @endif
-                        <x-adminlte-input name="title" label="Վերնագիր" value="{{ old('title') ?? ($record ? $record->title : '') }}"/>
-                        <x-adminlte-textarea name="text" label="Նամակ">{{ old('text') ?? ($record ? $record->text : '') }}</x-adminlte-textarea>
+                        <x-adminlte-input name="title" label="Վերնագիր" value="{{ old('title') ?? ($record ? $record->title : '') }}" data-required="true"/>
+                        <x-adminlte-textarea name="text" label="Նամակ" data-required="true">{{ old('text') ?? ($record ? $record->text : '') }}</x-adminlte-textarea>
                         <div class="text-right">
                             <a href="{{ route('admin.notifications.index') }}" class="btn btn-outline-secondary btn-sm mr-3">Չեղարկել</a>
                             <x-adminlte-button class="btn-sm" type="submit" label="Պահպանել" theme="outline-danger" icon="fas fa-lg fa-save"/>

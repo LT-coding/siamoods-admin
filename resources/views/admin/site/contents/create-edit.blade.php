@@ -34,7 +34,7 @@
                                 </div>
                             @endif
                             <div class="col-md-{{ $type != \App\Enums\ContentTypes::page->name ? '7' : '9' }}">
-                                <x-adminlte-input name="title" label="Վերնագիր" value="{{ old('title') ?? ($record ? $record->title : '') }}"/>
+                                <x-adminlte-input name="title" label="Վերնագիր" value="{{ old('title') ?? ($record ? $record->title : '') }}" data-required="true"/>
                                 @if($errors->has('slug'))
                                     <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $errors->first('slug') }}</strong>
@@ -47,7 +47,7 @@
                                 </x-adminlte-select>
                             </div>
                         </div>
-                        <x-adminlte-textarea name="description" id="editor" label="Բովանդակություն">{{ old('description') ?? ($record ? $record->description : '') }}</x-adminlte-textarea>
+                        <x-adminlte-textarea name="description" id="editor" label="Բովանդակություն" data-required="true">{{ old('description') ?? ($record ? $record->description : '') }}</x-adminlte-textarea>
                         @if($type != \App\Enums\ContentTypes::page->name)
                             <div class="row">
                                 <div class="col-md-3 ml-auto">
@@ -64,7 +64,7 @@
             <div class="col-md-4">
                 <div class="card card-secondary card-outline">
                     <div class="card-body">
-                        <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->meta_url : '') }}"/>
+                        <x-adminlte-input name="url" label="URL" value="{{ old('url') ?? ($record ? $record->meta_url : '') }}" data-required="true"/>
                         <x-adminlte-input name="meta_title" label="Մետա վերնագիր" value="{{ old('meta_title') ?? ($record ? $record->meta_title : '') }}"/>
                         <x-adminlte-input name="meta_keywords" label="Մետա բանալի բառեր" value="{{ old('meta_keywords') ?? ($record ? $record->meta_keywords : '') }}"/>
                         <x-adminlte-textarea name="meta_description" label="Մետա նկարագրություն">{{ old('meta_description') ?? ($record ? $record->meta_description : '') }}</x-adminlte-textarea>
