@@ -21,7 +21,7 @@
                         @if($record)
                             @method('PUT')
                             <input name="id" type="hidden" value="{{ $record->id }}"/>
-                            <img src="{{ $record->image_link }}" alt="image" style="max-height:150px;max-width: 100%;">
+                            <img src="{{ $record->image_link }}" alt="image" style="max-height:150px;max-width: 100%;margin-bottom:15px;">
                         @endif
                         <div class="text-right mb-2">
                             <x-adminlte-input-switch name="cash" label="Օգտագործել վճարման կանխիկ տարբերակը" :checked="old('cash') ?? $record && $record->cash == 1"/>
