@@ -36,7 +36,22 @@
 </div>
 
 {{-- Add plugin initialization and configuration code --}}
-
+@php
+$config['language'] = [
+    'lengthMenu' => 'Ցուցադրել _MENU_ գրառում էջում',
+    'zeroRecords' => 'Գրառումներ չեն գտնվել',
+    'info' => 'Ցուցադրվում է _PAGE_ էջ _PAGES_ էջից',
+    'infoEmpty' => 'Գրառումներ չեն գտնվել',
+    'infoFiltered' => '(Ֆիլտրվել է _MAX_ ընդհանուր գրառումից)',
+    'search' => 'Որոնում',
+    'paginate' => [
+        'first' => 'Առաջին',
+        'last' => 'Վերջին',
+        'next' => 'Հաջորդ',
+        'previous' => 'Նախորդ',
+    ]
+];
+@endphp
 @push('js')
 <script>
 
