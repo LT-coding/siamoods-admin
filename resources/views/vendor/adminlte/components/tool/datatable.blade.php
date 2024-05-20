@@ -51,6 +51,8 @@ $config['language'] = [
         'previous' => 'Նախորդ',
     ]
 ];
+$config['processing'] = true;
+$config['serverSide'] = true;
 @endphp
 @push('js')
 <script>

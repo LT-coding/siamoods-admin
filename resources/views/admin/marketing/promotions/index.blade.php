@@ -23,8 +23,6 @@
         ];
 
         $config = [
-            'processing' => true,
-            'serverSide' => true,
             'ajax' => [
                 'url' => route('admin.promotions.get')
             ],

@@ -24,8 +24,6 @@
         ];
 
         $config = [
-            'processing' => true,
-            'serverSide' => true,
             'ajax' => [
                 'url' => route('admin.products.get')
             ],

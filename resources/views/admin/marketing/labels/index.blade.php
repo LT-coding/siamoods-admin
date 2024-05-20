@@ -22,8 +22,6 @@
         ];
 
         $config = [
-            'processing' => true,
-            'serverSide' => true,
             'ajax' => [
                 'url' => route('admin.labels.get')
             ],

@@ -28,8 +28,6 @@
         ];
 
         $config = [
-            'processing' => true,
-            'serverSide' => true,
             'ajax' => [
                 'url' => route('admin.contents.get', ['type' => $type])
             ],

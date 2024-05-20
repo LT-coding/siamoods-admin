@@ -35,8 +35,6 @@
             ];
 
             $config = [
-                'processing' => true,
-                'serverSide' => true,
                 'ajax' => [
                     'url' => route('admin.orders.get')
                 ],
