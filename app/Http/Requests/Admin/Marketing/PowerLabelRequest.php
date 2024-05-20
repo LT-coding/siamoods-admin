@@ -46,7 +46,7 @@ class PowerLabelRequest extends FormRequest
             'status.required' => 'Կարգավիճակ դաշտը պարտադիր է:',
             'position.required' => 'Դիրք դաշտը պարտադիր է:',
             'media.required' => 'Պիտակ դաշտը պարտադիր է:',
-            'media_text.text․required' => 'Պիտակ դաշտը պարտադիր է:'
+            'media_text[text]․required' => 'Պիտակ դաշտը պարտադիր է:'
         ];
     }
 }
