@@ -61,6 +61,6 @@ class SiteController extends Controller
 
     public function getRecentlyViewed(Request $request): AnonymousResourceCollection
     {
-        return ProductShortResource::collection(Product::query()->whereIn('id',$request->ids)->get());
+        return ProductShortResource::collection(Product::query()->whereIn('haysell_id',$request->ids)->get());
     }
 }
