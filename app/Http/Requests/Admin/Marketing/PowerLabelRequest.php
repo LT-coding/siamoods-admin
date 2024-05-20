@@ -30,7 +30,7 @@ class PowerLabelRequest extends FormRequest
             'status' => ['required'],
             'description' => ['nullable'],
             'media' => [Rule::requiredIf(!$this->id && $this->type == 0)],
-            'media_text.text' => [Rule::requiredIf($this->type == 1)],
+            'media_text[text]' => [Rule::requiredIf($this->type == 1)],
             'position' => ['required']
         ];
     }
