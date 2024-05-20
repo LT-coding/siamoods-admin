@@ -22,6 +22,7 @@
         ];
 
         $config = [
+            'locale' => 'fr',
             'processing' => true,
             'serverSide' => true,
             'ajax' => [
