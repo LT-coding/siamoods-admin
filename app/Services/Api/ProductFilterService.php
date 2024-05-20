@@ -170,7 +170,7 @@ class ProductFilterService
 
         if ($sort == '3' || $sort == '4') {
             $products->orderBy(
-                DB::raw('(SELECT price FROM product_prices WHERE products.id = product_prices.product_id and type="static")'),
+                DB::raw('(SELECT price FROM product_prices WHERE products.haysell_id = product_prices.haysell_id and type="static")'),
                 $order[1]
             );
         } elseif ($sort == '5') {
