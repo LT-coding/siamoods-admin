@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
-class PasswordRessetRequest extends FormRequest
+class PasswordResetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +30,21 @@ class PasswordRessetRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
+            'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
+        ];
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function credentials(): array
     {
         $return = [

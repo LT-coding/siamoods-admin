@@ -18,4 +18,14 @@ class SubscribeRequest extends FormRequest
             'email' => ['required', 'email', new UniqueSubscriberEmail]
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:'
+        ];
+    }
 }

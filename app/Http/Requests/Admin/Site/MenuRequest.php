@@ -27,4 +27,15 @@ class MenuRequest extends FormRequest
             'url' => 'required',
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'url.required' => 'URL դաշտը պարտադիր է:'
+        ];
+    }
 }

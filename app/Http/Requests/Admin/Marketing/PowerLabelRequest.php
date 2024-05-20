@@ -41,8 +41,12 @@ class PowerLabelRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'media.required_without' => 'The media field is required.',
-            'media_text.required_without' => 'The media text field is required.',
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'type.required' => 'Տեսակ դաշտը պարտադիր է:',
+            'status.required' => 'Կարգավիճակ դաշտը պարտադիր է:',
+            'position.required' => 'Դիրք դաշտը պարտադիր է:',
+            'media.required' => 'Պիտակ դաշտը պարտադիր է:',
+            'media_text.text․required' => 'Պիտակ դաշտը պարտադիր է:'
         ];
     }
 }

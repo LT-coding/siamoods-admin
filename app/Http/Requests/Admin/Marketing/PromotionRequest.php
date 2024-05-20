@@ -35,4 +35,17 @@ class PromotionRequest extends FormRequest
             'to' => ['nullable'],
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'promo_code.required' => 'Պրոմոկոդ դաշտը պարտադիր է:',
+            'type.required' => 'Տեսակ դաշտը պարտադիր է:',
+            'status.required' => 'Կարգավիճակ դաշտը պարտադիր է:'
+        ];
+    }
 }

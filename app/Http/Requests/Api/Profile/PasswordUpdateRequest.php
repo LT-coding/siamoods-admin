@@ -23,12 +23,15 @@ class PasswordUpdateRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array|string[]
+     */
     public function messages(): array
     {
         return [
-            'old_password.required' => 'The old password is required.',
-            'new_password.required' => 'The new password is required.',
-            'new_password.confirmed' => 'The new password confirmation does not match.',
+            'old_password.required' => 'Հին գաղտնաբառ դաշտը պարտադիր է:',
+            'new_password.required' => 'Նոր գաղտնաբառ դաշտը պարտադիր է:',
+            'new_password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ];
     }
 }

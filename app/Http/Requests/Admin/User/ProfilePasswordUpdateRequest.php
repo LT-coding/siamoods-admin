@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Rules\OldPasswordCheck;
+use App\Rules\MatchOldPassword;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +18,20 @@ class ProfilePasswordUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => ['required', 'string', 'max:255', new OldPasswordCheck(Auth::user()->password)],
+            'old_password' => ['required', new MatchOldPassword()],
             'new_password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'old_password.required' => 'Հին գաղտնաբառ դաշտը պարտադիր է:',
+            'new_password.required' => 'Նոր գաղտնաբառ դաշտը պարտադիր է:',
+            'new_password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ];
     }
 }

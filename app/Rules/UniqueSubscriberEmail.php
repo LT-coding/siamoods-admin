@@ -28,6 +28,6 @@ class UniqueSubscriberEmail implements ValidationRule
 
     public function message(): string
     {
-        return 'The email is already subscribed.';
+        return 'Նշված էլ․ հասցեն արդեն բաժանորդագրված է։';
     }
 }

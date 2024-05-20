@@ -28,4 +28,15 @@ class NotificationRequest extends FormRequest
             'send' => 'nullable',
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Վերնագիր դաշտը պարտադիր է:',
+            'text.required' => 'Նամակ դաշտը պարտադիր է:'
+        ];
+    }
 }

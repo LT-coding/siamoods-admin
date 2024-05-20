@@ -18,7 +18,21 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'lastname.required' => 'Ազգանուն դաշտը պարտադիր է:',
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
+            'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
+            'email.unique' => 'Նշված էլ․ հասցեով օգտատեր արդեն գրանցված է:'
         ];
     }
 }

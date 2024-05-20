@@ -30,7 +30,7 @@
                         <div class="row">
                             @if($type != \App\Enums\ContentTypes::page->name)
                                 <div class="col-md-2">
-                                    <x-adminlte-input name="image" label="Նկար" type="file"/>
+                                    <x-adminlte-input name="image" label="Նկար" type="file" data-required="true"/>
                                 </div>
                             @endif
                             <div class="col-md-{{ $type != \App\Enums\ContentTypes::page->name ? '7' : '9' }}">

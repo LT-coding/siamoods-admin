@@ -16,6 +16,6 @@ class MatchOldPassword implements Rule
 
     public function message(): string
     {
-        return 'The old password is incorrect.';
+        return 'Հին գաղտնաբառը սխալ է։';
     }
 }

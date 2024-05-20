@@ -23,4 +23,20 @@ class ShippingTypeRequest extends FormRequest
             'area' => ['nullable']
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'name.unique' => 'Նշված անունով առաքման մեթոդ արդեն գրանցված է:',
+            'description.required' => 'Նկարագրություն դաշտը պարտադիր է:',
+            'image.required' => 'Նկար դաշտը պարտադիր է:',
+            'image.mimes' => 'Նկարը կարող է լինել միայն jpeg, png, webp ֆորմատի:',
+            'image.max' => 'Նկարը չի կարող լինել 2ՄԲ֊ից ավելի:',
+            'status.required' => 'Կարգավիճակ դաշտը պարտադիր է:'
+        ];
+    }
 }

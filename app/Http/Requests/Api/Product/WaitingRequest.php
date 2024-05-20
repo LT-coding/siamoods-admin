@@ -16,7 +16,19 @@ class WaitingRequest extends FormRequest
     {
         return [
             'haysell_id' => ['required'],
-            'email' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'haysell_id.required' => 'haysell_id դաշտը պարտադիր է:',
+            'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:'
         ];
     }
 }

@@ -24,4 +24,21 @@ class UserRequest extends FormRequest
             'status' => ['required', 'boolean'],
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
+            'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
+            'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:',
+            'role.required' => 'Դեր դաշտը պարտադիր է:',
+            'status.required' => 'Կարգավիճակ դաշտը պարտադիր է:',
+            'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
+            'email.unique' => 'Նշված էլ․ հասցեով օգտատեր արդեն գրանցված է:',
+        ];
+    }
 }

@@ -21,4 +21,17 @@ class ReviewRequest extends FormRequest
             'rating' => ['required', 'numeric', 'min:1'],
         ];
     }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'haysell_id.required' => 'haysell_id դաշտը պարտադիր է:',
+            'name.required' => 'Անուն դաշտը պարտադիր է:',
+            'review.required' => 'Կարծիք դաշտը պարտադիր է:',
+            'rating.required' => 'Գնահատական դաշտը պարտադիր է:',
+        ];
+    }
 }
