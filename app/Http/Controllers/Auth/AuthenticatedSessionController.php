@@ -60,7 +60,7 @@ class AuthenticatedSessionController extends Controller
 
         if (!$user->isAccount) {
             return response()->json([
-                'errors' => ['email' => ['These credentials do not match our records.']]
+                'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

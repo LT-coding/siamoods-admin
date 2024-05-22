@@ -39,6 +39,14 @@ class RegisteredUserController extends Controller
                 'lastName' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ],[
+                'firstName.required' => 'Անուն դաշտը պարտադիր է:',
+                'lastName.required' => 'Ազգանուն դաշտը պարտադիր է:',
+                'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
+                'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
+                'email.unique' => 'Նշված էլ․ հասցեով օգտատեր արդեն գրանցված է:',
+                'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
+                'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
             ]);
             $user->update([
                 'name' => $request->firstName,

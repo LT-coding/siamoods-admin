@@ -36,6 +36,11 @@ class NewPasswordController extends Controller
             'token' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],[
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
+            'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
+            'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
+            'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we

@@ -18,6 +18,10 @@ class PasswordController extends Controller
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
+        ],[
+            'current_password.required' => 'Հին գաղտնաբառ դաշտը պարտադիր է:',
+            'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
+            'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ]);
 
         $request->user()->update([

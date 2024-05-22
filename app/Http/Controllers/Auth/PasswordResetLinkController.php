@@ -28,6 +28,9 @@ class PasswordResetLinkController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
+        ],[
+            'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
+            'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:'
         ]);
 
         // We will send the password reset link to this user. Once we have attempted
