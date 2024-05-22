@@ -11,7 +11,7 @@ return [
     'register_a_new_membership'   => 'Գրանցվել',
     'i_forgot_my_password'        => 'Մոռացել եմ գաղտնաբառը',
     'i_already_have_a_membership' => 'I already have a membership',
-    'sign_in'                     => 'Գրանցում',
+    'sign_in'                     => 'Մուտք',
     'log_out'                     => 'Ելք',
     'toggle_navigation'           => 'Toggle navigation',
     'login_message'               => 'Մուտք',
