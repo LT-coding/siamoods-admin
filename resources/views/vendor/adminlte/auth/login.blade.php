@@ -62,7 +62,7 @@
 
         {{-- Login field --}}
         <div class="row">
-            <div class="col-7">
+            <div class="col-5">
                 <div class="icheck-primary" title="{{ __('adminlte::adminlte.remember_me_hint') }}">
                     <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="col-5">
+            <div class="col-7">
                 <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
                     <span class="fas fa-sign-in-alt"></span>
                     {{ __('adminlte::adminlte.sign_in') }}
