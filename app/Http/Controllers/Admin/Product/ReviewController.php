@@ -26,9 +26,15 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        $record = Review::query()->findOrFail($id);
+        $record->update([
+           'status' => $request->status
+        ]);
+        return response()->json([
+            'status' => 200
+        ]);
     }
 
     public function getRecords(Request $request): JsonResponse
