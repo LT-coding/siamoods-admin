@@ -67,7 +67,7 @@ class ContentController extends Controller
         ]);
 
         $record->meta()->create([
-            'type' => MetaTypes::getConstants()[$type]->name,
+            'type' => MetaTypes::content->name,
             'meta_title' => $data['meta_title'],
             'meta_key' => $data['meta_keywords'],
             'meta_desc' => $data['meta_description'],
