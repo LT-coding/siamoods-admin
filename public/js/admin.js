@@ -272,14 +272,13 @@ function searchAjax(input,url){
 }
 function tableAjax(input) {
     let form = input.closest('form')[0];
-    const data = new FormData(form);
     let url = input.closest('form').attr('action');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     $.ajax({
         url: url,
         type: "PUT",
-        data: data,
+        data: form.serialize(),
         processData: false,
         contentType: false,
         headers: {
