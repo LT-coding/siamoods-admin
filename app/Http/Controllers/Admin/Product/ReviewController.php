@@ -29,9 +29,8 @@ class ReviewController extends Controller
     public function update(Request $request, string $id): JsonResponse
     {
         $record = Review::query()->findOrFail($id);
-        $record->update([
-           'status' => $request->status
-        ]);
+        dd($request->all());
+        $record->update($request->except(['_token', '_method']));
         return response()->json([
             'status' => 200
         ]);
