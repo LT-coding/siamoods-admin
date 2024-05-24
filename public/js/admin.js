@@ -271,16 +271,16 @@ function searchAjax(input,url){
     });
 }
 function tableAjax(input) {
-    let form = input.closest('form')[0];
+    let form = input.closest('form');
     let url = input.closest('form').attr('action');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    console.log(form.serialize());
 
     $.ajax({
         url: url,
         type: "PUT",
         data: form.serialize(),
-        processData: false,
-        contentType: false,
         headers: {
             "X-CSRF-TOKEN": csrfToken // Include the CSRF token in the request headers
         },
