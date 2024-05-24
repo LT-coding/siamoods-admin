@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +34,7 @@ class RegisteredUserController extends Controller
     public function storeAccount(Request $request): JsonResponse
     {
         $user = User::query()->where([['email', $request->email], ['registered', 0]])->first();
-        if ($user) {
+        if ($user && $user->isAccount) {
             $request->validate([
                 'firstName' => ['required', 'string', 'max:255'],
                 'lastName' => ['required', 'string', 'max:255'],
@@ -72,6 +73,16 @@ class RegisteredUserController extends Controller
             ])->assignRole(RoleTypes::account->name);
         }
 
+        try {
+            $user->sendEmailVerificationNotification();
+        } catch (\Throwable $th) {
+            $user->delete();
+
+            return response()->json([
+                'errors' => ['email' => ['Էլ․ հասցեն գոյություն չունի։']]
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         event(new Registered($user));
 
         // Create subscription if checked
@@ -83,8 +94,6 @@ class RegisteredUserController extends Controller
         }
 
         Auth::login($user);
-
-        $user->sendEmailVerificationNotification();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

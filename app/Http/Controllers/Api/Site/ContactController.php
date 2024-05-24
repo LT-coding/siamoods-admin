@@ -25,13 +25,19 @@ class ContactController extends Controller
 //        $confirm = config('app.frontend_url') . '/confirm-subscription/'.$data['email'];
         $unsubscribe = config('app.frontend_url') . '/unsubscribe?email='.$data['email'];
 
+        try {
+            Mail::to($subscriber)->send(new SubscriberEmail($data['email'],$unsubscribe));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'errors' => ['email' => ['Էլ․ հասցեն գոյություն չունի։']]
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         Subscriber::query()->updateOrCreate([
             'email' => $data['email']
         ],[
             'status' => StatusTypes::active->value,
         ]);
-
-        Mail::to($subscriber)->send(new SubscriberEmail($data['email'],$unsubscribe));
 
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
