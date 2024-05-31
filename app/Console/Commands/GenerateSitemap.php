@@ -34,12 +34,12 @@ class GenerateSitemap extends Command
         Log::info('sitemap:generate start');
         $sitemap = Sitemap::create();
         $sitemap->add(
-            Url::create("/")
+            Url::create(config('app.frontend_url'))
                 ->setPriority(1)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
         );
         $sitemap->add(
-            Url::create("/store")
+            Url::create(config('app.frontend_url')."/store")
                 ->setPriority(0.5)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
         );
