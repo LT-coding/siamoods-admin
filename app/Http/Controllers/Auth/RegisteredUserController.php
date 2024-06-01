@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
      */
     public function storeAccount(Request $request): JsonResponse
     {
-        $user = User::query()->where([['email', $request->email], ['registered', 0]])->first();
+        $user = User::query()->where('email', $request->email)->first();
         if ($user && $user->isAccount) {
             $request->validate([
                 'firstName' => ['required', 'string', 'max:255'],
@@ -57,6 +57,10 @@ class RegisteredUserController extends Controller
                 'status' => 0,
                 'registered' => 1,
             ]);
+        } elseif ($user) {
+            return response()->json([
+                'errors' => ['email' => ['Նշված էլ․ հասցեն արդեն գրանցած է։']]
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             $request->validate([
                 'firstName' => ['required', 'string', 'max:255'],
