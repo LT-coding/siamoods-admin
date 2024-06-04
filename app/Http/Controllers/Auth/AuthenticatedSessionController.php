@@ -58,17 +58,17 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if (!$user->isAccount) {
+        if ($user->isAccount) {
+            $token = $user->createToken('auth_token')->plainTextToken;
+
             return response()->json([
-                'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                'token' => $token
+            ]);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
-            'token' => $token
-        ]);
+            'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
