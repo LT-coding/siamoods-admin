@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if (!$user->is_account) {
+        if (!$user->isAccount) {
             return response()->json([
                 'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
