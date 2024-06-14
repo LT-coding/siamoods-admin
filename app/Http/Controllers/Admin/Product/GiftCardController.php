@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\GiftCard;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -12,9 +13,8 @@ use Illuminate\Http\Request;
 
 class GiftCardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -27,14 +27,9 @@ class GiftCardController extends Controller
     {
         $query = GiftCard::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('unique_id', 'like', "%$search%")
-                    ->orWhere('sender', 'like', "%$search%")
-                    ->orWhere('recipient', 'like', "%$search%");
-            });
-        }
+        $columns = ['id', 'unique_id', 'sender', 'recipient'];
+        $orderColumns = ['id', 'unique_id', 'sender', 'recipient'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 

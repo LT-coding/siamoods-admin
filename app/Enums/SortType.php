@@ -35,8 +35,5 @@ enum SortType:string
         ];
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }

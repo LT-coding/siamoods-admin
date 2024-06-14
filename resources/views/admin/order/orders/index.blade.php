@@ -31,7 +31,7 @@
                 'Փոստ. ինդեքս',
                 'Ընդամենը',
                 'Վճարման մեթոդ',
-                ['label' => '', 'no-export' => true, 'width' => 7],
+                ['label' => '', 'no-export' => true, 'width' => 8],
             ];
 
             $config = [

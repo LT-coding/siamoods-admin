@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\ShippingTypeRequest;
 use App\Models\ShippingType;
 use App\Services\Tools\MediaService;
+use App\Traits\GetRecordsTrait;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class ShippingTypeController extends Controller
 {
+    use GetRecordsTrait;
+
     private MediaService $imageService;
 
     public function __construct(MediaService $imageService)
@@ -144,12 +147,8 @@ class ShippingTypeController extends Controller
     {
         $query = ShippingType::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'name', 'status', 'created_at'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -164,7 +163,7 @@ class ShippingTypeController extends Controller
             $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.shipping-types.edit',['shipping_type'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.shipping-types.destroy',['shipping_type'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id,$item->name,$img, $item->status_text, $created,$btnDetails.$btnDelete];
+            $row = [$item->id, $item->name, $item->status_text, $created, $img, $btnDetails.$btnDelete];
             $data[] = $row;
         }
 

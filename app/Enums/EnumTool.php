@@ -56,4 +56,13 @@ trait EnumTool
     {
         return array_values(self::getConstants());
     }
+
+    public static function list(bool $as_string = false): array|string
+    {
+        $result = [];
+        foreach (self::cases() as $case) {
+            $result[$case->name] = $case->value;
+        }
+        return $as_string ? implode('|', $result) : $result;
+    }
 }

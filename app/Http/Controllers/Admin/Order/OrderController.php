@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Order;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Traits\GetRecordsTrait;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -61,12 +64,8 @@ class OrderController extends Controller
     {
         $query = Order::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('id', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'status', 'created_at', 'user_name', 'phone', 'zip', 'paid', 'payment'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -86,7 +85,7 @@ class OrderController extends Controller
                 $item->user?->display_name,
                 $item->user?->phone,
                 $item->user?->shippingAddress?->zip,
-                Product::formatPrice($item->paid) . '',
+                Product::formatPrice($item->paid),
                 $item->payment?->title,$btnDetails.$btnDelete];
             $data[] = $row;
         }

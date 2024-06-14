@@ -9,7 +9,7 @@ Route::resource('users', UserController::class)->except([
     'show'
 ]);
 Route::resource('accounts', AccountController::class)->except([
-    'create', 'store', 'edit', 'update', 'destroy'
+    'create', 'store', 'edit', 'update'
 ]);
 Route::resource('subscribers', SubscriberController::class)->except([
     'create', 'store', 'show', 'edit', 'destroy'

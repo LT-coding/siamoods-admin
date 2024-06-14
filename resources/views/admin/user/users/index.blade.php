@@ -18,13 +18,14 @@
             ['label' => 'Էլ․ հասցե', 'width' => 35],
             ['label' => 'Դեր', 'width' => 15],
             ['label' => 'Կարգավիճակ', 'width' => 15],
-            ['label' => '', 'no-export' => true, 'width' => 7],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
             'ajax' => [
                 'url' => route('admin.users.get')
             ],
+            'order' => [[0, 'desc']],
             'columns' => [null, null, null, null, null, ['orderable' => false]],
         ];
     @endphp

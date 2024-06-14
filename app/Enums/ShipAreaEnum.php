@@ -25,8 +25,5 @@ enum ShipAreaEnum: string
         ];
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }

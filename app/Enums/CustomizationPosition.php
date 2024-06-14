@@ -25,9 +25,6 @@ enum CustomizationPosition: string
         ];
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }
 

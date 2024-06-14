@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\PowerLabelRequest;
 use App\Models\PowerLabel;
 use App\Services\Tools\MediaService;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class PowerLabelController extends Controller
 {
+    use GetRecordsTrait;
+
     private MediaService $imageService;
 
     public function __construct(MediaService $imageService)
@@ -109,12 +112,8 @@ class PowerLabelController extends Controller
     {
         $query = PowerLabel::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'name', 'status', 'created_at'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -129,7 +128,7 @@ class PowerLabelController extends Controller
             $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.labels.edit',['label'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.labels.destroy',['label'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $type, $item->status_text, $created, $btnDetails.$btnDelete];
+            $row = [$item->id, $item->name, $item->status_text, $created, $type, $btnDetails.$btnDelete];
             $data[] = $row;
         }
 

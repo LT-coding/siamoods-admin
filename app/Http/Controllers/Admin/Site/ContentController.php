@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\Site\ContentRequest;
 use App\Models\Content;
 use App\Models\Promotion;
 use App\Services\Tools\MediaService;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class ContentController extends Controller
 {
+    use GetRecordsTrait;
+
     private MediaService $imageService;
 
     public function __construct(MediaService $imageService)
@@ -136,12 +139,8 @@ class ContentController extends Controller
     {
         $query = Content::query()->$type();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'title', 'status', 'created_at'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -159,7 +158,7 @@ class ContentController extends Controller
             $btnDelete = '<a href="#" data-action="'.route('admin.contents.destroy',['type' => $type,'content'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
             $row = $type == \App\Enums\ContentTypes::page->name
                 ? [$item->id, $item->title, $item->status_text, $createdAt, $btnView.$btnDetails.$btnDelete]
-                : [$item->id, $item->title, $img, $item->status_text, $createdAt, $btnView.$btnDetails.$btnDelete];
+                : [$item->id, $item->title, $item->status_text, $createdAt, $img, $btnView.$btnDetails.$btnDelete];
             $data[] = $row;
         }
 

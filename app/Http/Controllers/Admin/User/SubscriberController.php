@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
-use App\Models\User;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class SubscriberController extends Controller
 {
+    use GetRecordsTrait;
     /**
      * Display a listing of the resource.
      */
@@ -55,19 +56,15 @@ class SubscriberController extends Controller
 
         $statuses = StatusTypes::statusList();
 
-        if ($request->has('search') && !empty($request->search['value'])) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('email', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'email', 'status'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
         $start = $request->input('start', 0);
         $length = $request->input('length', 10);
 
-        $records = $query->orderBy('id', 'desc')->offset($start)->limit($length)->get();
+        $records = $query->offset($start)->limit($length)->get();
 
         $data = [];
         foreach ($records as $item) {

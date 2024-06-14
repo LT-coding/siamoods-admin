@@ -15,17 +15,18 @@
         $heads = [
                 ['label' => '#', 'width' => 6],
                 'Անուն',
-                'Նկար',
                 ['label' => 'Կարգավիճակ', 'width' => 10],
                 ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-                ['label' => '', 'no-export' => true, 'width' => 7],
+                'Նկար',
+                ['label' => '', 'no-export' => true, 'width' => 8],
             ];
 
             $config = [
                 'ajax' => [
                     'url' => route('admin.shipping-types.get')
                 ],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'order' => [[0, 'desc']],
+                'columns' => [null, null, null, null, ['orderable' => false], ['orderable' => false]],
             ];
     @endphp
 

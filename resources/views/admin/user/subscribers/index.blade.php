@@ -22,7 +22,8 @@
             'ajax' => [
                 'url' => route('admin.subscribers.get')
             ],
-            'columns' => [null, null, ['orderable' => true]],
+            'order' => [[0, 'desc']],
+            'columns' => [null, null, null],
         ];
     @endphp
 

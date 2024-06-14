@@ -15,17 +15,18 @@
         $heads = [
             ['label' => '#', 'width' => 6],
             'Անուն',
-            'Տեսակ',
             ['label' => 'Կարգավիճակ', 'width' => 15],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 7],
+            'Տեսակ',
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
             'ajax' => [
                 'url' => route('admin.labels.get')
             ],
-            'columns' => [null, null, null, null, null, ['orderable' => false]],
+            'order' => [[0, 'desc']],
+            'columns' => [null, null, null, null, ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 

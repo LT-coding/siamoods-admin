@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Marketing;
 
-use App\Enums\PromotionType;
 use App\Enums\StatusTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\PromotionRequest;
 use App\Models\Promotion;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class PromotionController extends Controller
 {
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -83,16 +85,8 @@ class PromotionController extends Controller
     {
         $query = Promotion::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-
-            $query->where(function ($q) use ($search) {
-                // Add all potential search conditions
-                $q->where('name', 'like', "%$search%")
-                    ->orWhere('promo_code', 'like', "%$search%");
-                $q->orWhere(DB::raw("DATE_FORMAT(created_at, '%d.%m.%Y')"), 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'name', 'promo_code', 'status', 'created_at'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -107,7 +101,7 @@ class PromotionController extends Controller
             $created = \Carbon\Carbon::createFromDate($item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.promotions.edit',['promotion'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = $item->promo_code == 'ABCARD5' ? '' : '<a href="#" data-action="'.route('admin.promotions.destroy',['promotion'=>$item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $item->promo_code, $type, $item->status_text, $created, $btnDetails.$btnDelete];
+            $row = [$item->id, $item->name, $item->promo_code, $item->status_text, $created, $type, $btnDetails.$btnDelete];
             $data[] = $row;
         }
 

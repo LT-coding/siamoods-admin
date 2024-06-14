@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Product\ProductRequest;
 use App\Models\GeneralCategory;
 use App\Models\PowerLabel;
 use App\Models\Product;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
 {
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -118,13 +121,8 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('item_name', 'like', "%$search%")
-                    ->orWhere('articul', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'articul', 'item_name'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 

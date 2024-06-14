@@ -18,14 +18,15 @@
             ['label' => 'Հեռախոսահամար', 'width' => 20],
             ['label' => 'Էլ․ հասցե', 'width' => 30],
             ['label' => 'Գրանցման ամսաթիվ', 'width' => 20],
-//            ['label' => '', 'no-export' => true, 'width' => 5],
+            ['label' => '', 'no-export' => true, 'width' => 5],
         ];
 
         $config = [
             'ajax' => [
                 'url' => route('admin.accounts.get')
             ],
-            'columns' => [null, null, null, null, ['orderable' => true]],
+            'order' => [[0, 'desc']],
+            'columns' => [null, null, null, null, null, ['orderable' => false]],
         ];
     @endphp
 

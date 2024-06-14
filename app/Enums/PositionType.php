@@ -30,8 +30,5 @@ enum PositionType: string
         ];
 
         return $as_string ? implode('|', $result) : $result;
-
     }
-
-
 }

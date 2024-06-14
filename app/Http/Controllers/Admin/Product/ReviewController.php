@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -12,9 +13,8 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -40,14 +40,9 @@ class ReviewController extends Controller
     {
         $query = Review::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%")
-                    ->orWhere('review', 'like', "%$search%")
-                    ->orWhere('created_at', 'like', "%$search%");
-            });
-        }
+        $columns = ['id', 'name', 'review'];
+        $orderColumns = ['id'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 

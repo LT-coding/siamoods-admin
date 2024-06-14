@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\NotificationRequest;
 use App\Models\Notification;
 use App\Models\Subscriber;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class NotificationController extends Controller
 {
+    use GetRecordsTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -61,12 +64,8 @@ class NotificationController extends Controller
         $query = Notification::query();
         $types = Notification::TYPES;
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'title', 'text'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -78,7 +77,7 @@ class NotificationController extends Controller
         $data = [];
         foreach ($records as $item) {
             $btnDetails = '<a href="'.route('admin.notifications.edit',['notification'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
-            $row = [$item->id, $types[$item->type], $item->title, $item->text, $btnDetails];
+            $row = [$item->id, $item->title, $item->text, $types[$item->type], $btnDetails];
             $data[] = $row;
         }
 

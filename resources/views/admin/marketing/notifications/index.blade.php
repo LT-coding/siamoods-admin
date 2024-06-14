@@ -14,9 +14,9 @@
     @php
         $heads = [
             ['label' => '#', 'width' => 6],
+            ['label' => 'Վերնագիր', 'width' => 25],
+            ['label' => 'Նամակ', 'width' => 60],
             'Տեսակ',
-            'Վերնագիր',
-            ['label' => 'Նամակ', 'width' => 70],
             ['label' => '', 'no-export' => true, 'width' => 5],
         ];
 
@@ -24,7 +24,8 @@
             'ajax' => [
                 'url' => route('admin.notifications.get')
             ],
-            'columns' => [null, null, null, null, ['orderable' => false]],
+            'order' => [[0, 'desc']],
+            'columns' => [null, null, null, ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 

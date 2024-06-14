@@ -45,6 +45,9 @@ class CopyDataFromOldDB extends Command
             Artisan::call('db:seed', [
                 '--class' => 'Database\Seeders\Admin\MenusSeeder'
             ]);
+            Artisan::call('db:seed', [
+                '--class' => 'Database\Seeders\Admin\SEOSeeder'
+            ]);
         } catch (\Exception $e) {
             Log::debug($e->getFile() . ' - ' . $e->getLine() . ' - ' . $e->getMessage());
         }

@@ -21,6 +21,7 @@
             'ajax' => [
                 'url' => route('admin.reviews.get')
             ],
+            'order' => [[0, 'desc']],
             'columns' => [null, ['orderable' => false]],
         ];
     @endphp

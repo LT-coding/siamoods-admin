@@ -7,6 +7,7 @@ use Database\Seeders\Admin\GeneralCategoriesSeeder;
 use Database\Seeders\Admin\MenusSeeder;
 use Database\Seeders\Admin\NotificationSeeder;
 use Database\Seeders\Admin\RolesSeeder;
+use Database\Seeders\Admin\SEOSeeder;
 use Database\Seeders\Admin\UsersSeeder;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
         GeneralCategoriesSeeder::class,
         MenusSeeder::class,
         NotificationSeeder::class,
+        SEOSeeder::class,
         RolesSeeder::class,
         UsersSeeder::class,
         PaymentsSeeder::class,

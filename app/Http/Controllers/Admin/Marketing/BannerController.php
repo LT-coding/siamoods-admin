@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Marketing\BannerRequest;
 use App\Models\Banner;
 use App\Services\Tools\MediaService;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class BannerController extends Controller
 {
+    use GetRecordsTrait;
+
     private MediaService $imageService;
 
     public function __construct(MediaService $imageService)
@@ -99,12 +102,8 @@ class BannerController extends Controller
     {
         $query = Banner::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
-            });
-        }
+        $columns = $orderColumns = ['id', 'name', 'status', 'created_at'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
@@ -119,7 +118,7 @@ class BannerController extends Controller
             $created = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.banners.edit', ['banner' => $item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.banners.destroy', ['banner' => $item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = [$item->id, $item->name, $img, $item->status_text, $created, $btnDetails.$btnDelete];
+            $row = [$item->id, $item->name, $item->status_text, $created, $img, $btnDetails.$btnDelete];
             $data[] = $row;
         }
 

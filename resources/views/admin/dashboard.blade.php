@@ -216,7 +216,7 @@
                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                 <div class="media">
                                     <div class="media-body align-self-center">
-                                        <h6 class="m-0">{{ constant('App\Enums\State::' . $region->state) }}</h6>
+                                        <h6 class="m-0">{{ \App\Enums\State::list()[$region->state] }}</h6>
                                     </div>
                                 </div>
                                 <div class="align-self-center">

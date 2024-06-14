@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserRequest;
 use App\Mail\GreetingEmail;
 use App\Models\User;
+use App\Traits\GetRecordsTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
+    use GetRecordsTrait;
     /**
      * Display a listing of the resource.
      */
@@ -99,21 +101,16 @@ class UserController extends Controller
     {
         $query = User::query()->admins();
 
-        if ($request->has('search') && !empty($request->search['value'])) {
-            $search = $request->search['value'];
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%")
-                    ->orWhere('lastname', 'like', "%$search%")
-                    ->orWhere('email', 'like', "%$search%");
-            });
-        }
+        $columns = ['id', 'name', 'lastname', 'email', 'role', 'status'];
+        $orderColumns = ['id', 'name', 'email', 'role', 'status'];
+        $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
 
         $start = $request->input('start', 0);
         $length = $request->input('length', 10);
 
-        $records = $query->orderBy('id')->offset($start)->limit($length)->get();
+        $records = $query->offset($start)->limit($length)->get();
 
         $data = [];
         foreach ($records as $item) {

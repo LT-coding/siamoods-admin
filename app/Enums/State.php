@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use Illuminate\Support\Str;
-
 /**
  *
  */

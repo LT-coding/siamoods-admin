@@ -17,21 +17,22 @@
             'Վերնագիր',
             ['label' => 'Կարգավիճակ', 'width' => 10],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 7],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ] : [
             ['label' => '#', 'width' => 6],
             'Վերնագիր',
-            ['label' => 'Նկար', 'width' => 10],
             ['label' => 'Կարգավիճակ', 'width' => 8],
             ['label' => 'Ստեղծման ամսաթիվ', 'width' => 20],
-            ['label' => '', 'no-export' => true, 'width' => 7],
+            ['label' => 'Նկար', 'width' => 10],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
             'ajax' => [
                 'url' => route('admin.contents.get', ['type' => $type])
             ],
-            'columns' => $type == \App\Enums\ContentTypes::page->name ? [null, null, null, null, ['orderable' => false]] : [null, null, null, null, null, ['orderable' => false]],
+            'order' => [[0, 'desc']],
+            'columns' => $type == \App\Enums\ContentTypes::page->name ? [null, null, null, null, ['orderable' => false]] : [null, null, null, null, ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 

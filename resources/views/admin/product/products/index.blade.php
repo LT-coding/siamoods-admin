@@ -20,14 +20,15 @@
             ['label' => 'Նկար', 'width' => 10],
             'Գին (֏)',
             'Քանակ',
-            ['label' => '', 'no-export' => true, 'width' => 7],
+            ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
         $config = [
             'ajax' => [
                 'url' => route('admin.products.get')
             ],
-            'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
+            'order' => [[0, 'desc']],
+            'columns' => [null, null, null, null, ['orderable' => false], ['orderable' => false], ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 
