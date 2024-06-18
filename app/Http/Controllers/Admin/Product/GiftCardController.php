@@ -27,8 +27,8 @@ class GiftCardController extends Controller
     {
         $query = GiftCard::query();
 
-        $columns = ['id', 'unique_id', 'sender', 'recipient'];
-        $orderColumns = ['id', 'unique_id', 'sender', 'recipient'];
+        $columns = ['id', 'unique_id', 'sender', 'sender_email', 'recipient', 'recipient_email', 'amount', 'spend', 'exist'];
+        $orderColumns = ['id', 'unique_id', 'sender', 'sender_email', 'recipient', 'recipient_email', 'amount'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();

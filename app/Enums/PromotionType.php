@@ -24,4 +24,13 @@ enum PromotionType: string
 
         return $as_string ? implode('|', $result) : $result;
     }
+
+    public static function typeList(): array
+    {
+        return [
+            0 => 'Անվճար առաքում',
+            1 => 'Զեղչ',
+            2 => 'Գնիջեցում'
+        ];
+    }
 }

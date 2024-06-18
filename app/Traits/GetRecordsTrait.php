@@ -2,8 +2,12 @@
 
 namespace App\Traits;
 
+use App\Enums\LabelType;
+use App\Enums\PromotionType;
+use App\Enums\ReviewStatus;
 use App\Enums\RoleTypes;
 use App\Enums\StatusTypes;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +22,7 @@ trait GetRecordsTrait
             $query->where(function ($q) use ($search, $columns) {
                 foreach ($columns as $column) {
                     // Skip custom attributes for now
-                    if ($column !== 'role' && $column !== 'status' && $column !== 'created_at') {
+                    if (!in_array($column,['role','status','category','created_at','label_type','promo_type','sender_email','recipient_email','spend','exist','review_status'])) {
                         $q->orWhere($column, 'like', "%{$search}%");
                     }
 
@@ -38,12 +42,55 @@ trait GetRecordsTrait
                     }
 
                     if ($column === 'status') {
-                        $statusList = StatusTypes::statusList();
-                        foreach ($statusList as $key => $value) {
+                        $list = StatusTypes::statusList();
+                        foreach ($list as $key => $value) {
                             if (str_contains(mb_strtolower($value), mb_strtolower($search))) {
                                 $q->orWhere('status', $key);
                             }
                         }
+                    }
+
+                    if ($column === 'review_status') {
+                        $list = ReviewStatus::statusList();
+                        foreach ($list as $key => $value) {
+                            if (str_contains(mb_strtolower($value), mb_strtolower($search))) {
+                                $q->orWhere('status', $key);
+                            }
+                        }
+                    }
+
+                    if ($column === 'label_type') {
+                        $list = LabelType::typeList();
+                        foreach ($list as $key => $value) {
+                            if (str_contains(mb_strtolower($value), mb_strtolower($search))) {
+                                $q->orWhere('type', $key);
+                            }
+                        }
+                    }
+
+                    if ($column === 'promo_type') {
+                        $list = PromotionType::typeList();
+                        foreach ($list as $key => $value) {
+                            if (str_contains(mb_strtolower($value), mb_strtolower($search))) {
+                                $q->orWhere('type', $key);
+                            }
+                        }
+                    }
+
+                    if ($column === 'category') {
+//                        $q->searchAndSortByCategory($search);
+                    }
+
+                    if ($column === 'sender_email') {
+                        $q->orWhereHas('senderUser', function ($subQuery) use ($search) {
+                            $subQuery->where('email', 'like', '%' . $search . '%');
+                        });
+                    }
+
+                    if ($column === 'recipient_email') {
+                        $q->orWhereHas('recipientUser', function ($subQuery) use ($search) {
+                            $subQuery->where('email', 'like', '%' . $search . '%');
+                        });
                     }
                 }
             });
@@ -56,11 +103,20 @@ trait GetRecordsTrait
             $orderColumn = $orderColumns[$columnIndex];
 
             // Check if order column is a custom attribute
-            if ($orderColumn == 'role') {
-//                TODO
-            } elseif ($orderColumn == 'status') {
-                // Order by status
+            if ($orderColumn == 'status') {
                 $query->orderBy('status', $direction);
+            } elseif ($orderColumn == 'sender_email') {
+                $query->join('users as sender_users', 'sender_users.id', '=', 'gift_cards.sender_id')
+                    ->select('gift_cards.*', 'sender_users.email as sender_email')
+                    ->orderBy('sender_email', $direction)
+                    ->orderBy('gift_cards.id', 'desc');
+            } elseif ($orderColumn == 'recipient_email') {
+                $query->join('users as recipient_users', 'recipient_users.id', '=', 'gift_cards.recipient_id')
+                    ->select('gift_cards.*', 'recipient_users.email as recipient_email')
+                    ->orderBy('recipient_email', $direction)
+                    ->orderBy('gift_cards.id', 'desc');
+            } elseif ($orderColumn == 'category') {
+                $query->searchAndSortByCategory(null, $direction);
             } else {
                 // Order by regular column
                 $query->orderBy($orderColumn, $direction);

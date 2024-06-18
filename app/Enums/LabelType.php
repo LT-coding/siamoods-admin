@@ -23,4 +23,12 @@ enum LabelType: string
             self::text
         ];
     }
+
+    public static function typeList(): array
+    {
+        return [
+            0 => "Գրաֆիկական պիտակ",
+            1 => "Տեքստային պիտակ",
+        ];
+    }
 }

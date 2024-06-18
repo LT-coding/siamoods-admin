@@ -85,7 +85,7 @@ class PromotionController extends Controller
     {
         $query = Promotion::query();
 
-        $columns = $orderColumns = ['id', 'name', 'promo_code', 'status', 'created_at'];
+        $columns = $orderColumns = ['id', 'name', 'promo_code', 'status', 'created_at', 'promo_type'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();

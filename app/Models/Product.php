@@ -129,6 +129,19 @@ class Product extends Model
         });
     }
 
+    public function scopeSearchAndSortByCategory(Builder $query, $search = null, $sortDirection = 'asc'): Builder
+    {
+        return $query->whereHas('categories', function ($query) use ($search) {
+                if ($search) {
+                    $query->where('categories.name', 'LIKE', '%' . $search . '%');
+                }
+            })
+            ->join('product_categories', 'products.haysell_id', '=', 'product_categories.haysell_id')
+            ->join('categories', 'product_categories.category_id', '=', 'categories.id')
+            ->select('products.*')
+            ->orderBy('categories.name', $sortDirection);
+    }
+
     public function getDiscountLeftAttribute(): string
     {
         if ($this->discount_end_date && Carbon::parse($this->discount_end_date)->diffInMinutes(Carbon::now()) > 0) {

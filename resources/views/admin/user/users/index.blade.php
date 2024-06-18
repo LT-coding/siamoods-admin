@@ -16,8 +16,8 @@
             ['label' => '#', 'width' => 6],
             'Անուն',
             ['label' => 'Էլ․ հասցե', 'width' => 35],
-            ['label' => 'Դեր', 'width' => 15],
             ['label' => 'Կարգավիճակ', 'width' => 15],
+            ['label' => 'Դեր', 'width' => 15],
             ['label' => '', 'no-export' => true, 'width' => 8],
         ];
 
@@ -26,7 +26,7 @@
                 'url' => route('admin.users.get')
             ],
             'order' => [[0, 'desc']],
-            'columns' => [null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null, null, null, null, ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 

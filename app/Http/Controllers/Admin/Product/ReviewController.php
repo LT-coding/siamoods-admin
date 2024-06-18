@@ -40,7 +40,7 @@ class ReviewController extends Controller
     {
         $query = Review::query();
 
-        $columns = ['id', 'name', 'review'];
+        $columns = ['id', 'name', 'review', 'created_at', 'review_status'];
         $orderColumns = ['id'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
@@ -86,7 +86,7 @@ class ReviewController extends Controller
                     . '<select class="form-control review-select" name="status">'.$options.'</select>'
                     . '</div>'
                     . '<div class="col-md-3 text-right">'
-                    . '<span>'.$item->created_at.'</span>'
+                    . '<span>'.\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y').'</span>'
                     . '</div>'
                     . '</div>'
                     . '<textarea class="form-control mb-2 review-input" name="review" rows="4">'.$item->review.'</textarea>'

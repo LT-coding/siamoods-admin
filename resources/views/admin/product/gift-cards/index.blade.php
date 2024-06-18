@@ -28,7 +28,7 @@
             'ajax' => [
                 'url' => route('admin.gift-cards.get')
             ],
-            'columns' => [null, null, null, null, null, null, null, null, null],
+            'columns' => [null, null, null, null, null, null, null, ['orderable' => false], ['orderable' => false]],
         ];
     @endphp
 

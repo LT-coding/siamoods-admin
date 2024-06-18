@@ -112,7 +112,7 @@ class PowerLabelController extends Controller
     {
         $query = PowerLabel::query();
 
-        $columns = $orderColumns = ['id', 'name', 'status', 'created_at'];
+        $columns = $orderColumns = ['id', 'name', 'status', 'created_at', 'label_type'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();

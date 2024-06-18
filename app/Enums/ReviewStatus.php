@@ -22,4 +22,13 @@ enum ReviewStatus: string
 
         return $as_string ? implode('|', $result) : $result;
     }
+
+    public static function statusList(): array
+    {
+        return [
+            0 => "Չդիտված",
+            1 => "Հաստատված",
+            2 => "Մերժված",
+        ];
+    }
 }
