@@ -102,7 +102,7 @@ class UserController extends Controller
         $query = User::query()->admins();
 
         $columns = ['id', 'name', 'lastname', 'email', 'role', 'status'];
-        $orderColumns = ['id', 'name', 'email', 'role', 'status'];
+        $orderColumns = ['id', 'name', 'email', 'status'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
