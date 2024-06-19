@@ -131,7 +131,7 @@ class Product extends Model
 
     public function scopeSearchAndSortByCategory(Builder $query, $search = null, $sortDirection = 'asc'): Builder
     {
-        return $query->whereHas('categories', function ($query) use ($search) {
+        return $query->orWhereHas('categories', function ($query) use ($search) {
                 if ($search) {
                     $query->where('categories.name', 'LIKE', '%' . $search . '%');
                 }

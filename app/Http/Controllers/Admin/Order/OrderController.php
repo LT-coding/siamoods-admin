@@ -64,7 +64,7 @@ class OrderController extends Controller
     {
         $query = Order::query();
 
-        $columns = $orderColumns = ['id', 'status', 'created_at', 'user_name', 'phone', 'zip', 'paid', 'payment'];
+        $columns = $orderColumns = ['id', 'order_status', 'created_at', 'user_name', 'phone', 'zip', 'paid', 'payment'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();

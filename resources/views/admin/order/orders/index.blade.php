@@ -36,7 +36,7 @@
 
             $config = [
                 'ajax' => [
-                    'url' => route('admin.orders.get')
+                    'url' => route('admin.orders.get', ['from' => Request::get('from') ?? null, 'to' => Request::get('to') ?? null])
                 ],
                 'order' => [[0, 'desc']],
                 'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],

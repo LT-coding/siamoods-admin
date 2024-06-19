@@ -181,6 +181,9 @@ ul {
 .no-border.table td {
     padding: 0.2rem .75rem;
 }
+.navbar-dark .navbar-nav .nav-link.active {
+    font-weight: bold;
+}
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1420px;

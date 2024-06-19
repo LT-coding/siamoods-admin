@@ -121,7 +121,7 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        $columns = $orderColumns = ['id', 'articul', 'item_name', 'category'];
+        $columns = $orderColumns = ['product_id', 'articul', 'item_name', 'category'];
         $this->searchAndSort($request,$query,$columns,$orderColumns);
 
         $totalRecords = $query->count();
