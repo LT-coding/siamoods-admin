@@ -9,10 +9,8 @@ use App\Enums\ReviewStatus;
 use App\Enums\RoleTypes;
 use App\Enums\StatusTypes;
 use App\Models\Order;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 trait GetRecordsTrait
 {

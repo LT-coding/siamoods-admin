@@ -7,17 +7,29 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Site\SubscribeRequest;
 use App\Mail\SubscriberEmail;
 use App\Models\Subscriber;
+use App\Traits\ReCaptchaCheckTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
+    use ReCaptchaCheckTrait;
     /**
      * Send email to customer support.
      */
     public function subscribe(SubscribeRequest $request): Response
     {
         $data = $request->validated();
+
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $subscriber = [
             $data['email'] => $data['email']
         ];

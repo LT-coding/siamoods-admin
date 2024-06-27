@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Traits\ReCaptchaCheckTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    use ReCaptchaCheckTrait;
     /**
      * Display the login view.
      */
@@ -54,6 +56,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeAccount(LoginRequest $request): JsonResponse|Response
     {
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $request->authenticate();
 
         $user = Auth::user();
@@ -67,7 +78,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         return response()->json([
-            'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
+            'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']],
+            'message' => 'Մուտքանունը կամ գաղտնաբառը սխալ են։'
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 

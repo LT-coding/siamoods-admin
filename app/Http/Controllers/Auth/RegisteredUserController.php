@@ -6,6 +6,7 @@ use App\Enums\RoleTypes;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Traits\ReCaptchaCheckTrait;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RegisteredUserController extends Controller
 {
+    use ReCaptchaCheckTrait;
+
     /**
      * Display the registration view.
      */
@@ -34,11 +37,13 @@ class RegisteredUserController extends Controller
     public function storeAccount(Request $request): JsonResponse
     {
         $request->validate([
+            'captchaToken' => ['required'],
             'firstName' => ['required', 'string', 'max:255'],
             'lastName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class . ',email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],[
+            'captchaToken.required' => 'Հաստատեք, որ ռոբոտ չեք:',
             'firstName.required' => 'Անուն դաշտը պարտադիր է:',
             'lastName.required' => 'Ազգանուն դաշտը պարտադիր է:',
             'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
@@ -47,6 +52,15 @@ class RegisteredUserController extends Controller
             'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:',
             'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ]);
+
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $user = User::create([
             'name' => $request->firstName,
@@ -62,7 +76,8 @@ class RegisteredUserController extends Controller
             $user->delete();
 
             return response()->json([
-                'errors' => ['email' => ['Էլ․ հասցեն գոյություն չունի։']]
+                'errors' => ['email' => ['Էլ․ հասցեն գոյություն չունի։']],
+                'message' => 'Էլ․ հասցեն գոյություն չունի։'
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

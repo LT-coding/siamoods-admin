@@ -11,12 +11,14 @@ use App\Models\Product;
 use App\Models\Review;
 use App\Models\WaitingList;
 use App\Services\Api\ProductFilterService;
+use App\Traits\ReCaptchaCheckTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
+    use ReCaptchaCheckTrait;
     private ProductFilterService $service;
 
     public function __construct(ProductFilterService $service)
@@ -50,9 +52,19 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function saveReview(ReviewRequest $request): \Illuminate\Http\Response
+    public function saveReview(ReviewRequest $request): \Illuminate\Http\Response|JsonResponse
     {
         $data = $request->validated();
+
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $data['status'] = StatusTypes::inactive;
 
         Review::query()->create($data);
