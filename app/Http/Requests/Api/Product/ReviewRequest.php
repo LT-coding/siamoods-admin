@@ -15,6 +15,7 @@ class ReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'captchaToken' => 'required',
             'haysell_id' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'review' => ['required', 'string', 'max:255'],
@@ -28,6 +29,7 @@ class ReviewRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'captchaToken.required' => 'Հաստատեք, որ ռոբոտ չեք:',
             'haysell_id.required' => 'haysell_id դաշտը պարտադիր է:',
             'name.required' => 'Անուն դաշտը պարտադիր է:',
             'review.required' => 'Կարծիք դաշտը պարտադիր է:',

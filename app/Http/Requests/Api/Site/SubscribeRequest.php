@@ -15,6 +15,7 @@ class SubscribeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'captchaToken' => 'required',
             'email' => ['required', 'email', new UniqueSubscriberEmail]
         ];
     }
@@ -25,6 +26,7 @@ class SubscribeRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'captchaToken.required' => 'Հաստատեք, որ ռոբոտ չեք:',
             'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:'
         ];
     }
