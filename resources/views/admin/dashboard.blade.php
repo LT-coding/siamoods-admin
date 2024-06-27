@@ -127,9 +127,9 @@
                             </thead>
                             <tbody>
                                 @foreach($lastOrders as $order)
-                                    <tr class="order-status order-status-{{$order->status}}">
+                                    <tr class="order-status order-status-{{$order->status->value}}">
                                         <td>{{ $order->id }}</td>
-                                        <td>{{ \App\Models\Order::STATUS_SHOW[$order->status] }}</td>
+                                        <td>{{ $order->status->name() }}</td>
                                         <td>{{ $order->created_at }}</td>
                                         <td>{{ $order->user?->name ? $order?->user->full_name : $order->user?->shippingAddress?->full_name }}</td>
                                         <td>{{ $order->user?->phone?:$order->user?->shippingAddress?->phone }}</td>

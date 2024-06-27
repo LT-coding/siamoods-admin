@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\OrderStatusEnum;
 use App\Enums\RoleTypes;
 use App\Notifications\CustomResetPasswordNotification;
 use App\Notifications\CustomVerifyEmailNotification;
@@ -181,7 +182,7 @@ class User extends Authenticatable
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'user_id','id')->whereNotIn('status',[Order::CANCELED,Order::NOT_COMPLETED,Order::UNDEFINED])->orderBy('created_at', 'desc');
+        return $this->hasMany(Order::class, 'user_id','id')->whereNotIn('status',[OrderStatusEnum::CANCELED,OrderStatusEnum::NOT_COMPLETED,OrderStatusEnum::UNDEFINED])->orderBy('created_at', 'desc');
     }
 
     public function updateSubscrption($s): void

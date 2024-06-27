@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatusEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,7 @@ class GiftCard extends Model
 
     public function spend():Attribute
     {
-        return Attribute::make(get: fn() => Order::query()->where('gift_card_id',$this->id)->where('status','<>',Order::UNDEFINED)->sum('promo_gift_count'));
+        return Attribute::make(get: fn() => Order::query()->where('gift_card_id',$this->id)->where('status','<>',OrderStatusEnum::UNDEFINED)->sum('promo_gift_count'));
     }
 
     public function exist():Attribute

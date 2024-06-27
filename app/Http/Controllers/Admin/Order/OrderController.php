@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Order;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
@@ -79,8 +80,8 @@ class OrderController extends Controller
             $created = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d.m.Y');
             $btnDetails = '<a href="'.route('admin.orders.edit',['order'=>$item->id]).'" class="text-info mx-1" title="Խմբագրել"><i class="fa fa-lg fa-fw fa-pen"></i></a>';
             $btnDelete = '<a href="#" data-action="'.route('admin.orders.destroy', ['order' => $item->id]).'" class="text-danger btn-remove" title="Հեռացնել"><i class="fa fa-lg fa-fw fa-trash"></i></a>';
-            $row = ['<span data-id="'.$item->status.'">'.$item->id.'</span>',
-                Order::STATUS_SHOW[$item->status],
+            $row = ['<span data-id="'.$item->status->value.'">'.$item->id.'</span>',
+                $item->status->name(),
                 $created,
                 $item->user?->display_name,
                 $item->user?->phone,

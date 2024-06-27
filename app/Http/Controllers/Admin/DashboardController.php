@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AccountAddress;
 use App\Models\Category;
@@ -38,8 +39,8 @@ class DashboardController extends Controller
     public function index(): View
     {
         $payments = Payment::all();
-        $orders = Order::query()->where('status', Order::COMPLETED)->groupBy('payment_id')->select('payment_id', DB::raw('SUM(paid) as total'))->get();
-        $sum = Order::query()->where('status', Order::COMPLETED)->sum('paid');
+        $orders = Order::query()->where('status', OrderStatusEnum::COMPLETED)->groupBy('payment_id')->select('payment_id', DB::raw('SUM(paid) as total'))->get();
+        $sum = Order::query()->where('status', OrderStatusEnum::COMPLETED)->sum('paid');
 
         $select = [
             "order_products.haysell_id",
@@ -48,7 +49,7 @@ class DashboardController extends Controller
         ];
 
         $lastOrders=Order::query()
-            ->where('status','<>',Order::UNDEFINED)
+            ->where('status','<>',OrderStatusEnum::UNDEFINED)
             ->with('user')
             ->orderBy('created_at', 'desc')
             ->limit(7)
@@ -56,7 +57,7 @@ class DashboardController extends Controller
 
         $products10 = Order::query()
             ->select($select)
-            ->where("orders.status", Order::COMPLETED)
+            ->where("orders.status", OrderStatusEnum::COMPLETED)
             ->join("order_products", "orders.id", "order_products.order_id")
             ->join("products", "order_products.haysell_id", "products.haysell_id")
             ->groupBy("order_products.haysell_id")
@@ -71,7 +72,7 @@ class DashboardController extends Controller
         ];
 
         $categoriesBest = Order::query()
-            ->where("orders.status", Order::COMPLETED)
+            ->where("orders.status", OrderStatusEnum::COMPLETED)
             ->select($select)
             ->join("order_products", "orders.id", "order_products.order_id")
             ->join("product_categories", "product_categories.haysell_id", "order_products.haysell_id")
@@ -90,7 +91,7 @@ class DashboardController extends Controller
         ];
 
         $regionStatistics = Order::query()
-            ->where("orders.status", Order::COMPLETED)
+            ->where("orders.status", OrderStatusEnum::COMPLETED)
             ->select($select)
             ->join("account_addresses", "orders.user_id", "account_addresses.user_id")
             ->join("order_products", "orders.id", "order_products.order_id")
@@ -113,7 +114,7 @@ class DashboardController extends Controller
 
     public function getChartData(Request $request): JsonResponse
     {
-        $orders = Order::query()->where('status', Order::COMPLETED)
+        $orders = Order::query()->where('status', OrderStatusEnum::COMPLETED)
             ->whereYear('created_at', $request->input('year'))
             ->select(DB::raw('MONTH(created_at) as month'), DB::raw('YEAR(created_at) as year'), DB::raw('SUM(paid) as total'))
             ->groupBy('year', 'month')

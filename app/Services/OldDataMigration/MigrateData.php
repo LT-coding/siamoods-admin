@@ -4,6 +4,7 @@ namespace App\Services\OldDataMigration;
 
 use App\Enums\ContentTypes;
 use App\Enums\MetaTypes;
+use App\Enums\OrderStatusEnum;
 use App\Models\Content;
 use App\Models\Meta;
 use App\Models\Payment;
@@ -521,7 +522,7 @@ class MigrateData
             ];
             \App\Models\ShippingRate::query()->create(array_merge($data, $timestamps));
         }
-        foreach (Order::on('old_db')->where('status','<>',Order::UNDEFINED)->get() as $item) {
+        foreach (Order::on('old_db')->where('status','<>',OrderStatusEnum::UNDEFINED)->get() as $item) {
             $data = array_except($item->toArray(),['shipping_total','submitted_id','submitted_at']);
             $haysellData = $this->getHaysellOrder($item->id);
             $timestamps = [

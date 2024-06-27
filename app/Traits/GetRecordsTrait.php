@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Enums\LabelType;
+use App\Enums\OrderStatusEnum;
 use App\Enums\PromotionType;
 use App\Enums\ReviewStatus;
 use App\Enums\RoleTypes;
@@ -104,7 +105,7 @@ trait GetRecordsTrait
                         });
                     }
                     if ($column === 'order_status') {
-                        $statusKeys = array_keys(array_filter(Order::STATUS_SHOW, function($status) use ($search) {
+                        $statusKeys = array_keys(array_filter(OrderStatusEnum::searchList(), function($status) use ($search) {
                             return stripos($status, $search) !== false;
                         }));
                         if (!empty($statusKeys)) {
