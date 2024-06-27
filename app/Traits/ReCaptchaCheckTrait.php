@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait ReCaptchaCheckTrait
 {
-    public function checkReCaptcha()
+    public function checkReCaptcha($request)
     {
         $captchaToken = $request->input('captchaToken');
         $client = new Client();

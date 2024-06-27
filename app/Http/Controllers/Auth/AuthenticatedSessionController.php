@@ -56,7 +56,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeAccount(LoginRequest $request): JsonResponse|Response
     {
-        $this->checkReCaptcha();
+        $this->checkReCaptcha($request);
 
         $request->authenticate();
 
