@@ -180,9 +180,9 @@ class ProductService
     {
         if (!empty($this->meta)) {
             $data = $this->meta;
-            $data['haysell_id'] = $this->record->haysell_id ?? 0;
+//            $data['haysell_id'] = $this->record->haysell_id ?? 0;
             $this->meta = Meta::query()->updateOrCreate([
-                'model_id' => $this->record->id,
+                'model_id' => $this->record->haysell_id,
                 'type' => MetaTypes::product->name
             ], $data);
         }
