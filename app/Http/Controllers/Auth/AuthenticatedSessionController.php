@@ -69,7 +69,8 @@ class AuthenticatedSessionController extends Controller
         $body = json_decode((string)$response->getBody());
         if (!$body->success) {
             return response()->json([
-                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']]
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -84,7 +85,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         return response()->json([
-            'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']]
+            'errors' => ['email' => ['Մուտքանունը կամ գաղտնաբառը սխալ են։']],
+            'message' => 'Մուտքանունը կամ գաղտնաբառը սխալ են։'
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
