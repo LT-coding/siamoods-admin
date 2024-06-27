@@ -202,13 +202,13 @@ class ProductService
                 }
                 $data['status'] = $attributes['active'];
                 $data['haysell_id'] = $this->record->haysell_id;
-                $this->variation = ProductVariation::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id, 'variation_id' => $data['variation_id']], $data);
+                $this->variation = ProductVariation::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id, 'variation_haysell_id' => $data['variation_haysell_id']], $data);
                 if (is_array($attributes['price'])) {
                     foreach ($attributes['price'] as $k => $price) {
-                        $prices['prod_variation_id'] = $this->variation->id;
+                        $prices['variation_haysell_id'] = $this->variation->variation_haysell_id;
                         $prices['type'] = $k;
                         $prices['price'] = $price;
-                        ProductVariationPrice::query()->updateOrCreate(['prod_variation_id' => $prices['prod_variation_id'], 'type' => $prices['type']], $prices);
+                        ProductVariationPrice::query()->updateOrCreate(['variation_haysell_id' => $prices['variation_haysell_id'], 'type' => $prices['type']], $prices);
                     }
                 }
             }
