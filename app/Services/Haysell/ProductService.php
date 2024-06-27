@@ -339,7 +339,7 @@ class ProductService
         if ($this->recommendations != '') {
             $array = explode(',', $this->recommendations);
 //            Log::info('rec',[$this->record]);
-            foreach (ProductRecommendation::query()->where('haysell_id', $this->record->haysell_id)->whereNotIn('recomendation_id',$array)->get() as $item) {
+            foreach (ProductRecommendation::query()->where('haysell_id', $this->record->haysell_id)->whereNotIn('recommendation_id',$array)->get() as $item) {
                 $item->delete();
             }
 //            Log::info('recommend', $array);
