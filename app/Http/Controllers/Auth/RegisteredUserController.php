@@ -53,7 +53,14 @@ class RegisteredUserController extends Controller
             'password.confirmed' => 'Գաղտնաբառի հաստատումը և գաղտնաբառը պետք է նույնը լինեն:'
         ]);
 
-        $this->checkReCaptcha($request);
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $user = User::create([
             'name' => $request->firstName,

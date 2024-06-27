@@ -56,7 +56,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function storeAccount(LoginRequest $request): JsonResponse|Response
     {
-        $this->checkReCaptcha($request);
+        $body = $this->checkReCaptcha($request);
+
+        if (!$body->success) {
+            return response()->json([
+                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
+                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $request->authenticate();
 

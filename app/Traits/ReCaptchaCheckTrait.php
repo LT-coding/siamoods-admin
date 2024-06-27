@@ -18,14 +18,6 @@ trait ReCaptchaCheckTrait
             ],
         ]);
 
-        $body = json_decode((string)$response->getBody());
-        if (!$body->success) {
-            return response()->json([
-                'errors' => ['reCAPTCHA' => ['Հաստատեք, որ ռոբոտ չեք։']],
-                'message' => 'Հաստատեք, որ ռոբոտ չեք։'
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        return $body->success;
+        return json_decode((string)$response->getBody());
     }
 }
