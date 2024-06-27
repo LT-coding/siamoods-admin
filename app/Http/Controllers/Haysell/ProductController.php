@@ -63,6 +63,8 @@ class ProductController extends Controller
             $this->service->updateBalance($jsonData['balance']);
         }
 
+        Log::info('Success');
+
         return [
             'message' => 'Success!'
         ];
