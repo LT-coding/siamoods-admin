@@ -38,4 +38,8 @@ return [
         'profile' => env('HAYSELL_PROFILE_ID'),
     ],
 
+    'recaptcha' => [
+        'secret' => env('RECAPTCHA_SECRET_KEY'),
+    ]
+
 ];

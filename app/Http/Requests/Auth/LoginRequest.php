@@ -28,6 +28,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'captchaToken' => 'required',
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
@@ -39,6 +40,7 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'captchaToken.required' => 'Հաստատեք, որ ռոբոտ չեք:',
             'email.required' => 'էլ․ հասցե դաշտը պարտադիր է:',
             'email.email' => 'էլ․ հասցե դաշտը ճիշտ ձևաչափով չէ:',
             'password.required' => 'Գաղտնաբառ դաշտը պարտադիր է:'
