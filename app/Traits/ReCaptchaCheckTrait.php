@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use GuzzleHttp\Client;
-use Symfony\Component\HttpFoundation\Response;
 
 trait ReCaptchaCheckTrait
 {

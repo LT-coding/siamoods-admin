@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use App\Enums\StatusTypes;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait MetaTrait
