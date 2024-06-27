@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\Product\CategoryController;
 use App\Http\Controllers\Api\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/get-categories/{location?}', [CategoryController::class, 'getCategories']);
 Route::get('/get-category/{slug}', [CategoryController::class, 'getCategory']);
 
 Route::get('/products', [ProductController::class, 'getProducts']);
