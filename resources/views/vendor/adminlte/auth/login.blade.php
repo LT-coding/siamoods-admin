@@ -23,6 +23,7 @@
 @section('auth_body')
     <form action="{{ $login_url }}" method="post">
         @csrf
+        <input type="hidden" name="admin_login" value="1">
 
         {{-- Email field --}}
         <div class="input-group mb-3">

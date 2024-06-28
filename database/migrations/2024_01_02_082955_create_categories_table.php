@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('additional')->nullable();
             $table->string('extra_categories')->nullable();
-            $table->integer('sort')->default(0);;
+            $table->bigInteger('sort')->default(0);;
             $table->boolean('recommended')->default(0);;
             $table->boolean('is_top')->default(0);
             $table->text('image')->nullable();

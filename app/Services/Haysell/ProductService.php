@@ -180,9 +180,9 @@ class ProductService
     {
         if (!empty($this->meta)) {
             $data = $this->meta;
-            $data['haysell_id'] = $this->record->haysell_id ?? 0;
+//            $data['haysell_id'] = $this->record->haysell_id ?? 0;
             $this->meta = Meta::query()->updateOrCreate([
-                'model_id' => $this->record->id,
+                'model_id' => $this->record->haysell_id,
                 'type' => MetaTypes::product->name
             ], $data);
         }
@@ -202,13 +202,13 @@ class ProductService
                 }
                 $data['status'] = $attributes['active'];
                 $data['haysell_id'] = $this->record->haysell_id;
-                $this->variation = ProductVariation::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id, 'variation_id' => $data['variation_id']], $data);
+                $this->variation = ProductVariation::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id, 'variation_haysell_id' => $data['variation_haysell_id']], $data);
                 if (is_array($attributes['price'])) {
                     foreach ($attributes['price'] as $k => $price) {
-                        $prices['prod_variation_id'] = $this->variation->id;
+                        $prices['variation_haysell_id'] = $this->variation->variation_haysell_id;
                         $prices['type'] = $k;
                         $prices['price'] = $price;
-                        ProductVariationPrice::query()->updateOrCreate(['prod_variation_id' => $prices['prod_variation_id'], 'type' => $prices['type']], $prices);
+                        ProductVariationPrice::query()->updateOrCreate(['variation_haysell_id' => $prices['variation_haysell_id'], 'type' => $prices['type']], $prices);
                     }
                 }
             }
@@ -236,48 +236,52 @@ class ProductService
         foreach ($this->categories as $key => $category) {
             if (is_array($category)) {
                 foreach ($category as $name => $value) {
-                    if(str_contains($value, ',')){
-                        $value = explode(',', $value);
-                        foreach ($value as $val){
+                    DB::transaction(function () use ($key, $category, $name, $value) {
+                        if(str_contains($value, ',')){
+                            $value = explode(',', $value);
+                            foreach ($value as $val){
+                                $data['general_category_id'] = $name;
+                                $data['category_id'] = $val;
+                                $data['type'] = $key;
+                                $data['haysell_id'] = $this->record->haysell_id;
+                                if ($data && $data['category_id'] && Category::query()->where('general_category_id',($data['general_category_id']))->first()) {
+                                    ProductCategory::query()->create($data);
+                                }
+                            }
+                        } else {
                             $data['general_category_id'] = $name;
-                            $data['category_id'] = $val;
+                            $data['category_id'] = $value;
                             $data['type'] = $key;
                             $data['haysell_id'] = $this->record->haysell_id;
-                            if ($data && $data['category_id'] && Category::query()->where('general_category_id',($data['general_category_id']))->first()) {
-                                ProductCategory::query()->create($data);
+                            if ($data && $data['category_id']) {
+                                ProductCategory::query()->create( $data);
+                            }
+                        }
+                    }, 5);
+                }
+            } else {
+                DB::transaction(function () use ($key, $category) {
+                    if (str_contains($category, ',')) {
+                        $category = explode(',', $category);
+                        foreach ($category as $cat){
+                            $data['general_category_id'] = 126;
+                            $data['category_id'] = (int)$cat;
+                            $data['type'] = $key;
+                            $data['haysell_id'] = $this->record->haysell_id;
+                            if ($data && $data['category_id']) {
+                                ProductCategory::query()->create( $data);
                             }
                         }
                     } else {
-                        $data['general_category_id'] = $name;
-                        $data['category_id'] = $value;
-                        $data['type'] = $key;
-                        $data['haysell_id'] = $this->record->haysell_id;
-                        if ($data && $data['category_id']) {
-                            ProductCategory::query()->create( $data);
-                        }
-                    }
-                }
-            } else {
-                if (str_contains($category, ',')) {
-                    $category = explode(',', $category);
-                    foreach ($category as $cat){
                         $data['general_category_id'] = 126;
-                        $data['category_id'] = (int)$cat;
+                        $data['category_id'] = $category;
                         $data['type'] = $key;
                         $data['haysell_id'] = $this->record->haysell_id;
                         if ($data && $data['category_id']) {
                             ProductCategory::query()->create( $data);
                         }
                     }
-                } else {
-                    $data['general_category_id'] = 126;
-                    $data['category_id'] = $category;
-                    $data['type'] = $key;
-                    $data['haysell_id'] = $this->record->haysell_id;
-                    if ($data && $data['category_id']) {
-                        ProductCategory::query()->create( $data);
-                    }
-                }
+                }, 5);
             }
         }
     }
@@ -339,7 +343,7 @@ class ProductService
         if ($this->recommendations != '') {
             $array = explode(',', $this->recommendations);
 //            Log::info('rec',[$this->record]);
-            foreach (ProductRecommendation::query()->where('haysell_id', $this->record->haysell_id)->whereNotIn('recomendation_id',$array)->get() as $item) {
+            foreach (ProductRecommendation::query()->where('haysell_id', $this->record->haysell_id)->whereNotIn('recommendation_id',$array)->get() as $item) {
                 $item->delete();
             }
 //            Log::info('recommend', $array);

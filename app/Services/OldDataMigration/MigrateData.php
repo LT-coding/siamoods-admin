@@ -546,6 +546,8 @@ class MigrateData
                     if ($product || $productVariant) {
                         $itemData = $orderItem;
                         $itemData['order_id'] = $item->id;
+                        $itemData['user_id'] = $item->user_id;
+                        $itemData['status'] = $item->status;
                         $itemData['haysell_id'] = $product ? $key : $productVariant->haysell_id;
                         $itemData['variation_haysell_id'] = $productVariant ? $key : null;
                         $itemData['discount_price'] = $orderItem['price']*(1-$orderItem['sale']/100);

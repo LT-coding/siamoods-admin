@@ -4,7 +4,6 @@ namespace App\Http\Requests\Haysell;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 
 class HaySellRequest extends FormRequest
 {

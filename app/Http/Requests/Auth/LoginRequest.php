@@ -3,12 +3,12 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
@@ -28,7 +28,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'captchaToken' => 'required',
+            'admin_login' => ['nullable'],
+            'captchaToken' => [Rule::requiredIf(fn () => !$this->admin_login)],
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
