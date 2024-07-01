@@ -203,7 +203,14 @@ class ProductService
                 }
                 $data['status'] = $attributes['active'];
                 $data['haysell_id'] = $this->record->haysell_id;
-                $this->variation = ProductVariation::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id, 'variation_haysell_id' => $data['variation_haysell_id']], $data);
+
+                $productVariation = ProductVariation::query()->where('variation_haysell_id', $data['variation_haysell_id')->first();
+
+                $data['again_available'] = $productVariation->balance == 0 ? Carbon::now() : null;
+
+                $productVariation->updateOrCreate(['variation_haysell_id' => $data['variation_haysell_id']],$data);
+                $this->variation = $productVariation;
+
                 if (is_array($attributes['price'])) {
                     foreach ($attributes['price'] as $k => $price) {
                         $prices['variation_haysell_id'] = $this->variation->variation_haysell_id;
@@ -325,9 +332,13 @@ class ProductService
     {
 //        Log::info('rec',[$this->record]);
 //        Log::info('product_balance', [$this->balance]);
+        $productBalance = ProductBalance::query()->where('haysell_id',$this->record->haysell_id)->first();
+
         $data['haysell_id'] = $this->record->haysell_id;
         $data['balance'] = $this->balance;
-        ProductBalance::query()->updateOrCreate(['haysell_id' => $this->record->haysell_id],$data);
+        $data['again_available'] = $productBalance->balance == 0 ? Carbon::now() : null;
+
+        $productBalance->updateOrCreate(['haysell_id' => $this->record->haysell_id],$data);
     }
 
     private function createProductGift(): void
