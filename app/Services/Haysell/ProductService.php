@@ -204,7 +204,7 @@ class ProductService
                 $data['status'] = $attributes['active'];
                 $data['haysell_id'] = $this->record->haysell_id;
 
-                $productVariation = ProductVariation::query()->where('variation_haysell_id', $data['variation_haysell_id')->first();
+                $productVariation = ProductVariation::query()->where('variation_haysell_id', $data['variation_haysell_id'])->first();
 
                 $data['again_available'] = $productVariation->balance == 0 ? Carbon::now() : null;
 
