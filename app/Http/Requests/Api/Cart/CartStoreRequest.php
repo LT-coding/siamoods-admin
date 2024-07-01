@@ -25,7 +25,7 @@ class CartStoreRequest extends FormRequest
         return [
             'user_unique_id' => ['required', Rule::requiredIf(!$this->user('sanctum')?->id)],
             'haysell_id' => ['required', Rule::exists('products', 'haysell_id')],
-            'variation_id' => ['nullable', Rule::exists('product_variations', 'id')],
+            'variation_id' => ['nullable', Rule::exists('variations', 'id')],
             'quantity' => ['required', 'integer'],
             'is_cart' => ['nullable', 'boolean']
         ];
