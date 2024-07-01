@@ -43,7 +43,7 @@ class CartController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = $data['user_unique_id'] ?? $request->user('sanctum')->id;
-        $data['variation_haysell_id'] = ProductVariation::find($data['variation_id'] ?? 0)?->variation_haysell_id;
+        $data['variation_haysell_id'] = ProductVariation::where('variation_id', $data['variation_id'] ?? 0)?->variation_haysell_id;
 
         $orderProduct = OrderProduct::cartProducts()
             ->where('user_id', $data['user_id'])
