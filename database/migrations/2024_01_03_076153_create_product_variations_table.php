@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->integer('balance');
             $table->boolean('status');
+            $table->timestamp('again_available')->nullable();
             $table->timestamps();
         });
     }

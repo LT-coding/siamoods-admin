@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Product::class, 'haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
             $table->integer('balance');
+            $table->timestamp('again_available')->nullable();
             $table->timestamps();
         });
     }
