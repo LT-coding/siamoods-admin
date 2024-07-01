@@ -364,10 +364,9 @@ class MigrateData
             $data['haysell_image'] = $item->image;
             $product = Product::query()->find($item->product_id);
             $data['haysell_id'] = $item->haysell_id == 0 && $product ? $product->haysell_id : $item->haysell_id;
-            $imagePath = null;
-//                $item->image
-//                ? $this->imageService->dispatchFromUrl($item->image)->upload('products/'.$item->haysell_id)->getUrl()
-//                : null;
+            $imagePath = $item->image
+                ? $this->imageService->dispatchFromUrl($item->image)->upload('products/product_'.$item->haysell_id)->getUrl()
+                : null;
             $data['image'] = $imagePath ?? $item->image_path;
             $timestamps = [
                 'created_at' => $item->created_at,
@@ -542,6 +541,7 @@ class MigrateData
                 $data['total'] = $orderInfo['total'] ?? $item->total ?? 0;
                 $data['paid'] = reset($orderInfo['payment']) ?? $item->paid ?? 0;
                 $data['id'] = $item->id;
+                $data['payment_method_id'] = $item->payment_id;
                 $data['gift_card_id'] = $item->gift_card_id;
                 $order = \App\Models\Order::query()->create(array_merge($data, $timestamps));
                 $total = $data['paid'] > 20000 ? 0 : $data['delivery_price'];
