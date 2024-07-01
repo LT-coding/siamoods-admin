@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Cart\CartStoreRequest;
 use App\Http\Resources\Api\Cart\OrderProductIndexResource;
 use App\Models\OrderProduct;
+use App\Models\ProductVariation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +27,8 @@ class CartController extends Controller
             $productsArray = $orderProductsCollection->toArray(request());
 
             $totalPrice = 0;
-
             foreach ($productsArray as $product) {
-                $totalPrice += ((int)$product['product']['discount_price'] * (int)$product['quantity']);
+                $totalPrice += ((int)($product['product']['discount_price'] ?? $product['product']['price']) * (int)$product['quantity']);
             }
 
             return response()->json([
@@ -43,6 +43,7 @@ class CartController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = $data['user_unique_id'] ?? $request->user('sanctum')->id;
+        $data['variation_haysell_id'] = ProductVariation::find($data['variation_id'] ?? 0)?->variation_haysell_id;
 
         $orderProduct = OrderProduct::cartProducts()
             ->where('user_id', $data['user_id'])
@@ -59,7 +60,7 @@ class CartController extends Controller
             OrderProduct::create($data);
         }
 
-        return response()->noContent();
+        return response()->noContent(Response::HTTP_OK);
     }
 
     public function delete(OrderProduct $orderProduct): Response

@@ -22,12 +22,11 @@ class CartStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-//        dd(1);
         return [
-            'user_unique_id' => [Rule::requiredIf(!$this->user('sanctum')?->id)],
-            'haysell_id' => [Rule::exists('products', 'haysell_id')],
-            'variation_haysell_id' => ['nullable'],
-            'quantity' => ['integer'],
+            'user_unique_id' => ['required', Rule::requiredIf(!$this->user('sanctum')?->id)],
+            'haysell_id' => ['required', Rule::exists('products', 'haysell_id')],
+            'variation_id' => ['nullable', Rule::exists('product_variations', 'id')],
+            'quantity' => ['required', 'integer'],
             'is_cart' => ['nullable', 'boolean']
         ];
     }
