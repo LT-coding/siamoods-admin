@@ -7,7 +7,7 @@ use App\Enums\MetaTypes;
 use App\Enums\OrderStatusEnum;
 use App\Models\Content;
 use App\Models\Meta;
-use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\ProductRecommendation;
 use App\OldModels\Category;
 use App\OldModels\Customization;
@@ -495,7 +495,7 @@ class MigrateData
                 'created_at' => $item->created_at,
                 'updated_at' => $item->updated_at,
             ];
-            Payment::query()->create(array_merge($data, $timestamps));
+            PaymentMethod::query()->create(array_merge($data, $timestamps));
         }
         foreach (ShippingType::on('old_db')->get() as $item) {
             $data = $item->toArray();

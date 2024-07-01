@@ -8,7 +8,7 @@ use App\Models\AccountAddress;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\WaitingList;
@@ -38,7 +38,7 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        $payments = Payment::all();
+        $payments = PaymentMethod::all();
         $orders = Order::query()->where('status', OrderStatusEnum::COMPLETED)->groupBy('payment_id')->select('payment_id', DB::raw('SUM(paid) as total'))->get();
         $sum = Order::query()->where('status', OrderStatusEnum::COMPLETED)->sum('paid');
 
