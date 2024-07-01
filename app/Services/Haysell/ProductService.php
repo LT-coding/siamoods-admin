@@ -23,6 +23,7 @@ use App\Models\User;
 use App\Models\Variation;
 use App\Models\VariationType;
 use App\Services\Tools\MediaService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RuntimeException;
@@ -487,11 +488,16 @@ class ProductService
     public function updateBalance($balances): void
     {
         foreach ($balances as $key => $balance) {
-            ProductBalance::query()->where('haysell_id','=',$key)->update([
-                'balance' => $balance
+            $productBalance = ProductBalance::query()->where('haysell_id',$key)->first();
+            $productBalance?->update([
+                'balance' => $balance,
+                'again_available' => $productBalance->balance == 0 ? Carbon::now() : null,
             ]);
-            ProductVariation::query()->where('variation_haysell_id','=',$key)->update([
-                'balance' => $balance
+
+            $productVariation = ProductVariation::query()->where('variation_haysell_id',$key)->first();
+            $productVariation?->update([
+                'balance' => $balance,
+                'again_available' => $productVariation->balance == 0 ? Carbon::now() : null,
             ]);
         }
     }
