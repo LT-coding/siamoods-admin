@@ -33,7 +33,7 @@ return new class extends Migration
             $table->unsignedBigInteger('shipping_type_id')->nullable();
             $table->unsignedBigInteger('promotion_id')->nullable();
             $table->unsignedBigInteger('gift_card_id')->nullable();
-            $table->unsignedBigInteger('payment_id')->nullable();
+            $table->unsignedBigInteger('payment_method_id')->nullable();
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
@@ -50,9 +50,9 @@ return new class extends Migration
                 ->on('gift_cards')
                 ->cascadeOnDelete();
 
-            $table->foreign('payment_id')
+            $table->foreign('payment_method_id')
                 ->references('id')
-                ->on('payments')
+                ->on('payment_methods')
                 ->cascadeOnDelete();
         });
     }

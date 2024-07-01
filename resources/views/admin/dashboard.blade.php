@@ -15,7 +15,7 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col">
                                 <p class="text-dark mb-0 fw-semibold">{{ $payment->id == 1 ? 'Կանխիկ' : $payment->title }}</p>
-                                <h3 class="m-0">{{ $orders->where('payment_id',$payment->id)->first()?->total }}</h3>
+                                <h3 class="m-0">{{ $orders->where('payment_method_id',$payment->id)->first()?->total }}</h3>
                             </div>
                             <div class="col-auto align-self-center">
                                 <div class="report-main-icon bg-light-alt">

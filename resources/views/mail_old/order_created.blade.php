@@ -74,7 +74,7 @@
                                                     </p>
                                                     <p style="color: #787878; font-family: 'helvetica', 'arial', sans-serif; font-size: 14px; margin: 0px; padding-bottom: 5px;">
                                                         <span style="color: #444444; font-family: 'helvetica', 'arial', sans-serif; font-weight: 600; text-transform: uppercase;">Վճարում</span>
-                                                        @php $payment = \App\Models\Payments::find($order['order']->payment_id); $title = $payment?$payment->title:''; @endphp {{$title}}
+                                                        @php $payment = \App\Models\PaymentMethod::find($order['order']->payment_method_id); $title = $payment?$payment->title:''; @endphp {{$title}}
                                                     </p>
                                                     <p style="color: #787878; font-family: 'helvetica', 'arial', sans-serif; font-size: 14px; margin: 0px; padding-bottom: 5px;">
                                                         <span style="color: #444444; font-family: 'helvetica', 'arial', sans-serif; font-weight: 600; text-transform: uppercase;">Առաքում</span>

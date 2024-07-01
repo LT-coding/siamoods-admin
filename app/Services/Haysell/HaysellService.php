@@ -133,7 +133,7 @@ class HaysellService
                     ],
                     "delivery_city_id" => $orderData['order']->shipping_type_id != 2 ? self::HAYSELL_DELIVERY[$user->shippingAddress->state] : self::HAY_POST,
                     "payment" => [
-                        $orderData['order']->payment_id == 1 ? (int)self::PAYMENT_ID[$orderData['order']->payment_id] : self::PAYMENT_ID['2'] => $orderData['rateTotal']
+                        $orderData['order']->payment_method_id == 1 ? (int)self::PAYMENT_ID[$orderData['order']->payment_method_id] : self::PAYMENT_ID['2'] => $orderData['rateTotal']
                     ],
                     "total" => $orderData['rateTotal'],
                     "delivery_price" => $orderData['rateTotal'] - $orderData['total'],

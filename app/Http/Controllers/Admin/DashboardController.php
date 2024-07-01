@@ -39,7 +39,7 @@ class DashboardController extends Controller
     public function index(): View
     {
         $payments = PaymentMethod::all();
-        $orders = Order::query()->where('status', OrderStatusEnum::COMPLETED)->groupBy('payment_id')->select('payment_id', DB::raw('SUM(paid) as total'))->get();
+        $orders = Order::query()->where('status', OrderStatusEnum::COMPLETED)->groupBy('payment_method_id')->select('payment_method_id', DB::raw('SUM(paid) as total'))->get();
         $sum = Order::query()->where('status', OrderStatusEnum::COMPLETED)->sum('paid');
 
         $select = [

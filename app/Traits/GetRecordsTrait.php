@@ -162,7 +162,7 @@ trait GetRecordsTrait
                     ->select('orders.*', 'account_addresses.zip as user_zip')
                     ->orderBy('user_zip', $direction);
             } elseif ($orderColumn == 'payment') {
-                $query->join('payments', 'payments.id', '=', 'orders.payment_id')
+                $query->join('payments', 'payments.id', '=', 'orders.payment_method_id')
                     ->select('orders.*', 'payments.title as payment_title')
                     ->orderBy('payment_title', $direction);
             } elseif ($orderColumn == 'order_status') {
