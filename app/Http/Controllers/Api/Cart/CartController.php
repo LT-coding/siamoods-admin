@@ -28,7 +28,7 @@ class CartController extends Controller
 
             $totalPrice = 0;
             foreach ($productsArray as $product) {
-                $totalPrice += ((int)($product['product']['discount_price'] ?? $product['product']['price']) * (int)$product['quantity']);
+                $totalPrice += ((int)($product['product']['discount_price'] ?? $product['product']['price']['price']) * (int)$product['quantity']);
             }
 
             return response()->json([
