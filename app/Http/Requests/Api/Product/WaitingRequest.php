@@ -17,6 +17,7 @@ class WaitingRequest extends FormRequest
         return [
             'haysell_id' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'variation_haysell_id' => ['nullable']
         ];
     }
 

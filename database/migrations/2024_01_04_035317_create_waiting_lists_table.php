@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,6 +17,7 @@ return new class extends Migration
         Schema::create('waiting_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Product::class,'haysell_id')->references('haysell_id')->on('products')->cascadeOnDelete();
+            $table->foreignIdFor(ProductVariation::class,'variation_haysell_id')->references('variation_haysell_id')->on('product_variations')->cascadeOnDelete();
             $table->string('email');
             $table->timestamps();
         });
