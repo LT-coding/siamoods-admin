@@ -67,6 +67,7 @@ class MigrateData
     {
         $this->migrateUserData();
         $this->migrateSiteData();
+        $this->migratePaymentShippingData();
         $this->migrateCategoryData();
         $this->migrateProductData();
         $this->migrateOrderData();
@@ -487,7 +488,7 @@ class MigrateData
         }
     }
 
-    private function migrateOrderData(): void
+    private function migratePaymentShippingData(): void
     {
         foreach (Payments::on('old_db')->get() as $item) {
             $data = $item->toArray();
@@ -522,6 +523,10 @@ class MigrateData
             ];
             \App\Models\ShippingRate::query()->create(array_merge($data, $timestamps));
         }
+    }
+
+    private function migrateOrderData(): void
+    {
         foreach (Order::on('old_db')->where('status','<>',OrderStatusEnum::UNDEFINED)->get() as $item) {
             $data = array_except($item->toArray(),['shipping_total','submitted_id','submitted_at']);
             $haysellData = $this->getHaysellOrder($item->id);
